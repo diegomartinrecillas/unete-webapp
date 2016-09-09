@@ -6,6 +6,13 @@ import MenuItem from 'material-ui/MenuItem';
 import AppBar from 'material-ui/AppBar';
 
 const styles = {
+    container: {
+        paddingTop: '5%',
+        paddingLeft: '5%',
+        paddingRight: '5%',
+        paddingBottom: '5%',
+        textAlign: 'center',
+    },
     link: {
         textDecoration: 'none',
         boxSizing: 'border-box',
@@ -59,7 +66,9 @@ export default class Shell extends React.Component {
                     onLeftIconButtonTouchTap={this.handleToggle}
                     onTitleTouchTap={this.handleToggle}
                     />
-                {this.props.children}
+                <div style={styles.container}>
+                    {this.props.children}
+                </div>
             </div>
         )
     }

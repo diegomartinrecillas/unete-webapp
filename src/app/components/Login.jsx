@@ -6,12 +6,6 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Paper from 'material-ui/Paper';
 
 const styles = {
-    container: {
-        paddingTop: '5%',
-        paddingLeft: '5%',
-        paddingRight: '5%',
-        textAlign: 'center'
-    },
     paper: {
         display: 'inline-block',
         width: '100%',
@@ -34,7 +28,7 @@ const styles = {
 export default class Login extends React.Component {
     render() {
         return (
-            <div style={styles.container} >
+            <div>
                 <Paper zDepth={2} style={styles.paper}>
                     <img src={require('../assets/images/unete.png')} style={styles.image}/>
                     <form>

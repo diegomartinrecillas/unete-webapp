@@ -8,12 +8,6 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 
 const styles = {
-    container: {
-        paddingTop: '5%',
-        paddingLeft: '5%',
-        paddingRight: '5%',
-        textAlign: 'center',
-    },
     button: {
         margin: 12
     },
@@ -24,7 +18,10 @@ const styles = {
         maxWidth: 350
     },
     link: {
-        textDecoration: 'none'
+        display: 'inline-block',
+        paddingBottom: '5%',
+        textDecoration: 'none',
+        color: '#00407A'
     },
     image: {
         paddingTop: '5%'
@@ -34,7 +31,7 @@ const styles = {
 export default class Registro extends React.Component {
     render() {
         return (
-            <div style={styles.container}>
+            <div>
                 <Paper zDepth={2} style={styles.paper}>
                     <img src={require('../assets/images/unete.png')} style={styles.image}/>
                     <TextField
@@ -63,6 +60,9 @@ export default class Registro extends React.Component {
                         style={styles.button} />
                     <Link to="/login" style={styles.link}>
                         <FlatButton label="Cancelar" primary={true} style={styles.button} />
+                    </Link>
+                    <Link to="/ayuda" style={styles.link} >
+                        ¿Necesitas ayuda?
                     </Link>
                 </Paper>
             </div>

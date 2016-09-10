@@ -30,7 +30,7 @@ export default class Login extends React.Component {
         return (
             <div>
                 <Paper zDepth={2} style={styles.paper}>
-                    <img src={require('../assets/images/unete.png')} style={styles.image}/>
+                    <img src={require('../../assets/images/unete.png')} style={styles.image}/>
                     <form>
                         <TextField
                             hintText="Usuario"

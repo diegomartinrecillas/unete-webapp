@@ -33,7 +33,7 @@ export default class Registro extends React.Component {
         return (
             <div>
                 <Paper zDepth={2} style={styles.paper}>
-                    <img src={require('../assets/images/unete.png')} style={styles.image}/>
+                    <img src={require('../../assets/images/unete.png')} style={styles.image}/>
                     <TextField
                         hintText="Nombre"
                         floatingLabelText="Nombre"

@@ -8,7 +8,7 @@ import Main from './components/Main'; // Our custom react component
 injectTapEventPlugin();
 
 // Stylesheets for development, comment for production build
-require('./stylesheets/main.scss');
+require('../stylesheets/main.scss');
 
 // Render Main in the app container
 ReactDOM.render(<Main />, document.getElementById('app'));

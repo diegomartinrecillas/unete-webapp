@@ -4,11 +4,11 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { Router, Route, hashHistory } from 'react-router'
 
-import Shell from './Shell';
-import Login from './Login';
-import Registro from './Registro';
-import Ayuda from './Ayuda';
-import Error from './Error';
+import Shell from './shell/Shell';
+import Login from './login/Login';
+import Registro from './registro/Registro';
+import Ayuda from './ayuda/Ayuda';
+import Error from './error/Error';
 
 const muiTheme = getMuiTheme({
     palette: {

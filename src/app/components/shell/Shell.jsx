@@ -60,6 +60,9 @@ export default class Shell extends React.Component {
                     <Link to="/error" style={styles.link} activeStyle={styles.activeLink}>
                         <MenuItem onTouchTap={this.handleClose}>Error</MenuItem>
                     </Link>
+                    <Link to="/chat" style={styles.link} activeStyle={styles.activeLink}>
+                        <MenuItem onTouchTap={this.handleClose}>Chat</MenuItem>
+                    </Link>
                 </Drawer>
                 <AppBar
                     title='ÚNETE'

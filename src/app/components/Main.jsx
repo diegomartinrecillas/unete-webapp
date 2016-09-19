@@ -9,6 +9,7 @@ import Login from './login/Login';
 import Registro from './registro/Registro';
 import Ayuda from './ayuda/Ayuda';
 import Error from './error/Error';
+import Chat from './chat/Chat';
 
 const muiTheme = getMuiTheme({
     palette: {
@@ -34,6 +35,7 @@ export default class Main extends React.Component {
                         <Route path="/registro" component={Registro}/>
                         <Route path="/ayuda" component={Ayuda}/>
                         <Route path="/error" component={Error}/>
+                        <Route path="/chat" component={Chat}/>
                     </Route>
                 </Router>
             </MuiThemeProvider>

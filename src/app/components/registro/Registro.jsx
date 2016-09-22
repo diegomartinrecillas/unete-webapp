@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import _ from 'lodash';
 
 import linkState from 'app/utils/onChangeHandlerFactory.js';
+
 import Divider from 'material-ui/Divider';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
@@ -60,7 +61,7 @@ export default class Registro extends React.Component {
         });
     }
     validateEmail = (event) => {
-        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(event);
     }
     isEmpty = (value) => {
@@ -77,47 +78,54 @@ export default class Registro extends React.Component {
                             hintText="Nombre"
                             floatingLabelText="Nombre"
                             value={this.state.name}
-                            onChange={linkState(this, 'name')}/>
+                            onChange={linkState(this, 'name')}
+                            />
                         <TextField
                             required={true}
                             hintText="Apellido Paterno"
                             floatingLabelText="Apellido Paterno"
                             value={this.state.lastName1}
-                            onChange={linkState(this, 'lastName1')}/>
+                            onChange={linkState(this, 'lastName1')}
+                            />
                         <TextField
                             required={true}
                             hintText="Apellido Materno"
                             floatingLabelText="Apellido Materno"
                             value={this.state.lastName2}
-                            onChange={linkState(this, 'lastName2')}/>
+                            onChange={linkState(this, 'lastName2')}
+                            />
                         <TextField
                             required={true}
                             hintText="Correo Electrónico"
                             floatingLabelText="Correo Electrónico"
                             value={this.state.email}
                             errorText={this.state.emailErrorText}
-                            onChange={linkState(this, 'email')}/>
+                            onChange={linkState(this, 'email')}
+                            />
                         <TextField
                             required={true}
                             hintText="Confirmar Correo Electrónico"
                             floatingLabelText="Confirmar Correo Electrónico"
                             value={this.state.confirmEmail}
                             errorText={this.state.confirmEmailErrorText}
-                            onChange={linkState(this, 'confirmEmail')}/>
+                            onChange={this.handleConfirmEmail}
+                            />
                         <TextField
                             required={true}
                             hintText="Contraseña"
                             floatingLabelText="Contraseña"
                             value={this.state.password}
                             errorText={this.state.passwordErrorText}
-                            onChange={this.handleConfirmEmail}/>
+                            onChange={linkState(this, 'handleConfirmEmail')}
+                            />
                         <TextField
                             required={true}
                             hintText="Confirmar Contraseña"
-                            floatingLabelText="Confrimar Contraseña"
+                            floatingLabelText="Confirmar Contraseña"
                             value={this.state.confrimPassword}
                             errorText={this.state.passwordErrorText}
-                            onChange={this.handleConfirmPassword}/>
+                            onChange={this.handleConfirmPassword}
+                            />
                         <RaisedButton
                             type="submit"
                             label="Registrar"

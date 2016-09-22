@@ -19,6 +19,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
+
 import EventEmitter from 'events';
 import Logger from './Logger';
 import {assign} from 'lodash';
@@ -42,7 +43,7 @@ export default class Dispatcher {
             logLevel: 'ERROR'
         };
         this.options = assign(defaultOptions, options);
-        this.logger = new Logger('Dispatcher', { logLevel: this.options.logLevel });
+        this.logger = new Logger('Dispatcher', options.logLevel );
 
         // Create a hash of all the stores - used for registration / deregistration
         this.logger.debug('Initializing Store Hash');
@@ -53,18 +54,22 @@ export default class Dispatcher {
      * Dispatches an Action to all the stores
      *
      * @param {Action} action The action to dispatch to all the stores
+     * @param {object} args optional data to be passed to the action's callback
      */
-    dispatch(actionType, data = {}) {
+    dispatch(actionType, ...args) {
         if (typeof actionType !== 'string') {
             this.logger.error('Dispatch request for an invalid Action (no actionType) - ignoring');
             return;
         }
-
-        // When an action comes in, it must be completely handled by all stores
-        this.logger.debug(`Dispatching Action: ${actionType}: `, data);
+        if (args.length >= 1) {
+            this.logger.debug(`Received Action ${actionType} with data`, ...args);
+        } else {
+            this.logger.debug(`Received Action ${actionType} with no aditional data`);
+        }
+        this.logger.debug(`Dispatching Action: ${actionType}: `, ...args);
         for (let storeName in this.stores) {
             this.logger.debug(`Dispatching Action: ${actionType} to store ${storeName}`);
-            this.stores[storeName].onAction(actionType, data);
+            this.stores[storeName].onAction(actionType, ...args);
         }
     }
 

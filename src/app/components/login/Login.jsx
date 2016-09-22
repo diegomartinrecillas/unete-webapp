@@ -1,7 +1,8 @@
 import React from 'react';
 
-import AppStore from 'app/stores/AppStore';
+import appStore from 'app/stores/AppStore';
 import LoginActions from 'app/actions/LoginActions';
+import linkState from 'app/utils/onChangeHandlerFactory.js';
 
 import { Link } from 'react-router';
 import TextField from 'material-ui/TextField';
@@ -29,24 +30,27 @@ const styles = {
 }
 
 export default class Login extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            user: '',
+            password: ''
+        }
+    }
     componentWillMount() {
-        this.storeID = AppStore.registerView(() => {
+        this.storeID = appStore.registerView(() => {
             this.updateState();
         });
     }
     componentWillUnmount() {
-        AppStore.deregisterStore(this.storeID);
+        appStore.deregisterView(this.storeID);
     }
     updateState() {
-        console.log(AppStore.get('hello'));
-        console.log(AppStore.get('world'));
+        // console.log(appStore.get('user'));
+        // console.log(appStore.get('password'));
     }
     handleLogin = () => {
-        const data = {
-            hello: 'hello',
-            world: 'world'
-        }
-        LoginActions.login(data);
+        LoginActions.login(this.state.user, this.state.password);
     }
     render() {
         return (
@@ -57,11 +61,15 @@ export default class Login extends React.Component {
                         <TextField
                             hintText="Usuario"
                             floatingLabelText="Usuario"
+                            value={this.state.user}
+                            onChange={linkState(this, 'user')}
                             />
                         <TextField
                             hintText="Contraseña"
                             floatingLabelText="Contraseña"
                             type="password"
+                            value={this.state.password}
+                            onChange={linkState(this, 'password')}
                             />
                         <RaisedButton
                             label="Entrar"

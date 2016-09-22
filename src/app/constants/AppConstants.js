@@ -1,6 +1,5 @@
 export default {
     ActionTypes: {
-        LOGIN: 'LOGIN',
-        LOGOUT: 'LOGOUT'
+        LOGIN: 'LOGIN'
     }
 };

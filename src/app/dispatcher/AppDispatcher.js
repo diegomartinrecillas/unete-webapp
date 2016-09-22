@@ -1,8 +1,8 @@
 import Dispatcher from 'app/libs/Dispatcher';
 
-var AppDispatcher = new Dispatcher({
+var appDispatcher = new Dispatcher({
     debug: true,
-    logLevel: 'ALL'
+    logLevel: 2
 });
 
-export default AppDispatcher;
+export default appDispatcher;

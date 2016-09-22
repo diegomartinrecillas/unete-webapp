@@ -31,12 +31,9 @@ class Logger {
      * @param {string} category - the log category
      * @param {object} options - over-ride for the options
      */
-    constructor(category, options = {}) {
+    constructor(category, logLevel) {
         this.category = category;
-        this.logLevel = assign({
-            // Default Options
-            logLevel: 10
-        }, options);
+        this.logLevel = logLevel;
     }
 
     /**

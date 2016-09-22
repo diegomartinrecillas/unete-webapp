@@ -1,6 +1,6 @@
 import APP_CONSTANTS from 'app/constants/AppConstants';
 import Store from 'app/libs/Store';
-import AppDispatcher from 'app/dispatcher/AppDispatcher';
+import appDispatcher from 'app/dispatcher/AppDispatcher';
 import LoginActions from 'app/actions/LoginActions';
 
 const ActionTypes = APP_CONSTANTS.ActionTypes;
@@ -11,27 +11,25 @@ class AppStore extends Store {
         super('AppStore');
         this.logger.debug('Initializing AppStore');
 
-        this.initialize('hello', null);
-        this.initialize('world', null);
+        this.defineStore({
+            'user': '',
+            'password': ''
+        });
+
+        this.bindActions({
+            [ActionTypes.LOGIN]: this.onLogin
+        });
     }
 
-    onAction(actionType, data) {
-        this.logger.debug(`Received Action ${actionType} with data`, data);
-        switch (actionType) {
-            case ActionTypes.LOGIN: {
-                this.set('hello', data.hello);
-                this.set('world', data.world);
-                break;
-            }
-            default: {
-                this.logger.debug('Unknown actionType for this store - ignoring');
-                break;
-            }
-        }
+    onLogin = (user, password) => {
+        this.set({
+            'user': user,
+            'password': password,
+        });
     }
 }
 
-var appStore = new AppStore();
+let appStore = new AppStore();
 
-AppDispatcher.registerStore(appStore);
+appDispatcher.registerStore(appStore);
 export default appStore;

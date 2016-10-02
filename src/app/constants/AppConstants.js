@@ -1,5 +1,5 @@
 export default {
     ActionTypes: {
-        LOGIN: 'LOGIN'
+        SAVE_LOGIN_STATE: 'SAVE_LOGIN_STATE'
     }
 };

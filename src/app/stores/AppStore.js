@@ -9,27 +9,42 @@ class AppStore extends Store {
 
     constructor() {
         super('AppStore');
-        this.logger.debug('Initializing AppStore');
+        this.isDebugging = true;
 
         this.defineStore({
-            'user': '',
-            'password': ''
+            'count': 0,
+            'loginState': {
+                'extraValue': 'extraValue'
+            },
+            'hello': new String('')
         });
 
         this.bindActions({
-            [ActionTypes.LOGIN]: this.onLogin
+            [ActionTypes.SAVE_LOGIN_STATE]: this.saveLoginState
         });
     }
 
-    onLogin = (user, password) => {
+    saveLoginState = (loginState) => {
+        let user = loginState['user'];
+        let password = loginState['password'];
+        user = user.toUpperCase();
+        password = password.toUpperCase();
+
+        let count = this.get('count');
+        count ++;
+
         this.set({
-            'user': user,
-            'password': password,
+            'hello': 'mundo',
+            'count': count,
+            'loginState': {
+                'user': user,
+                'password': password
+            }
         });
     }
 }
 
 let appStore = new AppStore();
-
 appDispatcher.registerStore(appStore);
+
 export default appStore;

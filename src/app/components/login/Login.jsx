@@ -37,21 +37,32 @@ export default class Login extends React.Component {
             password: ''
         }
     }
+    // Store registration
     componentWillMount() {
-        this.storeID = appStore.registerView(() => {
+        // Register
+        this.storeID = appStore.register(() => {
             this.updateState();
         });
     }
     componentWillUnmount() {
-        appStore.deregisterView(this.storeID);
+        // Unregister
+        appStore.unregister(this.storeID);
     }
+    // Store callback
     updateState() {
-        // console.log(appStore.get('user'));
-        // console.log(appStore.get('password'));
+        // setState() is async, execute a callback a second parameter to use the updated state
+        this.setState(appStore.get('loginState'), () => {
+            console.log(appStore.storeData);
+        });
     }
+    // Handlers
     handleLogin = () => {
-        LoginActions.login(this.state.user, this.state.password);
+        LoginActions.saveLoginState(
+            this.state
+        );
+
     }
+    // Render
     render() {
         return (
             <div>

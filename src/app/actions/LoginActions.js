@@ -4,11 +4,10 @@ import appDispatcher from 'app/dispatcher/AppDispatcher';
 const actionType = APP_CONSTANTS.ActionTypes;
 
 export default class LoginActions {
-    static login(user, password) {
+    static saveLoginState(loginState) {
         appDispatcher.dispatch(
-            actionType.LOGIN,
-            user,
-            password
+            actionType.SAVE_LOGIN_STATE,
+            loginState
         );
     }
 }

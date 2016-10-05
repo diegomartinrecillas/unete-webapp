@@ -2,49 +2,46 @@ import APP_CONSTANTS from 'app/constants/AppConstants';
 import Store from 'app/libs/Store';
 import appDispatcher from 'app/dispatcher/AppDispatcher';
 import LoginActions from 'app/actions/LoginActions';
+import { Collection, Model } from 'backbone';
+import _ from 'lodash';
 
 const ActionTypes = APP_CONSTANTS.ActionTypes;
 
+const LoginState = Model.extend({
+    defaults: {
+        'state': {
+            'user': '',
+            'password': ''
+        }
+    }
+});
+
 class AppStore extends Store {
 
-    constructor() {
-        super('AppStore');
+    constructor(dispatcher) {
+        super('AppStore', dispatcher);
         this.isDebugging = true;
 
-        this.defineStore({
-            'count': 0,
-            'loginState': {
-                'extraValue': 'extraValue'
-            },
-            'hello': new String('')
-        });
+        this.loginState = new LoginState();
 
         this.bindActions({
             [ActionTypes.SAVE_LOGIN_STATE]: this.saveLoginState
         });
     }
 
-    saveLoginState = (loginState) => {
-        let user = loginState['user'];
-        let password = loginState['password'];
-        user = user.toUpperCase();
-        password = password.toUpperCase();
+    saveLoginState = (oldState) => {
+        let newState = {
+            'user': oldState.user.toUpperCase(),
+            'password': oldState.password.toUpperCase()
+        };
 
-        let count = this.get('count');
-        count ++;
-
-        this.set({
-            'hello': 'mundo',
-            'count': count,
-            'loginState': {
-                'user': user,
-                'password': password
-            }
+        this.loginState.set({
+            'state': newState
         });
+        this.update();
     }
 }
 
-let appStore = new AppStore();
-appDispatcher.registerStore(appStore);
+let appStore = new AppStore(appDispatcher);
 
 export default appStore;

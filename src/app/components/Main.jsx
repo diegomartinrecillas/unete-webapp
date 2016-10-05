@@ -2,9 +2,10 @@ import React from 'react';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import { Router, Route, hashHistory } from 'react-router'
+import { Redirect, Router, Route, hashHistory } from 'react-router'
 
-import Shell from './shell/Shell';
+import AppShell from './app_shell/AppShell';
+import RootShell from './root_shell/RootShell';
 import Login from './login/Login';
 import Registro from './registro/Registro';
 import Ayuda from './ayuda/Ayuda';
@@ -30,12 +31,15 @@ export default class Main extends React.Component {
         return (
             <MuiThemeProvider muiTheme={muiTheme}>
                 <Router history={hashHistory}>
-                    <Route path="/" component={Shell}>
+                    <Redirect from="/" to="/login" />
+                    <Route path="/" component={RootShell} >
                         <Route path="/login" component={Login} onEnter={this.requireAuth}/>
                         <Route path="/registro" component={Registro}/>
                         <Route path="/ayuda" component={Ayuda}/>
                         <Route path="/error" component={Error}/>
-                        <Route path="/chat" component={Chat}/>
+                        <Route path="/app" component={AppShell}>
+                            <Route path="/app/chat" component={Chat}/>
+                        </Route>
                     </Route>
                 </Router>
             </MuiThemeProvider>

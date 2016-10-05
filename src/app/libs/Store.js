@@ -6,7 +6,13 @@ export default class Store {
     * @this {Store}
     * @param {string} name The name of the store
     */
-    constructor(name) {
+    constructor(name, dispatcher) {
+        if (name == null || name == undefined) {
+            throw `Store.constructor: Stores must be named`;
+        }
+        if (name == null || name == undefined) {
+            throw `Store.constructor: Missing dispatcher for Store [${name}]`
+        }
         this._storeName = name;
         this._registeredComponents = {};
         this._storeData = {};
@@ -14,6 +20,7 @@ export default class Store {
         this._eventbus = new EventEmitter();
         this._eventbus.on('STORE_UPDATED', this._onUpdate.bind(this));
         this._isDebugging = false;
+        dispatcher.registerStore(this);
     }
 
     /**
@@ -22,9 +29,13 @@ export default class Store {
     */
     defineStore(keys) {
         for (let key in keys) {
-            this._storeData[key] = keys[key];
+            if (typeof keys[key] !== 'function') {
+                this._storeData[key] = keys[key];
+            } else {
+                throw `Store.defineStore: Stores can't be defined with functionality, they are only allowed to hold data`;
+            }
         }
-        this._debug(`Store [${this.name}] defined with data=${JSON.stringify(this.storeData)}`);
+        this._log(`Store [${this.name}] defined with data=${JSON.stringify(this.storeData)}`);
     }
 
     /**
@@ -80,59 +91,96 @@ export default class Store {
     * Set keys in the store to a new value
     *
     * @param {object} keys object with key-value pairs
-    * @param {boolean} silently set the key-values but dont update the store
+    * @param {boolean} update set the key-values and immediately update the store
     * @throws exception if the key does not exist
     */
-    set(keys, silently = false) {
+    set(keys, update = true) {
+        // Iterate over all received key=value pairs
         for (let key in keys) {
-            this._debug(`Attempting to set key [${key}]=${JSON.stringify(keys[key])}`);
+            this._log(`Attempting to set key {${key}}=${JSON.stringify(keys[key])}`);
             // Check if key is defined in the Store
             if (key in this._storeData) {
-                // Check if received value for key is not undefined or not null
-                if (keys[key] !== undefined) {
+                // Get the data type of the source and the target values
+                let targetType = this._type(this._storeData[key]);
+                let sourceType = this._type(keys[key]);
+                // The received value is not a function
+                if (sourceType === 'function') {
+                    throw `Store.defineStore: Failed to set undefined value for key {${key}}. Keys can't be given functionality, they can only hold data.`
+                } else
+                // The received value is not undefined
+                if (sourceType === 'undefined') {
+                    // Thrown if the attempting to set a key to undefined
+                    throw `Store.set: Failed to set undefined value for key {${key}}. Keys can't be given undefined values after they are defined.`;
+                } else {
+                    // Check if the value assigned to the key is undefined
+                    if (targetType === 'undefined') {
+                        console.warn(`Key {${key}} was initialized as undefined, it'll take the type of it's next assigned value.`);
+                        this._storeData[key] = this._clone(keys[key]);
+                    } else
+                    // Check if the object was initialized as null
+                    if (targetType === 'null') {
+                        console.warn(`Key {${key}} was initialized as null, it'll take the type of it's next assigned value.`);
+                        this._storeData[key] = this._clone(keys[key]);
+                    } else
                     // Check if key is defined in the Store as an object
-                    if (typeof this._storeData[key] === 'object') {
-                        // Check if the object was initialized as null
-                        if (this._storeData[key] === null) {
-                            this._storeData[key] = this._clone(keys[key]);
-                        }
-                        // Check if the Object is generic
-                        else if (this._storeData[key].constructor.name === 'Object') {
+                    if (targetType === 'object') {
+                        // Get the object class
+                        let targetName = this._storeData[key].constructor.name;
+                        let sourceName = keys[key].constructor.name;
+                        // Check if the stored object is generic
+                        if (targetName === 'Object') {
                             // Recursive merge of objects
-                            this._debug(`Object for key [${key}] already exists, merging existing ${JSON.stringify(this._storeData[key])} with new ${JSON.stringify(keys[key])}`);
+                            this._log(`Object for key {${key}} already exists, merging existing object ${JSON.stringify(this._storeData[key])} with new object ${JSON.stringify(keys[key])}`);
                             this._storeData[key] = this._merge(this._storeData[key], keys[key]);
-                        }// Fallback type check for all object types, WARNING: the object will be overwritten
-                        else if (this._storeData[key].constructor.name === keys[key].constructor.name) {
+                        } else
+                        // Fallback type check for all object types
+                        // WARNING: the object will be overwritten, won't attempt to merge!
+                        if (targetName === sourceName) {
                             this._storeData[key] = this._clone(keys[key]);
                         }
-                        // Fallback error for Object types, usually means a wrong type assignment
+                        // Fallback error for object types, usually means a wrong type assignment
                         else {
-                            throw `Store.set: key [${key}] is of Type=[${this._storeData[key].constructor.name}], not [${keys[key].constructor.name}]`;
+                            throw `Store.set: key {${key}} was defined as [${targetName}], not [${sourceName}].`;
                         }
-                    }
-                    // Check if key is defined in the Store as a primitive
-                    else if (typeof this._storeData[key] === 'number' || typeof this._storeData[key] === 'boolean' || typeof this._storeData[key] === 'string') {
-                        // Check if the primitive is not null
-                        if (keys[key] !== null) {
-                            this._storeData[key] = keys[key];
+                    } else
+                    // Check if key is defined in the Store as an array
+                    if (targetType === 'array') {
+                        if (sourceType === 'array') {
+                            this._storeData[key] = this._clone(this._storeData[key], keys[key]);
                         } else {
-                            throw `Store.set: [${key}] is a primitive, can't set it's value to null`;
+                            throw `Store.set: Trying to set a value of type [${sourceType}] to key {${key}} but it was defined as [${targetType}].`;
+                        }
+                    } else
+                    // Check if key is defined in the Store as a primitive
+                    if (targetType === 'number' || targetType === 'boolean' || targetType === 'string') {
+                        // Check if the primitive is not null
+                        if (sourceType !== 'null') {
+                            if (targetType === 'number' && sourceType === 'number') {
+                                this._storeData[key] = keys[key];
+                            } else
+                            if (targetType === 'boolean' && sourceType === 'boolean') {
+                                this._storeData[key] = keys[key];
+                            } else
+                            if (targetType === 'string' && sourceType === 'string') {
+                                this._storeData[key] = keys[key];
+                            } else {
+                                throw `Store.set: Trying to set a value of type [${sourceType}] to key {${key}} but it was defined as [${targetType}].`;
+                            }
+                        } else {
+                            throw `Store.set: {${key}} is a primitive, can't set it's value to null`;
                         }
                     } else {
                         // Fallback error for type not found, usually means that for some reason the Store value became undefined
-                        throw `Store.set: Unknown value type for key [${key}]`;
+                        throw `Store.set: Unknown value type for key {${key}}.`;
                     }
-                } else {
-                    // Thrown if the attempting to set a key to undefined
-                    throw `Store.set: Failed to set undefined value for key [${key}]`;
                 }
-                this._debug(`Successfully set key [${key}]=${JSON.stringify(this._storeData[key])}`);
+                this._log(`Successfully set key {${key}}=${JSON.stringify(this._storeData[key])}.`);
             } else {
                 // Thrown if received key is not defined in the Store
-                throw `Store.set: Unknown key [${key}] in store`;
+                throw `Store.set: Unknown key {${key}} in store.`;
             }
         }
-        if (!silently) {
+        if (update) {
             this.update();
         }
     }
@@ -146,9 +194,9 @@ export default class Store {
     */
     get(key) {
         if (key in this._storeData) {
-            return this._storeData[key];
+            return this._clone(this._storeData[key]);
         } else {
-            throw `Store.get: Unknown key [${key}] in store`;
+            throw `Store.get: Unknown key {${key}} in store`;
         }
     }
 
@@ -158,11 +206,11 @@ export default class Store {
     * @param {object} args optional data to be passed to the action's callback
     */
     onAction(actionType, ...args) {
-        this._debug(`Received Action [${actionType}] with data=${JSON.stringify(...args)}`);
+        this._log(`Received Action [${actionType}] with data=${JSON.stringify(...args)}`);
         if (actionType in this._actions) {
             this._actions[actionType].apply(this, args);
         } else {
-            this._debug('Unknown actionType for this store - ignoring');
+            this._log(`Unknown actionType [${actionType}] for store [${this.name}]`);
         }
 
     }
@@ -172,12 +220,16 @@ export default class Store {
     * notifications of updates to the store
     *
     * @param {function} callback the method to call back
+    * @param {boolean} notify immediately notify the newly registered component to execute it's callback
     * @returns {string} an ID to be used when un-registering
     */
-    register(callback) {
+    register(callback, notifyInstantly = true) {
         let id = `${this._storeName}-${this._guid}`;
-        this._debug(`Registering new Component Callback and returning ID [${id}]`);
+        this._log(`Registering new Component Callback and returning ID [${id}]`);
         this._registeredComponents[id] = callback;
+        if (notifyInstantly) {
+            this.notify(id);
+        }
         return id;
     }
 
@@ -189,7 +241,7 @@ export default class Store {
     */
     unregister(id) {
         if (id in this._registeredComponents) {
-            this._debug(`Unregistering Component Callback with ID [${id}]`);
+            this._log(`Unregistering Component Callback with ID [${id}]`);
             delete this._registeredComponents[id];
         } else {
             throw 'Invalid Component Registration ID';
@@ -200,7 +252,7 @@ export default class Store {
     * Emit a UPDATE_STORE event on the private Event Bus
     */
     update() {
-        this._debug('Emitting Store update Event');
+        this._log('Emitting Store update Event');
         this._eventbus.emit('STORE_UPDATED');
     }
 
@@ -217,10 +269,10 @@ export default class Store {
     */
     notify(componentID) {
         if (componentID in this._registeredComponents) {
-            this._debug(`Sending Store Update Event to Component Registration [${componentID}]`);
+            this._log(`Sending Store Update Event to Component Registration [${componentID}]`);
             this._registeredComponents[componentID]();
         } else {
-            this._debug(`No registered component such as [${componentID}]`);
+            this._log(`No registered component such as [${componentID}]`);
         }
     }
 
@@ -237,7 +289,7 @@ export default class Store {
     * Helper function function that logs based on this._isDebugging state
     * @param {string} log message to be logged
     */
-    _debug(log, ...args) {
+    _log(log, ...args) {
         if (this._isDebugging) {
             console.debug(log, ...args);
         }
@@ -256,6 +308,15 @@ export default class Store {
         }
         return u;
     }
+
+    /**
+    * Helper function that finds the type of some data
+    * @param {unknown} data data we want to finds it's type
+    */
+    _type (data) {
+        return ({}).toString.call(data).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
+    }
+
     /**
     * Helper function used to clone an object
     * @param {object} obj the object to clone
@@ -267,14 +328,16 @@ export default class Store {
         }
         let copy = obj.constructor();
         for (let attr in obj) {
-            if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
+            if (obj.hasOwnProperty(attr)) {
+                copy[attr] = obj[attr];
+            }
         }
         return copy;
     }
     /**
     * Helper function that merge to objects
     * @param {object} target target object
-    * @param {object} soruce source object, equally named attributes take preference
+    * @param {object} source source object, equally named attributes take preference
     * @return {object} merged the merged object
     */
     _merge(target, source, optionsArgument) {
@@ -283,59 +346,60 @@ export default class Store {
         * Copyright (c) 2012 Nicholas Fisher
         * Implementation of Nicholas Fisher deepmerge library for ES6
         */
-        let _deepmerge = (target, source, optionsArgument) => {
+        let deepmerge = (target, source, optionsArgument) => {
             let array = Array.isArray(source);
-            let options = optionsArgument || { arrayMerge: _defaultArrayMerge }
-            let arrayMerge = options.arrayMerge || _defaultArrayMerge
+            let options = optionsArgument || { arrayMerge: defaultArrayMerge };
+            let arrayMerge = options.arrayMerge || defaultArrayMerge;
 
             if (array) {
                 target = target || [];
-                return _arrayMerge(target, source, optionsArgument)
+                return arrayMerge(target, source, optionsArgument);
             } else {
-                return _mergeObject(target, source, optionsArgument)
+                return mergeObject(target, source, optionsArgument);
             }
         }
 
-        let _isMergeableObject = (val) => {
-            let nonNullObject = val && typeof val === 'object'
+        let isMergeableObject = (val) => {
+            let nonNullObject = val && typeof val === 'object';
 
             return nonNullObject
             && Object.prototype.toString.call(val) !== '[object RegExp]'
-            && Object.prototype.toString.call(val) !== '[object Date]'
+            && Object.prototype.toString.call(val) !== '[object Date]';
         }
 
-        let _defaultArrayMerge = (target, source, optionsArgument) => {
+        let defaultArrayMerge = (target, source, optionsArgument) => {
             let destination = target.slice()
             source.forEach((e, i) => {
                 if (typeof destination[i] === 'undefined') {
                     destination[i] = e
-                } else if (_isMergeableObject(e)) {
-                    destination[i] = _deepmerge(target[i], e, optionsArgument)
+                } else if (isMergeableObject(e)) {
+                    destination[i] = deepmerge(target[i], e, optionsArgument)
                 } else if (target.indexOf(e) === -1) {
                     destination.push(e)
                 }
             })
-            return destination
+            return destination;
+            //return target.concat(source);
         }
 
-        let _mergeObject = (target, source, optionsArgument) => {
-            let destination = {}
-            if (_isMergeableObject(target)) {
+        let mergeObject = (target, source, optionsArgument) => {
+            let destination = {};
+            if (isMergeableObject(target)) {
                 Object.keys(target).forEach((key) => {
-                    destination[key] = target[key]
+                    destination[key] = target[key];
                 })
             }
             Object.keys(source).forEach((key) => {
-                if (!_isMergeableObject(source[key]) || !target[key]) {
-                    destination[key] = source[key]
+                if (!isMergeableObject(source[key]) || !target[key]) {
+                    destination[key] = source[key];
                 } else {
-                    destination[key] = _deepmerge(target[key], source[key], optionsArgument)
+                    destination[key] = deepmerge(target[key], source[key], optionsArgument);
                 }
             })
-            return destination
+            return destination;
         }
 
-        return _deepmerge(target, source, optionsArgument);
+        return deepmerge(target, source, optionsArgument);
 
     }
 }

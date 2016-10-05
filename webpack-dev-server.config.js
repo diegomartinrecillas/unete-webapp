@@ -44,8 +44,8 @@ const config = {
             {
                 // React-hot loader
                 test: /\.jsx?$/, // All .jsx files
-                loaders: ['react-hot', 'babel-loader'], // react-hot is like browser sync and babel loads jsx and es6-7
-                exclude: [nodeModulesPath],
+                loaders: ['babel-loader'], // react-hot is like browser sync and babel loads jsx and es6-7
+                exclude: [nodeModulesPath]
             },
             {
                 // SCSS file loader

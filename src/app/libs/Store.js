@@ -1,26 +1,27 @@
 import EventEmitter from 'events';
 
-export default class Store {
+export default class Store extends EventEmitter{
     /**
     * @constructor
     * @this {Store}
     * @param {string} name The name of the store
+    * @param {boolean} debug Set the state of the debugger
     */
-    constructor(name, dispatcher) {
+    constructor(name, debug = false) {
         if (name == null || name == undefined) {
             throw `Store.constructor: Stores must be named`;
         }
-        if (name == null || name == undefined) {
-            throw `Store.constructor: Missing dispatcher for Store [${name}]`
-        }
+        super();
+        // Set debug flag for the logger
+        this._isDebugging = debug;
         this._storeName = name;
         this._registeredComponents = {};
         this._storeData = {};
+
         this._actions = {};
-        this._eventbus = new EventEmitter();
-        this._eventbus.on('STORE_UPDATED', this._onUpdate.bind(this));
-        this._isDebugging = false;
-        dispatcher.registerStore(this);
+        this.on('STORE_UPDATED', this._onUpdate.bind(this));
+
+        this._log(`Initializing Store [${this._storeName}]`);
     }
 
     /**
@@ -78,6 +79,13 @@ export default class Store {
     */
     get storeData() {
         return this._storeData;
+    }
+
+    /**
+    * Read-only Property for the actions of the store
+    */
+    get actions() {
+        return this._actions;
     }
 
     /**
@@ -206,11 +214,11 @@ export default class Store {
     * @param {object} args optional data to be passed to the action's callback
     */
     onAction(actionType, ...args) {
-        this._log(`Received Action [${actionType}] with data=${JSON.stringify(...args)}`);
+        this._log(`[${this.name}] received Action [${actionType}] with data=${JSON.stringify(...args)}`);
         if (actionType in this._actions) {
             this._actions[actionType].apply(this, args);
         } else {
-            this._log(`Unknown actionType [${actionType}] for store [${this.name}]`);
+            this._log(`[${this.name}] is no registered for  actionType [${actionType}] - ignoring`);
         }
 
     }
@@ -220,7 +228,7 @@ export default class Store {
     * notifications of updates to the store
     *
     * @param {function} callback the method to call back
-    * @param {boolean} notify immediately notify the newly registered component to execute it's callback
+    * @param {boolean} notifyInstantly immediately notify the newly registered component to execute it's callback
     * @returns {string} an ID to be used when un-registering
     */
     register(callback, notifyInstantly = true) {
@@ -252,8 +260,8 @@ export default class Store {
     * Emit a UPDATE_STORE event on the private Event Bus
     */
     update() {
-        this._log('Emitting Store update Event');
-        this._eventbus.emit('STORE_UPDATED');
+        this._log(`Emitting [${this.name}] update Event`);
+        this.emit('STORE_UPDATED');
     }
 
     /**

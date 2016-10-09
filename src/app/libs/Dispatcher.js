@@ -1,53 +1,12 @@
-/*The MIT License (MIT)
-
-Copyright (c) 2015 Adrian Hall
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.*/
-
-import EventEmitter from 'events';
-import Logger from './Logger';
-import {assign} from 'lodash';
-
-export default class Dispatcher {
+export default class Dispatcher{
     /**
-     * Create a new instance of the Dispatcher.  Note that the Dispatcher
-     * is a Singleton pattern, so only one should ever exist.
-     *
      * @constructor
      * @this {Dispatcher}
-     * @param {object} options  Over-rides for the default set of options
      */
-    constructor(options = {}) {
-        // Create the required functional objects we need
-        this.eventbus = new EventEmitter();
-
-        // Establish options for the Dispatcher
-        let defaultOptions = {
-            debug: false,
-            logLevel: 'ERROR'
-        };
-        this.options = assign(defaultOptions, options);
-        this.logger = new Logger('Dispatcher', options.logLevel );
-
-        // Create a hash of all the stores - used for registration / deregistration
-        this.logger.debug('Initializing Store Hash');
+    constructor(debug =  false) {
+        this._isDebugging = debug;
         this.stores = {};
+        this._log('Initializing the Dispatcher');
     }
 
     /**
@@ -58,53 +17,42 @@ export default class Dispatcher {
      */
     dispatch(actionType, ...args) {
         if (typeof actionType !== 'string') {
-            this.logger.error('Dispatch request for an invalid Action (no actionType) - ignoring');
-            return;
+            throw 'Dispatcher.dispatch: Actions can only be typeof string';
         }
-        if (args.length >= 1) {
-            this.logger.debug(`Received Action ${actionType} with data`, ...args);
-        } else {
-            this.logger.debug(`Received Action ${actionType} with no aditional data`);
-        }
-        this.logger.debug(`Dispatching Action: ${actionType}: `, ...args);
-        for (let storeName in this.stores) {
-            this.logger.debug(`Dispatching Action: ${actionType} to store ${storeName}`);
-            this.stores[storeName].onAction(actionType, ...args);
+        for (let store in this.stores) {
+            if (actionType in this.stores[store].actions) {
+                this._log(`Dispatching Action: [${actionType}] to store [${store}]`);
+                this.stores[store].onAction(actionType, ...args);
+            }
         }
     }
 
     /**
      * Registers a new Store with the Dispatcher
      *
-     * @param {string} name A unique name for the Store
      * @param {Store} store The store object
-     * @throws {Exception} Store Already Exists
      */
-    registerStore(store) {
+    register(store) {
         let name = store.name;
         if (name in this.stores) {
-            this.logger.error(`Store ${name} is already registered`);
-            throw 'Store Already Exists';
+            this._log(`[${name}] is already registered in the Dispatcher`);
+        } else {
+            this.stores[name] = store;
+            this._log(`[${name}] registered in the Dispatcher`);
         }
-        this.stores[name] = store;
-        this.logger.debug(`Store ${name} registered`);
     }
 
     /**
-     * De-registers a named store from the Dispatcher (completeness of API)
+     * Unregisters a named store from the Dispatcher
      *
      * @param {string} name The name of the store
-     * @param {bool} force Force the store to unmount
      */
-    deregisterStore(name, force = false) {
+    unregister(name) {
         if (name in this.stores) {
-            this.logger.debug(`Store ${name} deregistered`);
+            this._log(`Store [${name}] unregistered`);
             delete this.stores[name];
         } else {
-            this.logger.error(`Store ${name} is not registered (cannot deregister)`);
-            if (!force) {
-                throw 'Store is not registered';
-            }
+            this._log(`Store [${name}] is not registered`);
         }
     }
 
@@ -112,14 +60,24 @@ export default class Dispatcher {
      * Gets a store that is registered with the Dispatcher
      *
      * @param {string} name The name of the store
-     * @returns {Store} the store object
+     * @returns {Store} store The store object
      * @throws 'Invalid Store' if the store does not exist
      */
     getStore(name) {
         if (name in this.stores) {
             return this.stores[name];
         } else {
-            throw 'Invalid Store';
+            throw 'Dispatcher.getStore: Invalid Store';
+        }
+    }
+
+    /**
+    * Helper function function that logs based on this._isDebugging state
+    * @param {string} log message to be logged
+    */
+    _log(log, ...args) {
+        if (this._isDebugging) {
+            console.debug(log, ...args);
         }
     }
 }

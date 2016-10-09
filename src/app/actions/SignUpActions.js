@@ -4,9 +4,9 @@ import appDispatcher from 'app/dispatcher/AppDispatcher';
 const login = LOGIN_CONSTANTS.LOGIN_ACTIONS;
 
 export default class LoginActions {
-    static loginWithUserPassword(loginState) {
+    static saveLoginState(loginState) {
         appDispatcher.dispatch(
-            login.LOGIN_WITH_USER_PASSWORD,
+            login.SAVE_LOGIN_STATE,
             loginState
         );
     }

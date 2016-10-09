@@ -1,14 +1,4 @@
-@import 'partials/_chat';
-
-$primary-color: #D78500;
-$accent-color: #00407A;
-
-html {
-  font-family: 'Roboto', sans-serif;
-}
-
-body {
-  font-size: 14px;
-  line-height: 20px;
-  margin: 0;
-}
+// Main.scss
+@import 'base/_general';
+@import 'base/_colors';
+@import 'components/_chat';

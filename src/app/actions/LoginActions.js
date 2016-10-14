@@ -4,10 +4,25 @@ import appDispatcher from 'app/dispatcher/AppDispatcher';
 const login = LOGIN_CONSTANTS.LOGIN_ACTIONS;
 
 export default class LoginActions {
-    static loginWithUserPassword(loginState) {
+    static checkLoggedIn() {
         appDispatcher.dispatch(
-            login.LOGIN_WITH_USER_PASSWORD,
-            loginState
+            login.CHECK_LOGGED_IN
         );
     }
-}
+    static loginWithEmail(data) {
+        appDispatcher.dispatch(
+            login.LOGIN_WITH_EMAIL,
+            data
+        );
+    }
+    static logout() {
+        appDispatcher.dispatch(
+            login.LOGOUT
+        );
+    }
+    static resetError() {
+        appDispatcher.dispatch(
+            login.RESET_ERROR
+        );
+    }
+ }

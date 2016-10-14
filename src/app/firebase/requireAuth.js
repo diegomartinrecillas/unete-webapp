@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
 import { firebaseAuth } from 'app/firebase/firebase';
 
 let requireAuth = (nextState, replace) => {
     if (firebaseAuth.currentUser === null) {
         replace({
-            pathname: '/login',
+            pathname: '/',
             state: { nextPathname: nextState.location.pathname }
         })
     }

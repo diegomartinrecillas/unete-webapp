@@ -3,6 +3,28 @@ import { Link } from 'react-router';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
+import { primary, accent } from 'app/components/commonStyles';
+
+const styles = {
+    logo: {
+        cursor: 'pointer',
+        fontSize: '24px',
+        color: 'white',
+        lineHeight: '64px',
+        fontWeight: 300,
+        backgroundColor: primary,
+        paddingLeft: '24px',
+        marginBottom: '8px'
+    },
+    link: {
+        textDecoration: 'none',
+        boxSizing: 'border-box',
+        display: 'block'
+    },
+    activeLink: {
+        backgroundColor: 'rgba(0,0,0,.2)'
+    }
+}
 
 export default class AppShell extends React.Component {
     constructor(props) {
@@ -37,11 +59,11 @@ export default class AppShell extends React.Component {
                         onTouchTap={this.handleClose}>
                         MENÚ
                     </div>
-                    <Link to="/app/menu" style={styles.link} activeStyle={styles.activeLink}>
-                        <MenuItem onTouchTap={this.handleClose}>Principal</MenuItem>
+                    <Link to="/app/home" style={styles.link} activeStyle={styles.activeLink}>
+                        <MenuItem onTouchTap={this.handleClose}>HOME</MenuItem>
                     </Link>
                     <Link to="/app/chat" style={styles.link} activeStyle={styles.activeLink}>
-                        <MenuItem onTouchTap={this.handleClose}>Chat</MenuItem>
+                        <MenuItem onTouchTap={this.handleClose}>CHAT</MenuItem>
                     </Link>
                 </Drawer>
                 <AppBar
@@ -54,25 +76,5 @@ export default class AppShell extends React.Component {
                 </div>
             </div>
         )
-    }
-}
-const styles = {
-    logo: {
-        cursor: 'pointer',
-        fontSize: '24px',
-        color: 'rgb(255, 255, 255)',
-        lineHeight: '64px',
-        fontWeight: 300,
-        backgroundColor: '#D78500',
-        paddingLeft: '24px',
-        marginBottom: '8px'
-    },
-    link: {
-        textDecoration: 'none',
-        boxSizing: 'border-box',
-        display: 'block'
-    },
-    activeLink: {
-        backgroundColor: 'rgba(0,0,0,.2)'
     }
 }

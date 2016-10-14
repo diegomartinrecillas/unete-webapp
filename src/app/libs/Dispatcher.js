@@ -16,8 +16,11 @@ export default class Dispatcher{
      * @param {object} args optional data to be passed to the action's callback
      */
     dispatch(actionType, ...args) {
+        if (actionType === undefined) {
+            throw 'Dispatcher.dispatch: action is undefined';
+        }
         if (typeof actionType !== 'string') {
-            throw 'Dispatcher.dispatch: Actions can only be typeof string';
+            throw 'Dispatcher.dispatch: actions can only be typeof string';
         }
         for (let store in this.stores) {
             if (actionType in this.stores[store].actions) {

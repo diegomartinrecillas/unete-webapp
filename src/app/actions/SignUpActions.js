@@ -1,13 +1,15 @@
-import LOGIN_CONSTANTS from 'app/constants/LoginConstants';
+// Constants
+import SIGNUP_CONSTANTS from 'app/constants/SignUpConstants';
+// Dispatcher
 import appDispatcher from 'app/dispatcher/AppDispatcher';
 
-const login = LOGIN_CONSTANTS.LOGIN_ACTIONS;
+const signUp = SIGNUP_CONSTANTS.SIGNUP_ACTIONS;
 
 export default class LoginActions {
-    static saveLoginState(loginState) {
+    static signUpWithEmail(data) {
         appDispatcher.dispatch(
-            login.SAVE_LOGIN_STATE,
-            loginState
+            signUp.SIGNUP_WITH_EMAIL,
+            data
         );
     }
 }

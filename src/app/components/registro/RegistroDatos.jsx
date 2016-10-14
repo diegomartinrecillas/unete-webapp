@@ -49,7 +49,7 @@ export default class RegistroDatos extends React.Component {
         signUpStore.unregister(this.id);
     }
     updateState() {
-        console.log('RegistroDatos State changes go here');
+        console.log('RegistroDatos State happen go here');
     }
     handleFormSubmit = (e) => {
         // Prevent default form submit behaviour

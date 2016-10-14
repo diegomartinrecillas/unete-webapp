@@ -214,7 +214,7 @@ export default class Store extends EventEmitter{
     * @param {object} args optional data to be passed to the action's callback
     */
     onAction(actionType, ...args) {
-        this._log(`[${this.name}] received Action [${actionType}] with data=${JSON.stringify(...args)}`);
+        this._log(`[${this.name}] received Action [${actionType}] with data=`, ...args);
         if (actionType in this._actions) {
             this._actions[actionType].apply(this, args);
         } else {

@@ -14,6 +14,8 @@ import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import AppBar from 'material-ui/AppBar';
+import {red500, orange500, green500} from 'material-ui/styles/colors';
+import { primary, accent } from 'app/components/commonStyles';
 
 // CSS-in-JS
 const styles = {
@@ -39,7 +41,7 @@ const styles = {
         display: 'inline-block',
         paddingBottom: '5%',
         textDecoration: 'none',
-        color: '#00407A'
+        color: accent
     },
     image: {
         paddingTop: '5%'
@@ -57,47 +59,113 @@ export default class RegistroInicio extends React.Component {
             emailErrorText: '',
             password: '',
             passwordErrorText: '',
+            passwordErrorStyle: {},
             confirmPassword: '',
+            confirmPasswordDisabled: true,
             confirmPasswordErrorText: ''
         };
     }
     componentDidMount() {
-        this.id = signUpStore.register(() => {
-            this.updateState();
-        });
+        this.SIGNUP_STORE_ID = signUpStore.register(this._onChange);
     }
     componentWillUnmount() {
-        signUpStore.unregister(this.id);
+        signUpStore.unregister(this.SIGNUP_STORE_ID);
     }
-    updateState() {
-        console.log('RegistroInicio State changes here');
-    }
+    _onChange = () => {}
+    // Handlers
     handleFormSubmit = (e) => {
         // Prevent default form submit behaviour
         e.preventDefault();
+        // Validate the email structure
+        if (this.validateEmail(this.state.email)) {
+            let email = this.state.email;
+            let password = this.state.password;
+            let router = this.context.router;
 
-        // if (this.validateEmail(this.state.email)) {
-        //     let path = '/registro/datos';
-        //     this.context.router.push(path);
-        // } else {
-        //     this.setState({
-        //         emailErrorText: 'Correo no valido'
-        //     });
-        // }
-
-        let path = '/registro/datos';
-        this.context.router.push(path);
-
+            SignUpActions.signUpWithEmail({
+                email: email,
+                password: password,
+                router: router
+            });
+        } else {
+            this.setState({
+                emailErrorText: 'Correo no valido'
+            });
+        }
         return false;
     }
-    handleConfirmPassword = (event) => {
+    handlePassword = (event) => {
+        let value = event.target.value;
+        let disabled = (value.length > 0) ? false : true;
         this.setState({
-            confirmPassword: event.target.value
+            password: value,
+            confirmPasswordDisabled: disabled
+        }, () => {
+            if (this.state.confirmPassword !== this.state.password && this.state.confirmPassword !== '') {
+                this.setState({
+                    confirmPasswordErrorText: 'Las contraseñas no coinciden'
+                });
+            } else {
+                this.setState({
+                    confirmPasswordErrorText: ''
+                });
+            }
+            this.validatePassword(this.state.password);
+        });
+    }
+    handleConfirmPassword = (event) => {
+        let value = event.target.value;
+        this.setState({
+            confirmPassword: value
+        }, () => {
+            if (this.state.confirmPassword !== this.state.password) {
+                this.setState({
+                    confirmPasswordErrorText: 'Las contraseñas no coinciden'
+                });
+            } else {
+                this.setState({
+                    confirmPasswordErrorText: ''
+                });
+            }
         });
     }
     validateEmail = (event) => {
         let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(event);
+    }
+    validatePassword = (password) => {
+        let strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+        let mediumRegex = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
+
+        if (password.length < 1) {
+            this.setState({
+                passwordErrorText: ''
+            })
+        } else if (strongRegex.test(password)) {
+            let errorStyle = {
+                color: green500
+            }
+            this.setState({
+                passwordErrorText: 'La contraseña es buena',
+                passwordErrorStyle: errorStyle
+            })
+        } else if (mediumRegex.test(password)) {
+            let errorStyle = {
+                color: orange500
+            }
+            this.setState({
+                passwordErrorText: 'La contraseña es regular',
+                passwordErrorStyle: errorStyle
+            })
+        } else {
+            let errorStyle = {
+                color: red500
+            }
+            this.setState({
+                passwordErrorText: 'La contraseña es demasiado débil',
+                passwordErrorStyle: errorStyle
+            })
+        }
     }
     render() {
         return (
@@ -116,11 +184,13 @@ export default class RegistroInicio extends React.Component {
                     <section>
                         <TextField
                             required={true}
-                            hintText="Contraseña"
-                            floatingLabelText="Contraseña"
+                            hintText="Crear Contraseña"
+                            floatingLabelText="Crear Contraseña"
+                            type="password"
                             value={this.state.password}
                             errorText={this.state.passwordErrorText}
-                            onChange={linkState(this, 'password')}
+                            errorStyle={this.state.passwordErrorStyle}
+                            onChange={this.handlePassword}
                             />
                     </section>
                     <section>
@@ -128,8 +198,10 @@ export default class RegistroInicio extends React.Component {
                             required={true}
                             hintText="Confirmar Contraseña"
                             floatingLabelText="Confirmar Contraseña"
+                            type="password"
+                            disabled={this.state.confirmPasswordDisabled}
                             value={this.state.confirmPassword}
-                            errorText={this.state.passwordErrorText}
+                            errorText={this.state.confirmPasswordErrorText}
                             onChange={this.handleConfirmPassword}
                             />
                     </section>

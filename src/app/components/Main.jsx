@@ -3,7 +3,7 @@ import React from 'react';
 // React Router
 import { Redirect, Router, Route, hashHistory } from 'react-router'
 // Libraries and Helpers
-import requireAuth from 'app/firebase/auth';
+import requireAuth from 'app/firebase/requireAuth';
 // Material UI Components
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -18,11 +18,14 @@ import RegistroDatos from './registro/RegistroDatos';
 import Ayuda from './ayuda/Ayuda';
 import Error from './error/Error';
 import Chat from './chat/Chat';
+import Home from './home/Home';
+// Common colors
+import { primary, accent } from 'app/components/commonStyles';
 
 const muiTheme = getMuiTheme({
     palette: {
-        primary1Color: '#D78500',
-        accent1Color: '#00407A'
+        primary1Color: primary,
+        accent1Color: accent
     }
 });
 
@@ -32,7 +35,7 @@ export default class Main extends React.Component {
             <MuiThemeProvider muiTheme={muiTheme}>
                 <Router history={hashHistory}>
                     <Redirect from="/" to="/login" />
-                    <Route path="/" component={RootShell} >
+                    <Route path="/" component={RootShell}>
                         <Route path="/login" component={Login}/>
                         <Route path="/registro" component={Registro}>
                             <Route path="/registro/inicio" component={RegistroInicio}/>
@@ -42,6 +45,7 @@ export default class Main extends React.Component {
                         <Route path="/error" component={Error}/>
                         <Route path="/app" component={AppShell} onEnter={requireAuth}>
                             <Route path="/app/chat" component={Chat}/>
+                            <Route path="/app/home" component={Home}/>
                         </Route>
                     </Route>
                 </Router>

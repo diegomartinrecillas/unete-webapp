@@ -1,24 +1,22 @@
 // React
 import React from 'react';
+// Flux
+import LoginStore from 'app/stores/LoginStore';
+import LoginActions from 'app/actions/LoginActions';
 // React Router
 import { Link } from 'react-router';
 // Libraries and Helpers
 import linkState from 'app/utils/onChangeHandlerFactory';
-// Flux
-import LoginStore from 'app/stores/LoginStore';
-import LoginActions from 'app/actions/LoginActions';
 // Material UI Components
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import Paper from 'material-ui/Paper';
 import AppBar from 'material-ui/AppBar';
 import { red500, orange500 } from 'material-ui/styles/colors';
-// Common styles
-import { primary, accent } from 'app/components/commonStyles';
+// Colors
+import { primary, accent } from 'app/styles/colors';
 // Spinner Loader
 import Loader from 'react-loader'
-
-
 
 // CSS-in-JS
 const styles = {
@@ -49,7 +47,7 @@ const styles = {
     image: {
         paddingTop: '5%'
     },
-    loginError: {
+    isLoginError: {
         color: red500
     },
     loggingIn: {
@@ -68,7 +66,8 @@ export default class Login extends React.Component {
             emailErrorText: '',
             password: '',
             passwordErrorText: '',
-            loginError: false,
+            loginErrorMessage: '',
+            isLoginError: false,
             isLoggedIn: false,
             isLoggingIn: false,
             isLoading: false
@@ -96,10 +95,11 @@ export default class Login extends React.Component {
     // Store callback
     _onChange = () => {
         this.setState({
-            loginError: LoginStore.state.get('loginError'),
+            isLoginError: LoginStore.state.get('isLoginError'),
             isLoggedIn: LoginStore.state.get('isLoggedIn'),
             isLoggingIn: LoginStore.state.get('isLoggingIn'),
-            isLoading: LoginStore.state.get('isChecking')
+            isLoading: LoginStore.state.get('isChecking'),
+            loginErrorMessage: LoginStore.state.get('loginErrorMessage')
         });
     }
     // Handlers
@@ -132,7 +132,7 @@ export default class Login extends React.Component {
         let value = event.target.value;
         this.setState({
             email: value,
-            loginError:  false,
+            isLoginError:  false,
             emailErrorText: ''
         });
     }
@@ -141,7 +141,7 @@ export default class Login extends React.Component {
         let value = event.target.value;
         this.setState({
             password: value,
-            loginError:  false,
+            isLoginError:  false,
             passwordErrorText: ''
         });
     }
@@ -198,11 +198,11 @@ export default class Login extends React.Component {
                 <p style={styles.loggingIn}>Espere un momento...</p>
             </section>;
         }
-        let loginError;
-        if (this.state.loginError) {
-            loginError =
+        let isLoginError;
+        if (this.state.isLoginError) {
+            isLoginError =
             <section>
-                <p style={styles.loginError}>Correo y/o contraseña incorrectos</p>
+                <p style={styles.isLoginError}>{this.state.loginErrorMessage}</p>
             </section>;
         }
         return (
@@ -210,7 +210,7 @@ export default class Login extends React.Component {
                 <Loader loaded={!this.state.isLoading} options={loaderOptions}>
                     <AppBar
                         style={styles.title}
-                        title='INICIO'
+                        title='INICIA SESIÓN'
                         iconElementLeft={<div></div>}/>
                     <div style={styles.container}>
                         <Paper zDepth={2} style={styles.paper}>
@@ -235,7 +235,7 @@ export default class Login extends React.Component {
                                         errorText={this.state.passwordErrorText}
                                         />
                                 </section>
-                                {loginError}
+                                {isLoginError}
                                 {loggingIn}
                                 <section>
                                     <span>
@@ -250,8 +250,8 @@ export default class Login extends React.Component {
                                     </span>
                                 </section>
                                 <section>
-                                    <Link to="/ayuda" style={styles.link} >
-                                        ¿Necesitas ayuda?
+                                    <Link to="/restore" style={styles.link} >
+                                        ¿No puedes iniciar sesión?
                                     </Link>
                                 </section>
                             </form>

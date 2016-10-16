@@ -13,7 +13,8 @@ const LoginState = Model.extend({
         isLoggedIn: false,
         isLoggingIn: false,
         isChecking: false,
-        loginError: false
+        isLoginError: false,
+        loginErrorMessage: ''
     }
 });
 
@@ -22,7 +23,8 @@ const login = LOGIN_CONSTANTS.LOGIN_ACTIONS;
 class LoginStore extends Store {
 
     constructor() {
-        super('LoginStore', true);
+        const DEBUG = true;
+        super('LoginStore', DEBUG);
 
         this.state = new LoginState();
 
@@ -62,7 +64,7 @@ class LoginStore extends Store {
     }
 
     resetError = () => {
-        this.state.set('loginError', false);
+        this.state.set('isLoginError', false);
     }
 
     loginWithEmail = (data) => {
@@ -70,19 +72,28 @@ class LoginStore extends Store {
         let password = data['password'];
 
         this.state.set('isLoggingIn', true);
-        this.state.set('loginError', false);
+        this.state.set('isLoginError', false);
         this.update();
-        
+
         firebaseAuth.signInWithEmailAndPassword(email, password)
         .then((result) => {
             this.state.set('isLoggedIn', true);
-            this.state.set('loginError', false);
+            this.state.set('isLoginError', false);
             this.state.set('isLoggingIn', false);
             this.update();
         })
         .catch((error) => {
             console.log(error);
-            this.state.set('loginError', true);
+            if (error.code == "auth/network-request-failed") {
+                this.state.set('loginErrorMessage', 'No hay conexión a Internet');
+            } else if (error.code == "auth/user-not-found") {
+                this.state.set('loginErrorMessage', 'Usuario y/o contreseña incorrectos');
+            } else if (error.code == "auth/wrong-password") {
+                this.state.set('loginErrorMessage', 'Usuario y/o contreseña incorrectos');
+            }else {
+                this.state.set('loginErrorMessage', 'Servicio no disponible, intenta mas tarde');
+            }
+            this.state.set('isLoginError', true);
             this.state.set('isLoggingIn', false);
             this.update();
         });

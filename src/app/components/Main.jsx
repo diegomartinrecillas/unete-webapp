@@ -10,17 +10,21 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 // App Components
 import AppShell from './app_shell/AppShell';
-import RootShell from './root_shell/RootShell';
+import Ayuda from './ayuda/Ayuda';
+import Chat from './chat/Chat';
+import Error from './error/Error';
+import Home from './home/Home';
 import Login from './login/Login';
+import Perfil from './perfil/Perfil';
 import Registro from './registro/Registro';
 import RegistroInicio from './registro/RegistroInicio';
 import RegistroDatos from './registro/RegistroDatos';
-import Ayuda from './ayuda/Ayuda';
-import Error from './error/Error';
-import Chat from './chat/Chat';
-import Home from './home/Home';
+import Restore from './restore/Restore';
+import RestoreFinished from './restore/RestoreFinished';
+import RootShell from './root_shell/RootShell';
+
 // Common colors
-import { primary, accent } from 'app/components/commonStyles';
+import { primary, accent } from 'app/styles/colors';
 
 const muiTheme = getMuiTheme({
     palette: {
@@ -37,16 +41,22 @@ export default class Main extends React.Component {
                     <Redirect from="/" to="/login" />
                     <Route path="/" component={RootShell}>
                         <Route path="/login" component={Login}/>
+                        <Route path="/restore" component={Restore}/>
+                        <Route path="/restore-finished" component={RestoreFinished}/>
+                        <Redirect from="/registro" to="/registro/inicio" />
                         <Route path="/registro" component={Registro}>
                             <Route path="/registro/inicio" component={RegistroInicio}/>
                             <Route path="/registro/datos" component={RegistroDatos}/>
                         </Route>
                         <Route path="/ayuda" component={Ayuda}/>
                         <Route path="/error" component={Error}/>
+                        <Redirect from="/app" to="/app/home" />
                         <Route path="/app" component={AppShell} onEnter={requireAuth}>
-                            <Route path="/app/chat" component={Chat}/>
                             <Route path="/app/home" component={Home}/>
+                            <Route path="/app/chat" component={Chat}/>
+                            <Route path="/app/perfil" component={Perfil}/>
                         </Route>
+                        <Route path="*" component={Error}/>
                     </Route>
                 </Router>
             </MuiThemeProvider>

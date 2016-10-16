@@ -13,6 +13,7 @@ import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import AppBar from 'material-ui/AppBar';
+import { primary, accent } from 'app/styles/colors';
 
 // CSS-in-JS
 const styles = {
@@ -23,7 +24,7 @@ const styles = {
         display: 'inline-block',
         paddingBottom: '5%',
         textDecoration: 'none',
-        color: '#00407A'
+        color: accent
     }
 }
 

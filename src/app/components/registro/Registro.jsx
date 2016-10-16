@@ -41,7 +41,7 @@ export default class RegistroInicio extends React.Component {
             <div>
                 <AppBar
                     style={styles.title}
-                    title='REGISTRO'
+                    title='REGÍSTRATE'
                     iconElementLeft={<div></div>}/>
                 <div style={styles.container}>
                     <Paper zDepth={2} style={styles.paper}>

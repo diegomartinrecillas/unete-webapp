@@ -12,4 +12,10 @@ export default class LoginActions {
             data
         );
     }
+    static resetPasswordWithEmail(data) {
+        appDispatcher.dispatch(
+            signUp.RESET_PASSWORD_WITH_EMAIL,
+            data
+        );
+    }
 }

@@ -1,0 +1,257 @@
+// React
+import React from 'react';
+//Flux
+import SignUpActions from 'app/actions/SignUpActions';
+import SignUpStore from 'app/stores/SignUpStore';
+// React Router
+import { Link } from 'react-router';
+// Material UI Components
+import AppBar from 'material-ui/AppBar';
+import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
+import Divider from 'material-ui/Divider';
+import Paper from 'material-ui/Paper';
+import TextField from 'material-ui/TextField';
+import Dialog from 'material-ui/Dialog';
+
+import { red500 } from 'material-ui/styles/colors';
+import { primary, accent } from 'app/styles/colors';
+
+const styles = {
+    container: {
+        paddingTop: '2%',
+        paddingLeft: '2%',
+        paddingRight: '2%',
+        paddingBottom: '2%',
+        textAlign: 'center'
+    },
+    button: {
+        marginTop: 12
+    },
+    title: {
+        textAlign: 'center'
+    },
+    divider: {
+        marginTop: 12,
+        marginBottom: 12
+    },
+    paper: {
+        display: 'inline-block',
+        width: '100%',
+        maxWidth: 400
+    },
+    image: {
+        paddingTop: '5%'
+    },
+    link: {
+        display: 'inline-block',
+        paddingBottom: '5%',
+        textDecoration: 'none',
+        color: accent
+    },
+    restoreText: {
+        color: 'grey',
+        paddingTop: '5%',
+        paddingLeft: '10%',
+        paddingRight: '10%',
+        textAlign: 'center'
+    }
+}
+
+export default class Restore extends React.Component {
+    static contextTypes = {
+        router: React.PropTypes.object
+    }
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            isPasswordReset: false,
+            restoreDisabled: true,
+            isDialogOpen: false,
+            email: '',
+            emailErrorText: '',
+            confirmEmail: '',
+            confirmEmailErrorText: ''
+        };
+    }
+
+    componentDidMount() {
+        this.SIGNUP_STORE_ID = SignUpStore.register(this._onChange);
+    }
+
+    componentWillUnmount() {
+        SignUpStore.unregister(this.SIGNUP_STORE_ID);
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (this.state.isPasswordReset !== null) {
+            if (this.state.isPasswordReset) {
+                let router = this.context.router;
+                router.push('/restore-finished');
+            }
+        }
+    }
+
+    _onChange = () => {
+        this.setState({
+            isPasswordReset: SignUpStore.state.get('isPasswordReset')
+        });
+    }
+
+    goBack = () => {
+        window.history.back();
+    }
+
+    handleCloseDialog = () => {
+        this.setState({isDialogOpen: false});
+    };
+
+    // Handle email change
+    handleEmail = (event) => {
+        let email = event.target.value;
+
+        this.setState({
+            email: email,
+            emailErrorText: ''
+        });
+
+        if (email === '') {
+            this.setState({
+                emailErrorText: ''
+            });
+        } else if (email !== this.state.confirmEmail) {
+            this.setState({
+                restoreDisabled: true,
+                confirmEmailErrorText: 'Los correos no coninciden'
+            });
+        } else {
+            this.setState({
+                restoreDisabled: false,
+                confirmEmailErrorText: ''
+            });
+        }
+    }
+    handleConfirmEmail = (event) => {
+        let confirmEmail = event.target.value;
+        this.setState({
+            confirmEmail: confirmEmail,
+            confirmEmailErrorText: ''
+        });
+        if (confirmEmail === '') {
+            this.setState({
+                confirmEmailErrorText: ''
+            });
+        } else if (this.state.email !== confirmEmail) {
+            this.setState({
+                restoreDisabled: true,
+                confirmEmailErrorText: 'Los correos no coninciden'
+            });
+        } else {
+            this.setState({
+                restoreDisabled: false,
+                confirmEmailErrorText: ''
+            });
+        }
+    }
+    handleRestore = () => {
+        if (this._validateEmail(this.state.email)) {
+            this.setState({
+                isDialogOpen: true
+            })
+        } else {
+            this.setState({
+                emailErrorText: 'Correo no valido'
+            })
+        }
+
+    }
+
+    handleConfirmRestore = () => {
+        SignUpActions.resetPasswordWithEmail({email: this.state.email});
+    }
+
+    // RegExp to check email structure
+    _validateEmail = (event) => {
+        let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(event);
+    }
+
+    render() {
+        const actions = [
+            <FlatButton
+                label="Cancelar"
+                primary={true}
+                onTouchTap={this.handleCloseDialog}
+                />,
+            <RaisedButton
+                label="Restablecer Contraseña"
+                secondary={true}
+                keyboardFocused={true}
+                onTouchTap={this.handleConfirmRestore}
+                />,
+        ];
+        return (
+            <div>
+                <Dialog
+                    title="Restablecer Contraseña"
+                    actions={actions}
+                    modal={false}
+                    open={this.state.isDialogOpen}
+                    onRequestClose={this.handleCloseDialog}
+                    >
+                    La contraseña del correo <strong>{this.state.email}</strong> está por ser restablecida.
+                    <br/>
+                    <br/>
+                    Esta acción no puede ser deshecha.
+                    ¿Seguro que deseas continuar?
+                </Dialog>
+                <AppBar
+                    style={styles.title}
+                    title='RECUPERACIÓN'
+                    iconElementLeft={<div></div>}
+                    />
+                <div style={styles.container}>
+                    <Paper zDepth={2} style={styles.paper}>
+                        <img src={require('assets/images/unete.png')} style={styles.image}/>
+                        <section style={styles.restoreText}>
+                            Si <strong>NO</strong> recuerdas tu contraseña puedes restablecer tu cuenta utilizando el <strong>Correo Electrónico</strong> con la que inicias sesión, un correo será enviado a dicha dirección con mas instrucciones.
+                        </section>
+                        <section>
+                            <TextField
+                                hintText="Tu Correo Electrónico"
+                                floatingLabelText="Tu Correo Electrónico"
+                                value={this.state.email}
+                                onChange={this.handleEmail}
+                                errorText={this.state.emailErrorText}
+                                />
+                        </section>
+                        <section>
+                            <TextField
+                                hintText="Confirma tu Correo Electrónico"
+                                floatingLabelText="Confirma tu Correo Electrónico"
+                                value={this.state.confirmEmail}
+                                onChange={this.handleConfirmEmail}
+                                errorText={this.state.confirmEmailErrorText}
+                                />
+                        </section>
+                        <section>
+                            <RaisedButton
+                                label="Restablecer Contraseña"
+                                disabled={this.state.restoreDisabled}
+                                secondary={true}
+                                style={styles.button}
+                                onClick={this.handleRestore}/>
+                        </section>
+                        <section>
+                            <Link to="/login" style={styles.link}>
+                                <FlatButton label="Cancelar" primary={true} style={styles.button} />
+                            </Link>
+                        </section>
+                    </Paper>
+                </div>
+
+            </div>
+        )
+    }
+}

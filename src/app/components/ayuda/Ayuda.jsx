@@ -1,8 +1,11 @@
+// React
 import React from 'react';
+// Material UI Components
 import AppBar from 'material-ui/AppBar';
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
 import Toggle from 'material-ui/Toggle';
 import IconButton from 'material-ui/IconButton';
+// Material Icons
 import ChevronLeftIcon from 'material-ui/svg-icons/navigation/chevron-left';
 
 export default class Ayuda extends React.Component {

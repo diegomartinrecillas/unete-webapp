@@ -6,8 +6,9 @@ import { Link } from 'react-router';
 import _ from 'lodash';
 import linkState from 'app/utils/onChangeHandlerFactory';
 // Flux
-import signUpStore from 'app/stores/signUpStore';
+import SignUpStore from 'app/stores/signUpStore';
 import SignUpActions from 'app/actions/SignUpActions';
+import LoginStore from 'app/stores/LoginStore';
 // Material UI Components
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
@@ -15,7 +16,7 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import AppBar from 'material-ui/AppBar';
 import {red500, orange500, green500} from 'material-ui/styles/colors';
-import { primary, accent } from 'app/components/commonStyles';
+import { primary, accent } from 'app/styles/colors';
 
 // CSS-in-JS
 const styles = {
@@ -45,6 +46,9 @@ const styles = {
     },
     image: {
         paddingTop: '5%'
+    },
+    signingUp: {
+        color: primary
     }
 }
 
@@ -62,16 +66,34 @@ export default class RegistroInicio extends React.Component {
             passwordErrorStyle: {},
             confirmPassword: '',
             confirmPasswordDisabled: true,
-            confirmPasswordErrorText: ''
+            confirmPasswordErrorText: '',
+            isLoggedIn: false,
+            isSigningUp: false
         };
     }
     componentDidMount() {
-        this.SIGNUP_STORE_ID = signUpStore.register(this._onChange);
+        this.SIGNUP_STORE_ID = SignUpStore.register(this._onChange);
+        this.LOGIN_STORE_ID = LoginStore.register(this._onChange);
     }
     componentWillUnmount() {
-        signUpStore.unregister(this.SIGNUP_STORE_ID);
+        SignUpStore.unregister(this.SIGNUP_STORE_ID);
+        LoginStore.unregister(this.LOGIN_STORE_ID);
     }
-    _onChange = () => {}
+    componentDidUpdate() {
+        if (this.state.isLoggedIn !== null) {
+            if (this.state.isLoggedIn) {
+                let router = this.context.router;
+                router.push('/app/home');
+            }
+        }
+    }
+    _onChange = () => {
+        this.setState({
+            isLoggedIn: LoginStore.state.get('isLoggedIn'),
+            isSigningUp: SignUpStore.state.get('isSigningUp'),
+            emailErrorText: SignUpStore.state.get('signUpError')
+        });
+    }
     // Handlers
     handleFormSubmit = (e) => {
         // Prevent default form submit behaviour
@@ -80,12 +102,10 @@ export default class RegistroInicio extends React.Component {
         if (this.validateEmail(this.state.email)) {
             let email = this.state.email;
             let password = this.state.password;
-            let router = this.context.router;
 
             SignUpActions.signUpWithEmail({
                 email: email,
-                password: password,
-                router: router
+                password: password
             });
         } else {
             this.setState({
@@ -168,6 +188,13 @@ export default class RegistroInicio extends React.Component {
         }
     }
     render() {
+        let signingUp;
+        if (this.state.isSigningUp) {
+            signingUp =
+            <section>
+                <p style={styles.signingUp}>Espere un momento...</p>
+            </section>;
+        }
         return (
             <div>
                 <form onSubmit={this.handleFormSubmit}>
@@ -205,6 +232,7 @@ export default class RegistroInicio extends React.Component {
                             onChange={this.handleConfirmPassword}
                             />
                     </section>
+                    {signingUp}
                     <section>
                         <span>
                             <RaisedButton
@@ -219,7 +247,7 @@ export default class RegistroInicio extends React.Component {
                     </section>
                     <section>
                         <Link to="/ayuda" style={styles.link} >
-                            ¿Necesitas ayuda?
+                            ¿No te puedes registrar?
                         </Link>
                     </section>
                 </form>

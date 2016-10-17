@@ -8,6 +8,26 @@ import IconButton from 'material-ui/IconButton';
 // Material Icons
 import ChevronLeftIcon from 'material-ui/svg-icons/navigation/chevron-left';
 
+const styles = {
+    container: {
+        paddingTop: '2%',
+        paddingLeft: '2%',
+        paddingRight: '2%',
+        paddingBottom: '2%',
+        textAlign: 'center'
+    },
+    cardsContainer: {
+        textAlign: 'left',
+        display: 'inline-block',
+        width: '100%',
+        maxWidth: 700
+    },
+    title: {
+        textAlign: 'center'
+    }
+}
+
+
 export default class Ayuda extends React.Component {
     constructor(props) {
         super(props);
@@ -90,21 +110,5 @@ export default class Ayuda extends React.Component {
                 </div>
             </div>
         )
-    }
-}
-
-const styles = {
-    container: {
-        paddingTop: '2%',
-        paddingLeft: '2%',
-        paddingRight: '2%',
-        paddingBottom: '2%',
-        textAlign: 'center'
-    },
-    cardsContainer: {
-        textAlign: 'left'
-    },
-    title: {
-        textAlign: 'center'
     }
 }

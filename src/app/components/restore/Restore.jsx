@@ -28,12 +28,9 @@ const styles = {
     button: {
         marginTop: 12
     },
+
     title: {
         textAlign: 'center'
-    },
-    divider: {
-        marginTop: 12,
-        marginBottom: 12
     },
     paper: {
         display: 'inline-block',
@@ -45,8 +42,8 @@ const styles = {
     },
     link: {
         display: 'inline-block',
-        paddingBottom: '5%',
         textDecoration: 'none',
+        paddingBottom: '5%',
         color: accent
     },
     restoreText: {
@@ -88,7 +85,7 @@ export default class Restore extends React.Component {
         if (this.state.isPasswordReset !== null) {
             if (this.state.isPasswordReset) {
                 let router = this.context.router;
-                router.push('/restore-finished');
+                router.push(`/restore-finished/${this.state.email}`);
             }
         }
     }
@@ -104,7 +101,9 @@ export default class Restore extends React.Component {
     }
 
     handleCloseDialog = () => {
-        this.setState({isDialogOpen: false});
+        this.setState({
+            isDialogOpen: false
+        });
     };
 
     // Handle email change
@@ -168,7 +167,9 @@ export default class Restore extends React.Component {
     }
 
     handleConfirmRestore = () => {
-        SignUpActions.resetPasswordWithEmail({email: this.state.email});
+        SignUpActions.resetPasswordWithEmail({
+            email: this.state.email
+        });
     }
 
     // RegExp to check email structure
@@ -200,11 +201,12 @@ export default class Restore extends React.Component {
                     open={this.state.isDialogOpen}
                     onRequestClose={this.handleCloseDialog}
                     >
-                    La contraseña del correo <strong>{this.state.email}</strong> está por ser restablecida.
+                    La cuenta asociada al correo <strong>{this.state.email}</strong> está por ser restablecida.
                     <br/>
                     <br/>
-                    Esta acción no puede ser deshecha.
-                    ¿Seguro que deseas continuar?
+                    <strong>
+                        ¿Seguro que deseas continuar?
+                    </strong>
                 </Dialog>
                 <AppBar
                     style={styles.title}
@@ -215,12 +217,12 @@ export default class Restore extends React.Component {
                     <Paper zDepth={2} style={styles.paper}>
                         <img src={require('assets/images/unete.png')} style={styles.image}/>
                         <section style={styles.restoreText}>
-                            Si <strong>NO</strong> recuerdas tu contraseña puedes restablecer tu cuenta utilizando el <strong>Correo Electrónico</strong> con la que inicias sesión, un correo será enviado a dicha dirección con mas instrucciones.
+                            Si <strong>NO</strong> recuerdas tu contraseña puedes restablecer tu cuenta utilizando el <strong>Correo Electrónico</strong> con el que inicias sesión, un correo será enviado a dicha dirección con mas instrucciones.
                         </section>
                         <section>
                             <TextField
-                                hintText="Tu Correo Electrónico"
-                                floatingLabelText="Tu Correo Electrónico"
+                                hintText="Correo Electrónico"
+                                floatingLabelText="Correo Electrónico"
                                 value={this.state.email}
                                 onChange={this.handleEmail}
                                 errorText={this.state.emailErrorText}
@@ -228,8 +230,8 @@ export default class Restore extends React.Component {
                         </section>
                         <section>
                             <TextField
-                                hintText="Confirma tu Correo Electrónico"
-                                floatingLabelText="Confirma tu Correo Electrónico"
+                                hintText="Confirmar Correo Electrónico"
+                                floatingLabelText="Confirmar Correo Electrónico"
                                 value={this.state.confirmEmail}
                                 onChange={this.handleConfirmEmail}
                                 errorText={this.state.confirmEmailErrorText}
@@ -244,8 +246,13 @@ export default class Restore extends React.Component {
                                 onClick={this.handleRestore}/>
                         </section>
                         <section>
-                            <Link to="/login" style={styles.link}>
+                            <Link to="/login" >
                                 <FlatButton label="Cancelar" primary={true} style={styles.button} />
+                            </Link>
+                        </section>
+                        <section>
+                            <Link to="/ayuda" style={styles.link}>
+                                <FlatButton label="No puedo solucionar mi problema" secondary={true} style={styles.button} />
                             </Link>
                         </section>
                     </Paper>

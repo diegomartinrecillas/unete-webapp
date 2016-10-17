@@ -6,6 +6,11 @@ import appDispatcher from 'app/dispatcher/AppDispatcher';
 const signUp = SIGNUP_CONSTANTS.SIGNUP_ACTIONS;
 
 export default class LoginActions {
+    static resetError() {
+        appDispatcher.dispatch(
+            signUp.RESET_ERROR
+        );
+    }
     static signUpWithEmail(data) {
         appDispatcher.dispatch(
             signUp.SIGNUP_WITH_EMAIL,

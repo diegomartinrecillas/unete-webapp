@@ -12,6 +12,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import AppShell from './app_shell/AppShell';
 import Ayuda from './ayuda/Ayuda';
 import Chat from './chat/Chat';
+import Curp from './curp/Curp';
 import Error from './error/Error';
 import Home from './home/Home';
 import Login from './login/Login';
@@ -42,7 +43,7 @@ export default class Main extends React.Component {
                     <Route path="/" component={RootShell}>
                         <Route path="/login" component={Login}/>
                         <Route path="/restore" component={Restore}/>
-                        <Route path="/restore-finished" component={RestoreFinished}/>
+                        <Route path="/restore-finished/:email" component={RestoreFinished}/>
                         <Redirect from="/registro" to="/registro/inicio" />
                         <Route path="/registro" component={Registro}>
                             <Route path="/registro/inicio" component={RegistroInicio}/>
@@ -55,6 +56,7 @@ export default class Main extends React.Component {
                             <Route path="/app/home" component={Home}/>
                             <Route path="/app/chat" component={Chat}/>
                             <Route path="/app/perfil" component={Perfil}/>
+                            <Route path="/app/curp" component={Curp}/>
                         </Route>
                         <Route path="*" component={Error}/>
                     </Route>

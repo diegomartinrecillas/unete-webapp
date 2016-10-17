@@ -1,4 +1,5 @@
 import Dispatcher from 'app/libs/Dispatcher';
 
-let appDispatcher = new Dispatcher(true);
+let DEBUG = false;
+let appDispatcher = new Dispatcher(DEBUG);
 export default appDispatcher;

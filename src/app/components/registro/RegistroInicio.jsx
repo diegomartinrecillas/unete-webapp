@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 import _ from 'lodash';
 import linkState from 'app/utils/onChangeHandlerFactory';
 // Flux
-import SignUpStore from 'app/stores/signUpStore';
+import SignUpStore from 'app/stores/SignUpStore';
 import SignUpActions from 'app/actions/SignUpActions';
 import LoginStore from 'app/stores/LoginStore';
 // Material UI Components
@@ -30,8 +30,11 @@ const styles = {
     title: {
         textAlign: 'center'
     },
-    button: {
+    inlineButton: {
         margin: 12
+    },
+    button: {
+        marginTop: 12
     },
     paper: {
         display: 'inline-block',
@@ -76,6 +79,7 @@ export default class RegistroInicio extends React.Component {
         this.LOGIN_STORE_ID = LoginStore.register(this._onChange);
     }
     componentWillUnmount() {
+        SignUpActions.resetError();
         SignUpStore.unregister(this.SIGNUP_STORE_ID);
         LoginStore.unregister(this.LOGIN_STORE_ID);
     }
@@ -239,15 +243,15 @@ export default class RegistroInicio extends React.Component {
                                 type="submit"
                                 label="Registrar"
                                 secondary={true}
-                                style={styles.button}/>
-                            <Link to="/login" style={styles.link}>
-                                <FlatButton label="Cancelar" primary={true} style={styles.button} />
+                                style={styles.inlineButton}/>
+                            <Link to="/login">
+                                <FlatButton label="Cancelar" primary={true} style={styles.inlineButton} />
                             </Link>
                         </span>
                     </section>
                     <section>
-                        <Link to="/ayuda" style={styles.link} >
-                            ¿No te puedes registrar?
+                        <Link to="/ayuda" style={styles.link}>
+                            <FlatButton label="No me puedo registar" secondary={true} style={styles.button} />
                         </Link>
                     </section>
                 </form>

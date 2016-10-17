@@ -10,6 +10,7 @@ import linkState from 'app/utils/onChangeHandlerFactory';
 // Material UI Components
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 import Paper from 'material-ui/Paper';
 import AppBar from 'material-ui/AppBar';
 import { red500, orange500 } from 'material-ui/styles/colors';
@@ -35,8 +36,13 @@ const styles = {
         width: '100%',
         maxWidth: 400
     },
+    inlineButton: {
+        marginTop: 12,
+        marginRight: 12,
+        marginLeft: 12
+    },
     button: {
-        margin: 12
+        marginTop: 12
     },
     link: {
         display: 'inline-block',
@@ -242,16 +248,21 @@ export default class Login extends React.Component {
                                         <RaisedButton
                                             label="Entrar"
                                             primary={true}
-                                            style={styles.button}
+                                            style={styles.inlineButton}
                                             onClick={this.handleLogin}/>
                                         <Link to="/registro/inicio" style={styles.link}>
-                                            <RaisedButton label="Regístrate" secondary={true} style={styles.button} />
+                                            <RaisedButton label="Regístrate" secondary={true} style={styles.inlineButton} />
                                         </Link>
                                     </span>
                                 </section>
                                 <section>
-                                    <Link to="/restore" style={styles.link} >
-                                        ¿No puedes iniciar sesión?
+                                    <Link to="/restore" >
+                                        <FlatButton label={'¿Olvidaste tu contraseña?'} primary={true} style={styles.button}/>
+                                    </Link>
+                                </section>
+                                <section>
+                                    <Link to="/about" style={styles.link} >
+                                        <FlatButton label={'Acerca de UNETE'} secondary={true} style={styles.button}/>
                                     </Link>
                                 </section>
                             </form>

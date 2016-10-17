@@ -43,22 +43,22 @@ const config = {
     module: {
         loaders: [
             {
-                test: /\.jsx$/, // All .jsx files
-                loaders: ['babel-loader'],
-                exclude: [nodeModulesPath],
+                // React-hot loader
+                test: /\.jsx?$/, // All .jsx files
+                loaders: ['babel-loader'], // react-hot is like browser sync and babel loads jsx and es6-7
+                exclude: [nodeModulesPath]
             },
             {
+                // SCSS file loader
                 test: /\.scss$/,
-                loader: ExtractTextPlugin.extract(
-                    "style",
-                    "css!sass")
+                loaders: [ 'style', 'css?sourceMap', 'sass?sourceMap']
             },
             {
                 test: /\.(png|woff|woff2|eot|ttf|svg|jpg|gif)$/,
                 loader: 'file-loader'
             }
-            ],
-        },
-    };
+        ],
+    },
+};
 
-    module.exports = config;
+module.exports = config;

@@ -23,7 +23,7 @@ const login = LOGIN_CONSTANTS.LOGIN_ACTIONS;
 class LoginStore extends Store {
 
     constructor() {
-        const DEBUG = true;
+        const DEBUG = false;
         super('LoginStore', DEBUG);
 
         this.state = new LoginState();

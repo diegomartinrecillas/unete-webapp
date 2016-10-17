@@ -23,15 +23,20 @@ const signUp = SIGNUP_CONSTANTS.SIGNUP_ACTIONS;
 class SignUpStore extends Store {
 
     constructor() {
-        const DEBUG = true;
+        const DEBUG = false;
         super('SignUpStore', DEBUG);
 
         this.state = new SignUpState();
         this.bindActions({
             [signUp.RESET_PASSWORD_WITH_EMAIL]: this.resetPasswordWithEmail,
             [signUp.SIGNUP_WITH_EMAIL]: this.signUpWithEmail,
-            [signUp.CHECK_SIGNUP_DONE]: this.checkSignUpDone
+            [signUp.CHECK_SIGNUP_DONE]: this.checkSignUpDone,
+            [signUp.RESET_ERROR]: this.resetError
         });
+    }
+
+    resetError = () => {
+        this.state.set('signUpError', '');
     }
 
     checkSignUpDone = () => {
@@ -41,21 +46,17 @@ class SignUpStore extends Store {
     resetPasswordWithEmail = (data) => {
         let email = data['email'];
 
-        // firebaseAuth.sendPasswordResetEmail(email)
-        // .then((result) => {
-        //     this.state.set('isPasswordReset', true);
-        //     this.update();
-        //     this.state.set('isPasswordReset', false);
-        // })
-        // .catch((result) => {
-        //     this.state.set('isPasswordReset', true);
-        //     this.update();
-        //     this.state.set('isPasswordReset', false);
-        // });
-        this.state.set('isPasswordReset', true);
+        firebaseAuth.sendPasswordResetEmail(email)
+        .then((result) => {
+            this.state.set('isPasswordReset', true);
             this.update();
             this.state.set('isPasswordReset', false);
-
+        })
+        .catch((result) => {
+            this.state.set('isPasswordReset', true);
+            this.update();
+            this.state.set('isPasswordReset', false);
+        });
     }
 
     signUpWithEmail = (data) => {

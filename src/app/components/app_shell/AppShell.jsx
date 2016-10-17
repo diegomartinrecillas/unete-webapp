@@ -20,6 +20,7 @@ import HelpIcon from 'material-ui/svg-icons/action/help';
 import AccountIcon from 'material-ui/svg-icons/action/account-circle';
 import ChatIcon from 'material-ui/svg-icons/communication/chat';
 import HomeIcon from 'material-ui/svg-icons/action/home';
+import NoteIcon from 'material-ui/svg-icons/AV/note';
 // Colors
 import { primary, accent } from 'app/styles/colors';
 
@@ -29,7 +30,7 @@ const styles = {
         fontSize: '24px',
         color: 'white',
         lineHeight: '64px',
-        fontWeight: 300,
+        fontWeight: 400,
         backgroundColor: primary,
         paddingLeft: '24px',
         marginBottom: '8px'
@@ -169,6 +170,13 @@ export default class AppShell extends React.Component {
                         <MenuItem onTouchTap={this.handleClose} leftIcon={<ChatIcon/>}>
                             <span style={styles.menuItem}>
                                 Chat
+                            </span>
+                        </MenuItem>
+                    </Link>
+                    <Link to="/app/curp" style={styles.link} activeStyle={styles.activeLink}>
+                        <MenuItem onTouchTap={this.handleClose} leftIcon={<NoteIcon/>}>
+                            <span style={styles.menuItem}>
+                                CURP
                             </span>
                         </MenuItem>
                     </Link>

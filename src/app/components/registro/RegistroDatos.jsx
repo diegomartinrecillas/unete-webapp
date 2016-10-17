@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 import _ from 'lodash';
 import linkState from 'app/utils/onChangeHandlerFactory';
 // Flux
-import signUpStore from 'app/stores/signUpStore';
+import SignUpStore from 'app/stores/SignUpStore';
 import SignUpActions from 'app/actions/SignUpActions';
 // Material UI Components
 import Paper from 'material-ui/Paper';
@@ -42,12 +42,12 @@ export default class RegistroDatos extends React.Component {
         };
     }
     componentDidMount() {
-        this.id = signUpStore.register(() => {
+        this.id = SignUpStore.register(() => {
             this.updateState();
         });
     }
     componentWillUnmount() {
-        signUpStore.unregister(this.id);
+        SignUpStore.unregister(this.id);
     }
     updateState() {
         console.log('RegistroDatos State happen go here');

@@ -27,7 +27,7 @@ const styles = {
         paddingTop: '2%',
         paddingLeft: '2%',
         paddingRight: '2%',
-        paddingBottom: '2%',
+        paddingBottom: '15%',
         textAlign: 'center'
     },
     title: {
@@ -92,10 +92,10 @@ export default class Login extends React.Component {
         // Register component callback and execute it instantly
         this.LOGIN_STORE_ID = LoginStore.register(this._onChange, false);
         LoginActions.checkLoggedIn();
+        LoginActions.resetError();
     }
     componentWillUnmount() {
         // Unregister
-        LoginActions.resetError();
         LoginStore.unregister(this.LOGIN_STORE_ID);
     }
     componentDidUpdate() {

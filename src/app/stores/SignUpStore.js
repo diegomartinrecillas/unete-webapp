@@ -12,11 +12,12 @@ import { Collection, Model } from 'backbone';
 
 const SignUpState = Model.extend({
     defaults: {
-        finishedSignUp: false,
+        doneSignUp: false,
         isCheckingFinished: false,
         isPasswordReset: false,
         isDoneSignUp: false,
         isSigningUp: false,
+        isSignUpError: false,
         signUpError: ''
     }
 });
@@ -27,7 +28,7 @@ const login = LOGIN_CONSTANTS.LOGIN_ACTIONS;
 class SignUpStore extends Store {
 
     constructor() {
-        const DEBUG = false;
+        const DEBUG = true;
         super('SignUpStore', DEBUG);
 
         this.state = new SignUpState();
@@ -37,16 +38,8 @@ class SignUpStore extends Store {
             [signUp.CHECK_SIGNUP_DONE]: this.checkSignUpDone,
             [signUp.RESET_ERROR]: this.resetError,
             [signUp.SET_SIGNUP_DATA]: this.setSignUpData,
-            [login.LOGOUT]: this.resetFinishedSingUp
+            [login.LOGOUT]: this.resetSignUpDone
         });
-    }
-
-    resetError = () => {
-        this.state.set('signUpError', '');
-    }
-
-    resetFinishedSingUp = () => {
-        this.state.set('finishedSignUp', false);
     }
 
     checkSignUpDone = () => {
@@ -58,14 +51,14 @@ class SignUpStore extends Store {
             let uid = firebaseAuth.currentUser.uid;
             firebaseDatabase.ref('/users/' + uid).once('value')
             .then((snapshot) => {
-                let finishedSignUp = snapshot.val().finishedSignUp;
-                this.state.set('finishedSignUp', finishedSignUp);
+                let doneSignUp = snapshot.val().doneSignUp;
+                this.state.set('doneSignUp', doneSignUp);
                 this.state.set('isCheckingFinished', false);
                 this.update();
-
             })
             .catch((error) => {
                 console.log(error);
+                this._setDoneSignUpFalse();
                 this.state.set('isCheckingFinished', false);
                 this.update();
             });
@@ -97,18 +90,13 @@ class SignUpStore extends Store {
 
         firebaseAuth.createUserWithEmailAndPassword(email, password)
         .then((result) => {
-            this._setFinishedSignUpFalse();
+            this._setDoneSignUpFalse();
             this.update();
             LoginActions.checkLoggedIn();
         })
         .catch((error) => {
-            console.log(error);
+            this._signUpError(error);
             LoginActions.checkLoggedIn();
-            if (error.code == 'auth/email-already-in-use') {
-                this.state.set('signUpError', 'Este correo ya está en uso');
-            } else {
-                this.state.set('signUpError', 'Algo salió mal, intenta mas tarde');
-            }
             this.state.set('isSigningUp', false);
             this.update();
         });
@@ -124,26 +112,46 @@ class SignUpStore extends Store {
         if (firebaseAuth.currentUser !== null) {
             let userId = firebaseAuth.currentUser.uid;
             firebaseDatabase.ref('users/' + userId).set({
-                finishedSignUp: true,
+                doneSignUp: true,
                 name: name,
                 lastName1: lastName1,
                 lastName2: lastName2,
                 cellphone: cellphone
             })
             .then((result) => {
-                this.state.set('finishedSignUp', true);
+                this.state.set('doneSignUp', true);
                 this.update();
             });
         }
     }
 
-    _setFinishedSignUpFalse() {
+    resetError = () => {
+        this.state.set('isSignUpError', false);
+        this.state.set('signUpError', '');
+    }
+
+    resetSignUpDone = () => {
+        this.state.set('doneSignUp', false);
+    }
+
+    _signUpError = (error) => {
+        if (error.code == 'auth/email-already-in-use') {
+            this.state.set('signUpError', 'Este correo ya está en uso');
+        } else {
+            this.state.set('signUpError', 'Servicio no disponible, intenta mas tarde');
+        }
+        this.state.set('isSignUpError', true);
+    }
+
+    _setDoneSignUpFalse = () => {
         if (firebaseAuth.currentUser !== null) {
             let userId = firebaseAuth.currentUser.uid;
             firebaseDatabase.ref('users/' + userId).set({
-                finishedSignUp: false
+                doneSignUp: false
+            })
+            .then((result) => {
+                this.state.set('doneSignUp', false);
             });
-            this.state.set('finishedSignUp', false);
         }
     }
 }

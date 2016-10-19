@@ -42,7 +42,6 @@ export default class RootShell extends React.Component {
             isLoading = this.state.isCheckingFinished || this.state.isCheckingLoggedIn;
         }
         let loading;
-        console.log(isLoading);
         if (isLoading) {
             loading = (
                 <div className='spinner-container'>

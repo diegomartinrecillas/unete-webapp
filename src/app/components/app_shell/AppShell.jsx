@@ -27,6 +27,9 @@ import NoteIcon from 'material-ui/svg-icons/AV/note';
 import { primary, accent } from 'app/styles/colors';
 
 const styles = {
+    container: {
+        paddingBottom: '10%'
+    },
     logo: {
         cursor: 'pointer',
         fontSize: '24px',
@@ -58,7 +61,7 @@ export default class AppShell extends React.Component {
         super(props);
         this.state = {
             isLoggedIn: false,
-            finishedSignUp: false,
+            doneSignUp: false,
             drawerIsOpen: false,
             popoverIsOpen: false
         }
@@ -81,7 +84,7 @@ export default class AppShell extends React.Component {
                 let router = this.context.router;
                 router.push('/');
             }
-            else if (!this.state.finishedSignUp) {
+            else if (!this.state.doneSignUp) {
                 let router = this.context.router;
                 router.push('/datos');
             }
@@ -91,7 +94,7 @@ export default class AppShell extends React.Component {
     _onChange = () => {
         this.setState({
             isLoggedIn: LoginStore.state.get('isLoggedIn'),
-            finishedSignUp: SignUpStore.state.get('finishedSignUp')
+            doneSignUp: SignUpStore.state.get('doneSignUp')
         });
     }
     handleLogout = () => {
@@ -200,7 +203,7 @@ export default class AppShell extends React.Component {
                         </MenuItem>
                     </Link>
                 </Drawer>
-                <div>
+                <div style={styles.container}>
                     {this.props.children}
                 </div>
             </div>

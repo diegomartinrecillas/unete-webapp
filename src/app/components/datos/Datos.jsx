@@ -21,7 +21,7 @@ const styles = {
         paddingTop: '2%',
         paddingLeft: '2%',
         paddingRight: '2%',
-        paddingBottom: '2%',
+        paddingBottom: '7%',
         textAlign: 'center',
     },
     title: {
@@ -67,7 +67,10 @@ export default class Datos extends React.Component {
             lastName1: '',
             lastName2: '',
             cellphone: '',
-            finishedSignUp: false
+            genero: '',
+            cct: '',
+            nombreEscuela: '',
+            doneSignUp: false
 
         };
     }
@@ -80,17 +83,17 @@ export default class Datos extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (this.state.finishedSignUp !== null) {
-            if (this.state.finishedSignUp) {
+        if (this.state.doneSignUp !== null) {
+            if (this.state.doneSignUp) {
                 let router = this.context.router;
                 router.push('/app/home');
             }
-        }    
+        }
     }
 
     _onChange = () => {
         this.setState({
-            finishedSignUp: SignUpStore.state.get('finishedSignUp')
+            doneSignUp: SignUpStore.state.get('doneSignUp')
         })
     }
     handleFormSubmit = (e) => {
@@ -103,7 +106,6 @@ export default class Datos extends React.Component {
         data.lastName2 = this.state.lastName2;
         data.cellphone = this.state.cellphone
 
-        console.log(data);
         SignUpActions.setSignUpData(data);
 
         return false;
@@ -155,10 +157,37 @@ export default class Datos extends React.Component {
                                 <section>
                                     <TextField
                                         required={true}
+                                        hintText="Género"
+                                        floatingLabelText="NGénero"
+                                        value={this.state.genero}
+                                        onChange={linkState(this, 'genero')}
+                                        />
+                                </section>
+                                <section>
+                                    <TextField
+                                        required={true}
                                         hintText="Número Celular"
                                         floatingLabelText="Número Celular"
                                         value={this.state.cellphone}
                                         onChange={linkState(this, 'cellphone')}
+                                        />
+                                </section>
+                                <section>
+                                    <TextField
+                                        required={true}
+                                        hintText="Clave de Centro de Trabajo (CCT)"
+                                        floatingLabelText="Clave de Centro de Trabajo (CCT)"
+                                        value={this.state.cct}
+                                        onChange={linkState(this, 'cct')}
+                                        />
+                                </section>
+                                <section>
+                                    <TextField
+                                        required={true}
+                                        hintText="Nombre de Escuela"
+                                        floatingLabelText="Nombre de Escuela"
+                                        value={this.state.nombreEscuela}
+                                        onChange={linkState(this, 'nombreEscuela')}
                                         />
                                 </section>
                                 <section>

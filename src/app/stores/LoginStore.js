@@ -26,7 +26,7 @@ const login = LOGIN_CONSTANTS.LOGIN_ACTIONS;
 class LoginStore extends Store {
 
     constructor() {
-        const DEBUG = false;
+        const DEBUG = true;
         super('LoginStore', DEBUG);
 
         this.state = new LoginState();
@@ -49,7 +49,7 @@ class LoginStore extends Store {
             this.update();
         })
         .catch((error) => {
-            console.error('Sign Out Error', error);
+            this._loginError(error);
         });
     }
 
@@ -60,36 +60,15 @@ class LoginStore extends Store {
             if (user) {
                 this.state.set('isLoggedIn', true);
                 this.state.set('isCheckingLoggedIn', false);
-                this.update();
             } else {
                 this.state.set('isLoggedIn', false);
                 this.state.set('isCheckingLoggedIn', false);
-                this.update();
             }
+            this.update();
         });
     }
 
-    resetError = () => {
-        this.state.set('isLoginError', false);
-        this.state.set('loginErrorMessage', false);
-        this.update();
-    }
-
-    loginWithFacebook = () => {
-        let provider = new firebase.auth.FacebookAuthProvider();
-
-        firebaseAuth.signInWithPopup(provider)
-        .then((result) => {
-            console.log(result);
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-    }
-
-    loginWithGoogle = () => {
-        let provider = new firebase.auth.GoogleAuthProvider();
-
+    _loginWithProviderPopup = (provider) => {
         firebaseAuth.signInWithPopup(provider)
         .then((result) => {
             this.state.set('isLoggedIn', true);
@@ -100,19 +79,20 @@ class LoginStore extends Store {
         })
         .catch((error) => {
             console.log(error);
-            if (error.code == "auth/network-request-failed") {
-                this.state.set('loginErrorMessage', 'No hay conexión a Internet');
-            } else if (error.code == "auth/user-not-found") {
-                this.state.set('loginErrorMessage', 'Usuario y/o contreseña incorrectos');
-            } else if (error.code == "auth/wrong-password") {
-                this.state.set('loginErrorMessage', 'Usuario y/o contreseña incorrectos');
-            }else {
-                this.state.set('loginErrorMessage', 'Servicio no disponible, intenta mas tarde');
-            }
-            this.state.set('isLoginError', true);
+            this._loginError(error);
             this.state.set('isLoggingIn', false);
             this.update();
         });
+    }
+
+    loginWithFacebook = () => {
+        let provider = new firebase.auth.FacebookAuthProvider();
+        this._loginWithProviderPopup(provider);
+    }
+
+    loginWithGoogle = () => {
+        let provider = new firebase.auth.GoogleAuthProvider();
+        this._loginWithProviderPopup(provider);
     }
 
     loginWithEmail = (data) => {
@@ -133,21 +113,31 @@ class LoginStore extends Store {
             this.update();
         })
         .catch((error) => {
-            console.log(error);
-            if (error.code == "auth/network-request-failed") {
-                this.state.set('loginErrorMessage', 'No hay conexión a Internet');
-            } else if (error.code == "auth/user-not-found") {
-                this.state.set('loginErrorMessage', 'Usuario y/o contreseña incorrectos');
-            } else if (error.code == "auth/wrong-password") {
-                this.state.set('loginErrorMessage', 'Usuario y/o contreseña incorrectos');
-            }else {
-                this.state.set('loginErrorMessage', 'Servicio no disponible, intenta mas tarde');
-            }
-            this.state.set('isLoginError', true);
+            this._loginError(error);
             this.state.set('isLoggingIn', false);
             this.update();
         });
 
+    }
+
+    resetError = () => {
+        this.state.set('isLoginError', false);
+        this.state.set('loginErrorMessage', false);
+        this.update();
+    }
+
+    _loginError = (error) => {
+        console.log(error);
+        if (error.code == "auth/network-request-failed") {
+            this.state.set('loginErrorMessage', 'No hay conexión a Internet');
+        } else if (error.code == "auth/user-not-found") {
+            this.state.set('loginErrorMessage', 'Usuario y/o contreseña incorrectos');
+        } else if (error.code == "auth/wrong-password") {
+            this.state.set('loginErrorMessage', 'Usuario y/o contreseña incorrectos');
+        } else {
+            this.state.set('loginErrorMessage', 'Servicio no disponible, intenta mas tarde');
+        }
+        this.state.set('isLoginError', true);
     }
 }
 

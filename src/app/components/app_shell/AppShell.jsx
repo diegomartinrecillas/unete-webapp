@@ -3,6 +3,8 @@ import React from 'react';
 // Flux
 import LoginActions from 'app/actions/LoginActions';
 import LoginStore from 'app/stores/LoginStore';
+import SignUpStore from 'app/stores/SignUpStore';
+import SignUpActions from 'app/actions/SignUpActions';
 // React router
 import { Link } from 'react-router';
 // Material UI Components
@@ -56,6 +58,7 @@ export default class AppShell extends React.Component {
         super(props);
         this.state = {
             isLoggedIn: false,
+            finishedSignUp: false,
             drawerIsOpen: false,
             popoverIsOpen: false
         }
@@ -63,11 +66,14 @@ export default class AppShell extends React.Component {
     // Store registration
     componentDidMount() {
         // Register component callback and execute it instantly
-        this.LOGIN_STORE_ID = LoginStore.register(this._onChange);
+        this.LOGIN_STORE_ID = LoginStore.register(this._onChange, false);
+        this.SIGNUP_STORE_ID = SignUpStore.register(this._onChange, false);
+        SignUpActions.checkSignUpDone();
     }
     componentWillUnmount() {
         // Unregister
         LoginStore.unregister(this.LOGIN_STORE_ID);
+        SignUpStore.unregister(this.SIGNUP_STORE_ID);
     }
     componentDidUpdate() {
         if (this.state.isLoggedIn !== null) {
@@ -75,12 +81,17 @@ export default class AppShell extends React.Component {
                 let router = this.context.router;
                 router.push('/');
             }
+            else if (!this.state.finishedSignUp) {
+                let router = this.context.router;
+                router.push('/datos');
+            }
         }
     }
     // Store callback
     _onChange = () => {
         this.setState({
-            isLoggedIn: LoginStore.state.get('isLoggedIn')
+            isLoggedIn: LoginStore.state.get('isLoggedIn'),
+            finishedSignUp: SignUpStore.state.get('finishedSignUp')
         });
     }
     handleLogout = () => {
@@ -112,6 +123,7 @@ export default class AppShell extends React.Component {
         });
     };
     render() {
+
         return (
             <div>
                 <AppBar
@@ -180,8 +192,14 @@ export default class AppShell extends React.Component {
                             </span>
                         </MenuItem>
                     </Link>
+                    <Link to="/app/news" style={styles.link} activeStyle={styles.activeLink}>
+                        <MenuItem onTouchTap={this.handleClose} leftIcon={<NoteIcon/>}>
+                            <span style={styles.menuItem}>
+                                Noticias
+                            </span>
+                        </MenuItem>
+                    </Link>
                 </Drawer>
-
                 <div>
                     {this.props.children}
                 </div>

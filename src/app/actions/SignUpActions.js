@@ -23,4 +23,16 @@ export default class LoginActions {
             data
         );
     }
+    static checkSignUpDone() {
+        appDispatcher.dispatch(
+            signUp.CHECK_SIGNUP_DONE
+        );
+    }
+
+    static setSignUpData(data) {
+        appDispatcher.dispatch(
+            signUp.SET_SIGNUP_DATA,
+            data
+        );
+    }
 }

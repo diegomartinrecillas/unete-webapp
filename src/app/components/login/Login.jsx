@@ -1,5 +1,6 @@
 // React
 import React from 'react';
+import { firebaseAuth } from 'app/firebase/firebase';
 // Flux
 import LoginStore from 'app/stores/LoginStore';
 import LoginActions from 'app/actions/LoginActions';
@@ -8,6 +9,7 @@ import { Link } from 'react-router';
 // Libraries and Helpers
 import linkState from 'app/utils/onChangeHandlerFactory';
 // Material UI Components
+import Divider from 'material-ui/Divider';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
@@ -42,11 +44,11 @@ const styles = {
         marginLeft: 12
     },
     button: {
-        marginTop: 12
+        margin: 12
     },
     link: {
         display: 'inline-block',
-        paddingBottom: '5%',
+        paddingBottom: '0%',
         textDecoration: 'none',
         color: accent
     },
@@ -58,6 +60,12 @@ const styles = {
     },
     loggingIn: {
         color: primary
+    },
+    divider: {
+        maxWidth: '80%',
+        height: 1,
+        border: 'none',
+        backgroundColor: 'rgb(224, 224, 224)'
     }
 }
 
@@ -76,13 +84,13 @@ export default class Login extends React.Component {
             isLoginError: false,
             isLoggedIn: false,
             isLoggingIn: false,
-            isLoading: false
+            isCheckingLoggedIn: false
         }
     }
     // Store registration
     componentDidMount() {
         // Register component callback and execute it instantly
-        this.LOGIN_STORE_ID = LoginStore.register(this._onChange);
+        this.LOGIN_STORE_ID = LoginStore.register(this._onChange, false);
         LoginActions.checkLoggedIn();
     }
     componentWillUnmount() {
@@ -104,11 +112,19 @@ export default class Login extends React.Component {
             isLoginError: LoginStore.state.get('isLoginError'),
             isLoggedIn: LoginStore.state.get('isLoggedIn'),
             isLoggingIn: LoginStore.state.get('isLoggingIn'),
-            isLoading: LoginStore.state.get('isChecking'),
-            loginErrorMessage: LoginStore.state.get('loginErrorMessage')
+            loginErrorMessage: LoginStore.state.get('loginErrorMessage'),
+            isCheckingLoggedIn: LoginStore.state.get('isCheckingLoggedIn')
         });
     }
     // Handlers
+
+    handleFacebookLogin = () => {
+        LoginActions.loginWithFacebook();
+    }
+
+    handleGoogleLogin = () => {
+        LoginActions.loginWithGoogle();
+    }
     // Handle <form> login event
     handleLogin = (event) => {
         // Disable <form> default actions
@@ -212,63 +228,79 @@ export default class Login extends React.Component {
             </section>;
         }
         return (
-            <div>
-                <Loader loaded={!this.state.isLoading} options={loaderOptions}>
-                    <AppBar
-                        style={styles.title}
-                        title='INICIA SESIÓN'
-                        iconElementLeft={<div></div>}/>
-                    <div style={styles.container}>
-                        <Paper zDepth={2} style={styles.paper}>
-                            <img src={require('assets/images/unete.png')} style={styles.image}/>
-                            <form>
-                                <section>
-                                    <TextField
-                                        hintText="Correo Electrónico"
-                                        floatingLabelText="Correo Electrónico"
-                                        value={this.state.email}
-                                        onChange={this.handleEmail}
-                                        errorText={this.state.emailErrorText}
-                                        />
-                                </section>
-                                <section>
-                                    <TextField
-                                        hintText="Contraseña"
-                                        floatingLabelText="Contraseña"
-                                        type="password"
-                                        value={this.state.password}
-                                        onChange={this.handlePassword}
-                                        errorText={this.state.passwordErrorText}
-                                        />
-                                </section>
-                                {isLoginError}
-                                {loggingIn}
-                                <section>
-                                    <span>
-                                        <RaisedButton
-                                            label="Entrar"
-                                            primary={true}
-                                            style={styles.inlineButton}
-                                            onClick={this.handleLogin}/>
-                                        <Link to="/registro/inicio" style={styles.link}>
-                                            <RaisedButton label="Regístrate" secondary={true} style={styles.inlineButton} />
-                                        </Link>
-                                    </span>
-                                </section>
-                                <section>
-                                    <Link to="/restore" >
-                                        <FlatButton label={'¿Olvidaste tu contraseña?'} primary={true} style={styles.button}/>
+            <div hidden={this.state.isCheckingLoggedIn}>
+                <AppBar
+                    style={styles.title}
+                    title='INICIA SESIÓN'
+                    iconElementLeft={<div></div>}/>
+                <div style={styles.container}>
+                    <Paper zDepth={2} style={styles.paper}>
+                        <img src={require('assets/images/unete.png')} style={styles.image}/>
+                        <form>
+                            <section>
+                                <TextField
+                                    hintText="Correo Electrónico"
+                                    floatingLabelText="Correo Electrónico"
+                                    value={this.state.email}
+                                    onChange={this.handleEmail}
+                                    errorText={this.state.emailErrorText}
+                                    />
+                            </section>
+                            <section>
+                                <TextField
+                                    hintText="Contraseña"
+                                    floatingLabelText="Contraseña"
+                                    type="password"
+                                    value={this.state.password}
+                                    onChange={this.handlePassword}
+                                    errorText={this.state.passwordErrorText}
+                                    />
+                            </section>
+                            {isLoginError}
+                            {loggingIn}
+                            <section>
+                                <span>
+                                    <RaisedButton
+                                        label="Entrar"
+                                        primary={true}
+                                        style={styles.inlineButton}
+                                        onClick={this.handleLogin}/>
+                                    <Link to="/registro" style={styles.link}>
+                                        <RaisedButton label="Regístrate" secondary={true} style={styles.inlineButton} />
                                     </Link>
-                                </section>
-                                <section>
-                                    <Link to="/about" style={styles.link} >
-                                        <FlatButton label={'Acerca de UNETE'} secondary={true} style={styles.button}/>
-                                    </Link>
-                                </section>
-                            </form>
-                        </Paper>
-                    </div>
-                </Loader>
+                                </span>
+                            </section>
+                            <section>
+                                <Link to="/restore" >
+                                    <FlatButton label={'¿Olvidaste tu contraseña?'} primary={true} style={styles.button}/>
+                                </Link>
+                            </section>
+                            <hr style={styles.divider}/>
+                            <section>
+                                <RaisedButton
+                                    label="Inicia sesión con Facebook"
+                                    style={styles.button}
+                                    onClick={this.handleFacebookLogin}
+                                    backgroundColor={"#3B5998"}
+                                    labelColor={"white"}/>
+                            </section>
+                            <section>
+                                <RaisedButton
+                                    label="Inicia sesión con Google"
+                                    style={styles.button}
+                                    onClick={this.handleGoogleLogin}
+                                    backgroundColor={"#DD4B39"}
+                                    labelColor={"white"}/>
+                            </section>
+                            <hr style={styles.divider}/>
+                            <section>
+                                <Link to="/about" style={styles.link} >
+                                    <FlatButton label={'Acerca de UNETE'} secondary={true} style={styles.button}/>
+                                </Link>
+                            </section>
+                        </form>
+                    </Paper>
+                </div>
             </div>
         );
     }

@@ -1,4 +1,4 @@
-import { firebaseAuth } from 'app/firebase/firebase';
+import { firebaseAuth, firebaseDatabase } from 'app/firebase/firebase';
 
 let requireAuth = (nextState, replace) => {
     if (firebaseAuth.currentUser === null) {

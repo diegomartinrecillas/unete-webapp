@@ -15,6 +15,16 @@ export default class LoginActions {
             data
         );
     }
+    static loginWithGoogle() {
+        appDispatcher.dispatch(
+            login.LOGIN_WITH_GOOGLE
+        );
+    }
+    static loginWithFacebook() {
+        appDispatcher.dispatch(
+            login.LOGIN_WITH_FACEBOOK
+        );
+    }
     static logout() {
         appDispatcher.dispatch(
             login.LOGOUT
@@ -25,4 +35,4 @@ export default class LoginActions {
             login.RESET_ERROR
         );
     }
- }
+}

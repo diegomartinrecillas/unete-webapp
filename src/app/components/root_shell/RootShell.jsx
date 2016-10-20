@@ -45,7 +45,7 @@ export default class RootShell extends React.Component {
         if (isLoading) {
             loading = (
                 <div className='spinner-container'>
-                    <img className='spinner-itself' src={require('assets/images/spinner.gif')}/>
+                    <img className='spinner' src={require('assets/images/spinner.gif')}/>
                 </div>
             );
         }

@@ -33,10 +33,10 @@ const styles = {
     },
     logo: {
         cursor: 'pointer',
-        fontSize: '24px',
+        fontSize: '30px',
         color: 'white',
         lineHeight: '64px',
-        fontWeight: 400,
+        fontWeight: 200,
         backgroundColor: primary,
         paddingLeft: '24px',
         marginBottom: '8px'
@@ -91,6 +91,18 @@ export default class AppShell extends React.Component {
             else if (!this.state.doneSignUp) {
                 let router = this.context.router;
                 router.push('/datos');
+            } else {
+                // TODO redirect to last url before reload
+                // let url = window.APP.targetURL;
+                // if (url.indexOf('/app/') !== -1) {
+                //     if (url.indexOf('/app/home') == -1) {
+                //         if (!window.APP.redirectDone) {
+                //             window.APP.redirectDone = true;
+                //             let router = this.context.router;
+                //             router.push(url);
+                //         }
+                //     }
+                // }
             }
         }
     }
@@ -177,7 +189,7 @@ export default class AppShell extends React.Component {
                     width={200}>
                     <div style={styles.logo}
                         onTouchTap={this.handleClose}>
-                        ÚNETE
+                        MENU
                     </div>
                     <Link to="/app/home" style={styles.link} activeStyle={styles.activeLink}>
                         <MenuItem onTouchTap={this.handleClose} leftIcon={<HomeIcon/>}>

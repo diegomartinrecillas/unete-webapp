@@ -19,18 +19,18 @@ import { primary, accent } from 'app/styles/colors';
 
 const styles = {
     container: {
-        paddingTop: '2%',
+        paddingTop: 70,
         paddingLeft: '2%',
         paddingRight: '2%',
-        paddingBottom: '2%',
+        paddingBottom: '15%',
+        textAlign: 'center'
+    },
+    appbar: {
+        position: 'fixed',
         textAlign: 'center'
     },
     button: {
         marginTop: 12
-    },
-
-    title: {
-        textAlign: 'center'
     },
     paper: {
         display: 'inline-block',
@@ -38,7 +38,8 @@ const styles = {
         maxWidth: 400
     },
     image: {
-        paddingTop: '5%'
+        paddingTop: '5%',
+        width: '80%'
     },
     link: {
         display: 'inline-block',
@@ -209,8 +210,8 @@ export default class Restore extends React.Component {
                     </strong>
                 </Dialog>
                 <AppBar
-                    style={styles.title}
                     title='RECUPERACIÓN'
+                    style={styles.appbar}
                     iconElementLeft={<div></div>}
                     />
                 <div style={styles.container}>

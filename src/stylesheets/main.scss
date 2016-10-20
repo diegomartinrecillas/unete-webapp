@@ -1,5 +1,7 @@
 // Main.scss
-@import 'base/_general';
-@import 'base/_colors';
-@import 'partials/_chat';
-@import 'partials/_spinner';
+@import 'base/general';
+@import 'base/colors';
+
+@import 'partials/news';
+@import 'partials/chat';
+@import 'partials/spinner';

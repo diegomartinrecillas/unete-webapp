@@ -10,20 +10,20 @@ import ChevronLeftIcon from 'material-ui/svg-icons/navigation/chevron-left';
 
 const styles = {
     container: {
-        paddingTop: '2%',
+        paddingTop: 70,
         paddingLeft: '2%',
         paddingRight: '2%',
-        paddingBottom: '2%',
+        paddingBottom: '15%',
         textAlign: 'center'
+    },
+    appbar: {
+        position: 'fixed'
     },
     cardsContainer: {
         textAlign: 'left',
         display: 'inline-block',
         width: '100%',
         maxWidth: 700
-    },
-    title: {
-        textAlign: 'center'
     }
 }
 
@@ -70,6 +70,7 @@ export default class Ayuda extends React.Component {
             <div>
                 <AppBar
                     title='AYUDA'
+                    style={styles.appbar}
                     iconElementLeft={<IconButton onClick={this.goBack}><ChevronLeftIcon /></IconButton>}/>
                 <div style={styles.container}>
                     <div style={styles.cardsContainer}>

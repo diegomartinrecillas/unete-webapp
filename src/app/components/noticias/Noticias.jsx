@@ -20,12 +20,8 @@ import { primary, accent } from 'app/styles/colors';
 const styles = {
     container: {
         textAlign: 'center',
-        marginTop: -75,
-    },
-    containerLarge: {
-        textAlign: 'center',
         position: 'fixed',
-        marginTop: 20,
+        marginTop: -75,
         marginBottom: 20,
         marginRight: 'auto',
         marginLeft: 'auto',
@@ -43,27 +39,44 @@ const styles = {
 export default class Ayuda extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            isLoadingFBPage: true
+        }
     }
-    componentDidUpdate() {
+    componentDidMount() {
+        window.FB.Event.subscribe('xfbml.render', this._facebookPageFinishedLoading);
+    }
+    componentWillUnmount() {
+        window.FB.Event.unsubscribe('xfbml.render', this._facebookPageFinishedLoading);
+    }
 
+    _facebookPageFinishedLoading = () => {
+        this.setState({
+            isLoadingFBPage: false
+        })
     }
     render() {
         let width = window.innerWidth;
-        let height = window.innerHeight;
+        let height = window.innerHeight + (-styles.container.marginTop);
         return (
-            <div style={styles.container}>
-                <Paper zDepth={2} style={styles.paper}>
-                    <FBPage
-                        appId="yourFacebookAppId"
-                        style={styles.page}
-                        href="https://www.facebook.com/facebook"
-                        tabs={['timeline', 'events', 'messages']}
-                        locale={'es_MX'}
-                        smallHeader={true}
-                        hideCover={true}
-                        width={width}
-                        height={height}/>
-                </Paper>
+            <div>
+                <div hidden={!this.state.isLoadingFBPage} className='news spinner-container'>
+                    <img className='news spinner' src={require('assets/images/spinner.gif')}/>
+                </div>
+                <div className='news container'>
+                    <Paper zDepth={2} style={styles.paper}>
+                        <FBPage
+                            appId="yourFacebookAppId"
+                            style={styles.page}
+                            href="https://www.facebook.com/facebook"
+                            tabs={['timeline']}
+                            locale={'es_MX'}
+                            smallHeader={true}
+                            hideCover={true}
+                            width={width}
+                            height={height}/>
+                    </Paper>
+                </div>
             </div>
         )
     }
@@ -93,8 +106,8 @@ class FBPage extends React.Component {
         locale: 'en_US',
         height: 500,
         hideCover: false,
-        hideCta: false,
-        showFacepile: true,
+        hideCta: true,
+        showFacepile: false,
         smallHeader: false,
         tabs: ['timeline'],
         version: 'v2.5',
@@ -128,22 +141,3 @@ class FBPage extends React.Component {
         );
     }
 }
-
-window.fbAsyncInit = function () {
-    FB.init({
-        appId: 'asdasdasd',
-        xfbml: true,
-        version: 'v2.5'
-    });
-};
-
-// Load the SDK asynchronously
-((d, s, id) => { // eslint-disable-line id-length
-    const element = d.getElementsByTagName(s)[0];
-    const fjs = element;
-    let js = element;
-    if (d.getElementById(id)) {return;}
-    js = d.createElement(s); js.id = id;
-    js.src = `//connect.facebook.net/en_US/sdk.js`;
-    fjs.parentNode.insertBefore(js, fjs);
-})(document, 'script', 'facebook-jssdk');

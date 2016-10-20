@@ -26,7 +26,7 @@ const login = LOGIN_CONSTANTS.LOGIN_ACTIONS;
 class LoginStore extends Store {
 
     constructor() {
-        const DEBUG = true;
+        const DEBUG = false;
         super('LoginStore', DEBUG);
 
         this.state = new LoginState();
@@ -69,6 +69,9 @@ class LoginStore extends Store {
     }
 
     _loginWithProviderPopup = (provider) => {
+        this.state.set('isLoggingIn', true);
+        this.state.set('isLoginError', false);
+        this.update();
         firebaseAuth.signInWithPopup(provider)
         .then((result) => {
             this.state.set('isLoggedIn', true);

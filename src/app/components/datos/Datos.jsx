@@ -37,7 +37,8 @@ const styles = {
         maxWidth: 400
     },
     image: {
-        paddingTop: '5%'
+        paddingTop: '5%',
+        width: '80%'
     },
     button: {
         margin: 30

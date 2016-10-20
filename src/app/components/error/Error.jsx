@@ -13,19 +13,20 @@ import { primary, accent } from 'app/styles/colors';
 
 const styles = {
     container: {
-        paddingTop: '2%',
+        paddingTop: 70,
         paddingLeft: '2%',
         paddingRight: '2%',
-        paddingBottom: '2%',
+        paddingBottom: '15%',
+        textAlign: 'center'
+    },
+    appbar: {
+        position: 'fixed',
         textAlign: 'center'
     },
     errorContainer: {
         display: 'inline-block',
         width: '100%',
         maxWidth: 400
-    },
-    title: {
-        textAlign: 'center'
     },
     button: {
         margin: 20
@@ -38,8 +39,9 @@ const styles = {
         textAlign: 'center'
     },
     image: {
-        paddingTop: '5%'
-    },
+        paddingTop: '5%',
+        width: '80%'
+    }
 }
 
 export default class Error extends React.Component {
@@ -50,7 +52,7 @@ export default class Error extends React.Component {
         return (
             <div >
                 <AppBar
-                    style={styles.title}
+                    style={styles.appbar}
                     title='ERROR'
                     iconElementLeft={<div></div>}
                     />

@@ -13,17 +13,22 @@ import { primary, accent } from 'app/styles/colors';
 
 const styles = {
     container: {
-        paddingTop: '2%',
+        paddingTop: 70,
         paddingLeft: '2%',
         paddingRight: '2%',
-        paddingBottom: '2%',
+        paddingBottom: '15%',
         textAlign: 'center'
+    },
+    appbar: {
+        position: 'fixed',
+        textAlign: 'center'
+    },
+    image: {
+        paddingTop: '5%',
+        width: '80%'
     },
     button: {
         marginTop: 12
-    },
-    title: {
-        textAlign: 'center'
     },
     link: {
         display: 'inline-block',
@@ -45,7 +50,7 @@ export default class RestoreFinished extends React.Component {
         return (
             <div>
                 <AppBar
-                    style={styles.title}
+                    style={styles.appbar}
                     title='RECUPERACIÓN'
                     iconElementLeft={<div></div>}
                     />

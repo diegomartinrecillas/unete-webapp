@@ -54,7 +54,8 @@ const styles = {
         color: accent
     },
     image: {
-        paddingTop: '5%'
+        paddingTop: '5%',
+        width: '80%'
     },
     isLoginError: {
         color: red500

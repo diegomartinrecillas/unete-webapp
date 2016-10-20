@@ -28,7 +28,7 @@ const login = LOGIN_CONSTANTS.LOGIN_ACTIONS;
 class SignUpStore extends Store {
 
     constructor() {
-        const DEBUG = true;
+        const DEBUG = false;
         super('SignUpStore', DEBUG);
 
         this.state = new SignUpState();

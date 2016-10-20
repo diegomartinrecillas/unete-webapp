@@ -6,7 +6,6 @@ import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 
 const styles = {
     container: {
-        paddingTop: '1.5%',
         paddingLeft: '1%',
         paddingRight: '1%'
     },

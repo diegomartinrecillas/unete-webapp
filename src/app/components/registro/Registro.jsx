@@ -21,13 +21,14 @@ import { primary, accent } from 'app/styles/colors';
 // CSS-in-JS
 const styles = {
     container: {
-        paddingTop: '2%',
+        paddingTop: 70,
         paddingLeft: '2%',
         paddingRight: '2%',
         paddingBottom: '2%',
         textAlign: 'center',
     },
-    title: {
+    appbar: {
+        position: 'fixed',
         textAlign: 'center'
     },
     button: {
@@ -210,7 +211,7 @@ export default class RegistroInicio extends React.Component {
         return (
             <div>
                 <AppBar
-                    style={styles.title}
+                    style={styles.appbar}
                     title='REGÍSTRATE'
                     iconElementLeft={<div></div>}/>
                 <div style={styles.container}>

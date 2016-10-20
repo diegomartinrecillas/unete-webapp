@@ -24,13 +24,14 @@ import Loader from 'react-loader'
 // CSS-in-JS
 const styles = {
     container: {
-        paddingTop: '2%',
+        paddingTop: 70,
         paddingLeft: '2%',
         paddingRight: '2%',
         paddingBottom: '15%',
         textAlign: 'center'
     },
-    title: {
+    appbar: {
+        position: 'fixed',
         textAlign: 'center'
     },
     paper: {
@@ -230,7 +231,7 @@ export default class Login extends React.Component {
         return (
             <div hidden={this.state.isCheckingLoggedIn}>
                 <AppBar
-                    style={styles.title}
+                    style={styles.appbar}
                     title='INICIA SESIÓN'
                     iconElementLeft={<div></div>}/>
                 <div style={styles.container}>

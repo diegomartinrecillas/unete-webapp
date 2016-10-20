@@ -1,123 +1,149 @@
 // React
-import React from 'react';
-// Facebook Plugins
-import {
-    FBComments,
-    FBCommentsCount,
-    FBEmbedPost,
-    FBEmbedVideo,
-    FBFollow,
-    FBLike,
-    FBPage,
-    FBSend,
-    FBShare
-} from 'facebook-plugins';
+import React, { PropTypes } from 'react';
+// // Facebook Plugins
+// import {
+//     FBComments,
+//     FBCommentsCount,
+//     FBEmbedPost,
+//     FBEmbedVideo,
+//     FBFollow,
+//     FBLike,
+//     FBPage,
+//     FBSend,
+//     FBShare
+// } from 'facebook-plugins';
+
+import Paper from 'material-ui/Paper'
 // Colors
 import { primary, accent } from 'app/styles/colors';
-// Spinner Loader
-import Loader from 'react-loader'
-
-// Material UI Components
-
-// Material Icons
-
 
 const styles = {
     container: {
-
+        textAlign: 'center',
+        marginTop: -75,
     },
-    divStyle: {
-        padding: '2%'
+    containerLarge: {
+        textAlign: 'center',
+        position: 'fixed',
+        marginTop: 20,
+        marginBottom: 20,
+        marginRight: 'auto',
+        marginLeft: 'auto',
+        left: 0,
+        right: 0
+    },
+    paper: {
+        display: 'inline-block',
+        width: '100%',
+        height: '100%',
+        maxWidth: 540
     }
 }
 
 export default class Ayuda extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            isLoading: false
-        };
     }
+    componentDidUpdate() {
 
-    componentDidMount() {
-
-    }
-
-    goBack = () => {
-        window.history.back();
     }
     render() {
-        let loaderOptions = {
-            lines: 9,
-            length: 20,
-            color: primary,
-            radius: 30,
-            width: 10
-        }
+        let width = window.innerWidth;
+        let height = window.innerHeight;
         return (
-            <div>
-                <Loader loaded={!this.state.isLoading} options={loaderOptions}>
-                    <div style={styles.container}>
-                        <div>
-                            <div style={styles.divStyle}>
-                                <FBLike appId="yourFacebookAppId"
-                                    href="http://facebook.com"
-                                    action="like"
-                                    layout="button_count"
-                                    locale="es_MX"
-                                    share={true}
-                                    showFaces={true}/>
-                            </div>
-                            <div style={styles.divStyle}>
-                                <FBSend appId="yourFacebookAppId"
-                                    href="http://facebook.com"/>
-                            </div>
-                            <div style={styles.divStyle}>
-                                <FBShare appId="yourFacebookAppId"
-                                    href="http://facebook.com"
-                                    layout="box_count"
-                                    locale="es_MX"/>
-                            </div>
-                            <div style={styles.divStyle}>
-                                <FBEmbedPost appId="yourFacebookAppId"
-                                    href="https://www.facebook.com/20531316728/posts/10154009990506729/"
-                                    width={750}
-                                    locale="es_MX"/>
-                            </div>
-                            <div style={styles.divStyle}>
-                                <FBEmbedVideo appId="yourFacebookAppId"
-                                    href="https://www.facebook.com/facebook/videos/10153231379946729/"
-                                    width={750}
-                                    locale="es_MX"/>
-                            </div>
-                            <div style={styles.divStyle}>
-                                <FBComments appId="yourFacebookAppId"
-                                    href="http://developers.facebook.com/docs/plugins/comments/"
-                                    width={750}
-                                    numPosts={5}
-                                    locale="es_MX"/>
-                            </div>
-                            <div style={styles.divStyle}>
-                                <FBCommentsCount appId="yourFacebookAppId"
-                                    href="http://developers.facebook.com/docs/plugins/comments/"
-                                    width={750}
-                                    numPosts={5}
-                                    locale="es_MX"/>
-                            </div>
-                            <div style={styles.divStyle}>
-                                <FBPage appId="yourFacebookAppId"
-                                    href="https://www.facebook.com/facebook"
-                                    tabs={['timeline', 'events', 'messages']}/>
-                            </div>
-                            <div style={styles.divStyle}>
-                                <FBFollow appId="yourFacebookAppId"
-                                    href="https://www.facebook.com/zuck"
-                                    tabs={['timeline', 'events', 'messages']}/>
-                            </div>
-                        </div>
-                    </div>
-                </Loader>
+            <div style={styles.container}>
+                <Paper zDepth={2} style={styles.paper}>
+                    <FBPage
+                        appId="yourFacebookAppId"
+                        style={styles.page}
+                        href="https://www.facebook.com/facebook"
+                        tabs={['timeline', 'events', 'messages']}
+                        locale={'es_MX'}
+                        smallHeader={true}
+                        hideCover={true}
+                        width={width}
+                        height={height}/>
+                </Paper>
             </div>
         )
     }
 }
+
+class FBPage extends React.Component {
+
+    static propTypes = {
+        adaptContainerWidth: PropTypes.bool,
+        appId: PropTypes.string.isRequired,
+        height: PropTypes.number,
+        hideCover: PropTypes.bool,
+        hideCta: PropTypes.bool,
+        href: PropTypes.string.isRequired,
+        locale: PropTypes.string,
+        showFacepile: PropTypes.bool,
+        smallHeader: PropTypes.bool,
+        tabs: PropTypes.arrayOf(PropTypes.string),
+        version: PropTypes.string,
+        width: PropTypes.number,
+        xfbml: PropTypes.bool
+
+    }
+
+    static defaultProps = {
+        adaptContainerWidth: true,
+        locale: 'en_US',
+        height: 500,
+        hideCover: false,
+        hideCta: false,
+        showFacepile: true,
+        smallHeader: false,
+        tabs: ['timeline'],
+        version: 'v2.5',
+        width: 340,
+        xfbml: true
+    }
+
+    componentDidMount() {
+        if (window.FB) {
+            window.FB.XFBML.parse()
+        }
+    }
+
+    render() {
+        const {adaptContainerWidth, height, hideCover, hideCta, href, showFacepile, smallHeader, tabs, width} = this.props;
+        return (
+            <span>
+                <div id="fb-root"></div>
+                <div className="fb-page"
+                    data-href={href}
+                    data-width={width}
+                    data-height={height}
+                    data-adapt-container-width={adaptContainerWidth}
+                    data-tabs={tabs.join()}
+                    data-hide-cover={hideCover}
+                    data-show-facepile={showFacepile}
+                    data-hide-cta={hideCta}
+                    data-small-header={smallHeader}
+                    ></div>
+            </span>
+        );
+    }
+}
+
+window.fbAsyncInit = function () {
+    FB.init({
+        appId: 'asdasdasd',
+        xfbml: true,
+        version: 'v2.5'
+    });
+};
+
+// Load the SDK asynchronously
+((d, s, id) => { // eslint-disable-line id-length
+    const element = d.getElementsByTagName(s)[0];
+    const fjs = element;
+    let js = element;
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id;
+    js.src = `//connect.facebook.net/en_US/sdk.js`;
+    fjs.parentNode.insertBefore(js, fjs);
+})(document, 'script', 'facebook-jssdk');

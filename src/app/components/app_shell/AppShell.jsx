@@ -28,7 +28,8 @@ import { primary, accent } from 'app/styles/colors';
 
 const styles = {
     container: {
-        paddingBottom: '10%'
+        paddingTop: 70,
+        paddingBottom: '2%'
     },
     logo: {
         cursor: 'pointer',
@@ -50,6 +51,9 @@ const styles = {
     },
     menuItem: {
         fontSize: 20
+    },
+    appbar: {
+        position: 'fixed'
     }
 }
 
@@ -131,6 +135,7 @@ export default class AppShell extends React.Component {
             <div>
                 <AppBar
                     title='ÚNETE'
+                    style={styles.appbar}
                     onLeftIconButtonTouchTap={this.handleToggle}
                     onTitleTouchTap={this.handleToggle}
                     iconElementRight={<IconButton onClick={this.handleSettings}><SettingsIcon /></IconButton>}

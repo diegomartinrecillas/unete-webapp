@@ -52,7 +52,9 @@ export default class RootShell extends React.Component {
         return (
             <div>
                 {loading}
-                {this.props.children}
+                <div className='root background'>
+                    {this.props.children}
+                </div>
             </div>
         )
     }

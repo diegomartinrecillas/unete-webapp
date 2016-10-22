@@ -24,6 +24,9 @@ const styles = {
         display: 'inline-block',
         width: '100%',
         maxWidth: 700
+    },
+    spacer: {
+        height: 10
     }
 }
 
@@ -85,6 +88,7 @@ export default class Ayuda extends React.Component {
                                 Bacon ipsum dolor amet venison shankle pastrami, andouille biltong ground round short loin doner cupim turducken swine spare ribs. Ball tip picanha fatback jowl pork belly beef ribs bacon tenderloin venison shoulder ribeye salami rump corned beef spare ribs. T-bone shoulder alcatra kevin cupim chicken strip steak meatloaf pancetta. Fatback boudin frankfurter bacon tail. Alcatra beef shankle tail shoulder, chicken swine capicola doner ham hock tri-tip flank drumstick pork. Burgdoggen jerky hamburger chuck, picanha boudin tri-tip biltong short loin spare ribs pig chicken drumstick shankle pork belly.
                             </CardText>
                         </Card>
+                        <div style={styles.spacer}/>
                         <Card expanded={this.state.expandedTwo} onExpandChange={this.handleExpandChangeTwo}>
                             <CardHeader
                                 title="Ayuda Dos"
@@ -96,6 +100,7 @@ export default class Ayuda extends React.Component {
                                 Bacon ipsum dolor amet venison shankle pastrami, andouille biltong ground round short loin doner cupim turducken swine spare ribs. Ball tip picanha fatback jowl pork belly beef ribs bacon tenderloin venison shoulder ribeye salami rump corned beef spare ribs. T-bone shoulder alcatra kevin cupim chicken strip steak meatloaf pancetta. Fatback boudin frankfurter bacon tail. Alcatra beef shankle tail shoulder, chicken swine capicola doner ham hock tri-tip flank drumstick pork. Burgdoggen jerky hamburger chuck, picanha boudin tri-tip biltong short loin spare ribs pig chicken drumstick shankle pork belly.
                             </CardText>
                         </Card>
+                        <div style={styles.spacer}/>
                         <Card expanded={this.state.expandedThree} onExpandChange={this.handleExpandChangeThree}>
                             <CardHeader
                                 title="Ayuda Tres"

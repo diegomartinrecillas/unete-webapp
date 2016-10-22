@@ -21,18 +21,43 @@ import { primary, accent } from 'app/styles/colors';
 // CSS-in-JS
 const styles = {
     container: {
-        paddingTop: 70,
+        paddingTop: '2%',
         paddingLeft: '2%',
         paddingRight: '2%',
-        paddingBottom: '2%',
+        paddingBottom: '0%',
         textAlign: 'center',
+    },
+    innerContainer: {
+        display: 'inline-block',
+        width: '100%',
+        maxWidth: 400
     },
     appbar: {
         position: 'fixed',
         textAlign: 'center'
     },
+    title: {
+        paddingTop: '12%',
+        paddingBottom: '5%',
+        fontSize: 30,
+        fontWeight: 500,
+        color: primary
+    },
+    legend: {
+        paddingTop: '5%',
+        paddingBottom: '5%',
+        fontSize: 20,
+        fontWeight: 500,
+        color: accent
+    },
+
     button: {
-        margin: 12
+        margin: 12,
+        width: '70%',
+        height: 50
+    },
+    flatButton: {
+
     },
     paper: {
         display: 'inline-block',
@@ -43,17 +68,6 @@ const styles = {
         paddingTop: '5%',
         width: '80%'
     },
-    inlineButton: {
-        margin: 12
-    },
-    button: {
-        marginTop: 12
-    },
-    paper: {
-        display: 'inline-block',
-        width: '100%',
-        maxWidth: 400
-    },
     link: {
         display: 'inline-block',
         paddingBottom: '5%',
@@ -62,6 +76,16 @@ const styles = {
     },
     signingUp: {
         color: primary
+    },
+    divider: {
+
+        maxWidth: '80%',
+        height: 1,
+        border: 'none',
+        backgroundColor: 'rgb(224, 224, 224)'
+    },
+    spacer: {
+        height: '5vh'
     }
 }
 
@@ -202,22 +226,13 @@ export default class RegistroInicio extends React.Component {
         }
     }
     render() {
-        let signingUp;
-        if (this.state.isSigningUp) {
-            signingUp =
-            <section>
-                <p style={styles.signingUp}>Espere un momento...</p>
-            </section>;
-        }
         return (
-            <div>
-                <AppBar
-                    style={styles.appbar}
-                    title='REGÍSTRATE'
-                    iconElementLeft={<div></div>}/>
-                <div style={styles.container}>
-                    <Paper zDepth={2} style={styles.paper}>
-                        <img src={require('assets/images/unete.png')} style={styles.image}/>
+            <div style={styles.container}>
+                <div style={styles.innerContainer}>
+                    <Paper zDepth={2}>
+                        <section style={styles.title}>
+                            REGÍSTRATE
+                        </section>
                         <form onSubmit={this.handleFormSubmit}>
                             <section>
                                 <TextField
@@ -253,22 +268,26 @@ export default class RegistroInicio extends React.Component {
                                     onChange={this.handleConfirmPassword}
                                     />
                             </section>
-                            {signingUp}
+                            <section hidden={!this.state.isSigningUp}>
+                                <p style={styles.signingUp}>Espere un momento...</p>
+                            </section>
+                            <div style={styles.spacer}/>
+                            <hr style={styles.divider}/>
                             <section>
-                                <span>
-                                    <RaisedButton
-                                        type="submit"
-                                        label="Registrar"
-                                        secondary={true}
-                                        style={styles.inlineButton}/>
-                                    <Link to="/login">
-                                        <FlatButton label="Cancelar" primary={true} style={styles.inlineButton} />
-                                    </Link>
-                                </span>
+                                <RaisedButton
+                                    type="submit"
+                                    label="Registrar"
+                                    secondary={true}
+                                    style={styles.button}/>
+                            </section>
+                            <section>
+                                <Link to="/login">
+                                    <RaisedButton label="Cancelar" primary={true} style={styles.button} />
+                                </Link>
                             </section>
                             <section>
                                 <Link to="/ayuda" style={styles.link}>
-                                    <FlatButton label="No me puedo registar" secondary={true} style={styles.button} />
+                                    <FlatButton label="No me puedo registar" secondary={true} style={styles.flatButton} />
                                 </Link>
                             </section>
                         </form>

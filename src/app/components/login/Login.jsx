@@ -24,11 +24,16 @@ import Loader from 'react-loader'
 // CSS-in-JS
 const styles = {
     container: {
-        paddingTop: 70,
+        paddingTop: '2%',
         paddingLeft: '2%',
         paddingRight: '2%',
-        paddingBottom: '15%',
-        textAlign: 'center'
+        paddingBottom: '0%',
+        textAlign: 'center',
+    },
+    innerContainer: {
+        display: 'inline-block',
+        width: '100%',
+        maxWidth: 400
     },
     appbar: {
         position: 'fixed',
@@ -45,7 +50,12 @@ const styles = {
         marginLeft: 12
     },
     button: {
-        margin: 12
+        margin: 12,
+        width: '70%',
+        height: 50
+    },
+    flatButton: {
+
     },
     link: {
         display: 'inline-block',
@@ -231,77 +241,77 @@ export default class Login extends React.Component {
         }
         return (
             <div hidden={this.state.isCheckingLoggedIn}>
-                <AppBar
-                    style={styles.appbar}
-                    title='INICIA SESIÓN'
-                    iconElementLeft={<div></div>}/>
                 <div style={styles.container}>
-                    <Paper zDepth={2} style={styles.paper}>
-                        <img src={require('assets/images/unete.png')} style={styles.image}/>
-                        <form>
-                            <section>
-                                <TextField
-                                    hintText="Correo Electrónico"
-                                    floatingLabelText="Correo Electrónico"
-                                    value={this.state.email}
-                                    onChange={this.handleEmail}
-                                    errorText={this.state.emailErrorText}
-                                    />
-                            </section>
-                            <section>
-                                <TextField
-                                    hintText="Contraseña"
-                                    floatingLabelText="Contraseña"
-                                    type="password"
-                                    value={this.state.password}
-                                    onChange={this.handlePassword}
-                                    errorText={this.state.passwordErrorText}
-                                    />
-                            </section>
-                            {isLoginError}
-                            {loggingIn}
-                            <section>
-                                <span>
+                    <div style={styles.innerContainer}>
+                        <Paper zDepth={2}>
+                            <img src={require('assets/images/unete.png')} style={styles.image}/>
+                            <form>
+                                <section>
+                                    <TextField
+                                        hintText="Correo Electrónico"
+                                        floatingLabelText="Correo Electrónico"
+                                        disabled={this.state.isLoggingIn}
+                                        value={this.state.email}
+                                        onChange={this.handleEmail}
+                                        errorText={this.state.emailErrorText}
+                                        />
+                                </section>
+                                <section>
+                                    <TextField
+                                        hintText="Contraseña"
+                                        floatingLabelText="Contraseña"
+                                        type="password"
+                                        disabled={this.state.isLoggingIn}
+                                        value={this.state.password}
+                                        onChange={this.handlePassword}
+                                        errorText={this.state.passwordErrorText}
+                                        />
+                                </section>
+                                {isLoginError}
+                                {loggingIn}
+                                <section>
                                     <RaisedButton
-                                        label="Entrar"
+                                        label="Iniciar Sesión"
                                         primary={true}
-                                        style={styles.inlineButton}
+                                        style={styles.button}
                                         onClick={this.handleLogin}/>
-                                    <Link to="/registro" style={styles.link}>
-                                        <RaisedButton label="Regístrate" secondary={true} style={styles.inlineButton} />
+                                </section>
+                                <section>
+                                    <Link to="/registro" >
+                                        <FlatButton label={'Regístrate'} secondary={true} style={styles.flatButton}/>
                                     </Link>
-                                </span>
-                            </section>
-                            <section>
-                                <Link to="/restore" >
-                                    <FlatButton label={'¿Olvidaste tu contraseña?'} primary={true} style={styles.button}/>
-                                </Link>
-                            </section>
-                            <hr style={styles.divider}/>
-                            <section>
-                                <RaisedButton
-                                    label="Inicia sesión con Facebook"
-                                    style={styles.button}
-                                    onClick={this.handleFacebookLogin}
-                                    backgroundColor={"#3B5998"}
-                                    labelColor={"white"}/>
-                            </section>
-                            <section>
-                                <RaisedButton
-                                    label="Inicia sesión con Google"
-                                    style={styles.button}
-                                    onClick={this.handleGoogleLogin}
-                                    backgroundColor={"#DD4B39"}
-                                    labelColor={"white"}/>
-                            </section>
-                            <hr style={styles.divider}/>
-                            <section>
-                                <Link to="/about" style={styles.link} >
-                                    <FlatButton label={'Acerca de UNETE'} secondary={true} style={styles.button}/>
-                                </Link>
-                            </section>
-                        </form>
-                    </Paper>
+                                </section>
+                                <hr style={styles.divider}/>
+                                <section>
+                                    <RaisedButton
+                                        label="Inicia sesión con Facebook"
+                                        style={styles.button}
+                                        onClick={this.handleFacebookLogin}
+                                        backgroundColor={"#3B5998"}
+                                        labelColor={"white"}/>
+                                </section>
+                                <section>
+                                    <RaisedButton
+                                        label="Inicia sesión con Google"
+                                        style={styles.button}
+                                        onClick={this.handleGoogleLogin}
+                                        backgroundColor={"#DD4B39"}
+                                        labelColor={"white"}/>
+                                </section>
+                                <hr style={styles.divider}/>
+                                <section>
+                                    <Link to="/restore" >
+                                        <FlatButton label={'¿Olvidaste tu contraseña?'} primary={true} style={styles.flatButton}/>
+                                    </Link>
+                                </section>
+                                <section>
+                                    <Link to="/about" style={styles.link} >
+                                        <FlatButton label={'Acerca de UNETE'} secondary={true} style={styles.flatButton}/>
+                                    </Link>
+                                </section>
+                            </form>
+                        </Paper>
+                    </div>
                 </div>
             </div>
         );

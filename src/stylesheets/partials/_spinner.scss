@@ -1,4 +1,4 @@
-$white-color: #fff;
+@import '../base/colors';
 
 .spinner {
   left: 50%;
@@ -14,7 +14,7 @@ $white-color: #fff;
 }
 
 .spinner-container {
-  background-color: $white-color;
+  background-color: $background-color;
   height: 100%;
   left: 0;
   position: fixed;

@@ -1,11 +1,12 @@
-.chat.main-ontainer {
+@import '../base/colors';
 
-}
+.chat {
+  &.main-ontainer {
+  }
 
-.chat.messages-container {
+  &.messages-container {
+  }
 
-}
-
-.chat.input-container {
-
+  &.input-container {
+  }
 }

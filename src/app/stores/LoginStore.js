@@ -138,7 +138,7 @@ class LoginStore extends Store {
         } else if (error.code == "auth/wrong-password") {
             this.state.set('loginErrorMessage', 'Usuario y/o contreseña incorrectos');
         } else {
-            this.state.set('loginErrorMessage', 'Servicio no disponible, intenta mas tarde');
+            this.state.set('loginErrorMessage', 'Servicio temporalmente no disponible');
         }
         this.state.set('isLoginError', true);
     }

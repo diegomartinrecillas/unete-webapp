@@ -10,7 +10,7 @@ import AppRouter from './components/AppRouter'; // Main component, holds the who
 injectTapEventPlugin();
 
 // Stylesheets for development, comment for production build
-// import '../stylesheets/main.scss';
+import '../stylesheets/main.scss';
 
 // APP object tied to the window so we can pass VERY GLOBAL variables
 window.APP = {};

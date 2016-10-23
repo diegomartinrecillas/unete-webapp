@@ -41,17 +41,12 @@ export default class RootShell extends React.Component {
         } else {
             isLoading = this.state.isCheckingFinished || this.state.isCheckingLoggedIn;
         }
-        let loading;
-        if (isLoading) {
-            loading = (
-                <div className='spinner-container'>
-                    <img className='spinner' src={require('assets/images/spinner.gif')}/>
-                </div>
-            );
-        }
+        let rippleStyle = {transform: 'scale(1)'}
         return (
             <div>
-                {loading}
+                <div hidden={!isLoading} className='loader-container'>
+                    <div className='loader uil-ripple-css' style={rippleStyle}><div></div><div></div></div>
+                </div>
                 <div className='root background'>
                     {this.props.children}
                 </div>

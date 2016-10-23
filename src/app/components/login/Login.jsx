@@ -57,6 +57,11 @@ const styles = {
     flatButton: {
 
     },
+    socialButton: {
+        margin: 12,
+        width: '31%',
+        height: 50
+    },
     link: {
         display: 'inline-block',
         paddingBottom: '0%',
@@ -65,7 +70,8 @@ const styles = {
     },
     image: {
         paddingTop: '5%',
-        width: '80%'
+        paddingBottom: '5%',
+        maxWidth: '30%'
     },
     isLoginError: {
         color: red500
@@ -243,74 +249,75 @@ export default class Login extends React.Component {
             <div hidden={this.state.isCheckingLoggedIn}>
                 <div style={styles.container}>
                     <div style={styles.innerContainer}>
-                        <Paper zDepth={2}>
-                            <img src={require('assets/images/unete.png')} style={styles.image}/>
-                            <form>
-                                <section>
-                                    <TextField
-                                        hintText="Correo Electrónico"
-                                        floatingLabelText="Correo Electrónico"
-                                        disabled={this.state.isLoggingIn}
-                                        value={this.state.email}
-                                        onChange={this.handleEmail}
-                                        errorText={this.state.emailErrorText}
-                                        />
-                                </section>
-                                <section>
-                                    <TextField
-                                        hintText="Contraseña"
-                                        floatingLabelText="Contraseña"
-                                        type="password"
-                                        disabled={this.state.isLoggingIn}
-                                        value={this.state.password}
-                                        onChange={this.handlePassword}
-                                        errorText={this.state.passwordErrorText}
-                                        />
-                                </section>
-                                {isLoginError}
-                                {loggingIn}
-                                <section>
+
+                        <img src={require('assets/images/splash-256x256.png')} style={styles.image}/>
+                        <form>
+                            <section>
+                                <TextField
+                                    hintText="Correo Electrónico"
+                                    floatingLabelText="Correo Electrónico"
+                                    disabled={this.state.isLoggingIn}
+                                    value={this.state.email}
+                                    onChange={this.handleEmail}
+                                    errorText={this.state.emailErrorText}
+                                    />
+                            </section>
+                            <section>
+                                <TextField
+                                    hintText="Contraseña"
+                                    floatingLabelText="Contraseña"
+                                    type="password"
+                                    disabled={this.state.isLoggingIn}
+                                    value={this.state.password}
+                                    onChange={this.handlePassword}
+                                    errorText={this.state.passwordErrorText}
+                                    />
+                            </section>
+                            {isLoginError}
+                            {loggingIn}
+                            <section>
+                                <RaisedButton
+                                    label="Iniciar Sesión"
+                                    primary={true}
+                                    style={styles.button}
+                                    onClick={this.handleLogin}/>
+                            </section>
+                            <section>
+                                <Link to="/registro" >
+                                    <FlatButton label={'Regístrate'} secondary={true} style={styles.flatButton}/>
+                                </Link>
+                            </section>
+                            <hr style={styles.divider}/>
+                            <section>
+                                <span>
                                     <RaisedButton
-                                        label="Iniciar Sesión"
-                                        primary={true}
-                                        style={styles.button}
-                                        onClick={this.handleLogin}/>
-                                </section>
-                                <section>
-                                    <Link to="/registro" >
-                                        <FlatButton label={'Regístrate'} secondary={true} style={styles.flatButton}/>
-                                    </Link>
-                                </section>
-                                <hr style={styles.divider}/>
-                                <section>
-                                    <RaisedButton
-                                        label="Inicia sesión con Facebook"
-                                        style={styles.button}
+                                        label="Facebook"
+                                        style={styles.socialButton}
                                         onClick={this.handleFacebookLogin}
                                         backgroundColor={"#3B5998"}
                                         labelColor={"white"}/>
-                                </section>
-                                <section>
-                                    <RaisedButton
-                                        label="Inicia sesión con Google"
-                                        style={styles.button}
-                                        onClick={this.handleGoogleLogin}
-                                        backgroundColor={"#DD4B39"}
-                                        labelColor={"white"}/>
-                                </section>
-                                <hr style={styles.divider}/>
-                                <section>
-                                    <Link to="/restore" >
-                                        <FlatButton label={'¿Olvidaste tu contraseña?'} primary={true} style={styles.flatButton}/>
-                                    </Link>
-                                </section>
-                                <section>
-                                    <Link to="/about" style={styles.link} >
-                                        <FlatButton label={'Acerca de UNETE'} secondary={true} style={styles.flatButton}/>
-                                    </Link>
-                                </section>
-                            </form>
-                        </Paper>
+                                        <RaisedButton
+                                            label="Google"
+                                            style={styles.socialButton}
+                                            onClick={this.handleGoogleLogin}
+                                            backgroundColor={"#DD4B39"}
+                                            labelColor={"white"}/>
+                                </span>
+
+                            </section>
+
+                            <hr style={styles.divider}/>
+                            <section>
+                                <Link to="/restore" >
+                                    <FlatButton label={'¿Olvidaste tu contraseña?'} primary={true} style={styles.flatButton}/>
+                                </Link>
+                            </section>
+                            <section>
+                                <Link to="/about" style={styles.link} >
+                                    <FlatButton label={'Acerca de UNETE'} secondary={true} style={styles.flatButton}/>
+                                </Link>
+                            </section>
+                        </form>
                     </div>
                 </div>
             </div>

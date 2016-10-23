@@ -14,7 +14,9 @@ import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
-import AppBar from 'material-ui/AppBar';
+import ArrowBackIcon from 'material-ui/svg-icons/navigation/arrow-back';
+import IconButton from 'material-ui/IconButton';
+
 import {red500, orange500, green500} from 'material-ui/styles/colors';
 import { primary, accent } from 'app/styles/colors';
 
@@ -31,10 +33,6 @@ const styles = {
         display: 'inline-block',
         width: '100%',
         maxWidth: 400
-    },
-    appbar: {
-        position: 'fixed',
-        textAlign: 'center'
     },
     title: {
         paddingTop: '12%',
@@ -86,6 +84,19 @@ const styles = {
     },
     spacer: {
         height: '5vh'
+    },
+    icon: {
+        width: 40,
+        height: 40,
+        color: primary
+    },
+    iconButton: {
+        position: 'absolute',
+        left: 0,
+        top: 0,
+        width: 40,
+        height: 40,
+        padding: 10,
     }
 }
 
@@ -225,73 +236,76 @@ export default class RegistroInicio extends React.Component {
             })
         }
     }
+    goBack = () => {
+        window.history.back();
+    }
     render() {
         return (
             <div style={styles.container}>
+                <IconButton
+                    onClick={this.goBack}
+                    iconStyle={styles.icon}
+                    style={styles.iconButton}
+                    >
+                    <ArrowBackIcon />
+                </IconButton>
                 <div style={styles.innerContainer}>
-                    <Paper zDepth={2}>
-                        <section style={styles.title}>
-                            REGÍSTRATE
+                    <section style={styles.title}>
+                        Regístrate
+                    </section>
+                    <form onSubmit={this.handleFormSubmit}>
+                        <section>
+                            <TextField
+                                required={true}
+                                hintText="Correo Electrónico"
+                                floatingLabelText="Correo Electrónico"
+                                value={this.state.email}
+                                errorText={this.state.emailErrorText}
+                                onChange={linkState(this, 'email')}
+                                />
                         </section>
-                        <form onSubmit={this.handleFormSubmit}>
-                            <section>
-                                <TextField
-                                    required={true}
-                                    hintText="Correo Electrónico"
-                                    floatingLabelText="Correo Electrónico"
-                                    value={this.state.email}
-                                    errorText={this.state.emailErrorText}
-                                    onChange={linkState(this, 'email')}
-                                    />
-                            </section>
-                            <section>
-                                <TextField
-                                    required={true}
-                                    hintText="Crear Contraseña"
-                                    floatingLabelText="Crear Contraseña"
-                                    type="password"
-                                    value={this.state.password}
-                                    errorText={this.state.passwordErrorText}
-                                    errorStyle={this.state.passwordErrorStyle}
-                                    onChange={this.handlePassword}
-                                    />
-                            </section>
-                            <section>
-                                <TextField
-                                    required={true}
-                                    hintText="Confirmar Contraseña"
-                                    floatingLabelText="Confirmar Contraseña"
-                                    type="password"
-                                    disabled={this.state.confirmPasswordDisabled}
-                                    value={this.state.confirmPassword}
-                                    errorText={this.state.confirmPasswordErrorText}
-                                    onChange={this.handleConfirmPassword}
-                                    />
-                            </section>
-                            <section hidden={!this.state.isSigningUp}>
-                                <p style={styles.signingUp}>Espere un momento...</p>
-                            </section>
-                            <div style={styles.spacer}/>
-                            <hr style={styles.divider}/>
-                            <section>
-                                <RaisedButton
-                                    type="submit"
-                                    label="Registrar"
-                                    secondary={true}
-                                    style={styles.button}/>
-                            </section>
-                            <section>
-                                <Link to="/login">
-                                    <RaisedButton label="Cancelar" primary={true} style={styles.button} />
-                                </Link>
-                            </section>
-                            <section>
-                                <Link to="/ayuda" style={styles.link}>
-                                    <FlatButton label="No me puedo registar" secondary={true} style={styles.flatButton} />
-                                </Link>
-                            </section>
-                        </form>
-                    </Paper>
+                        <section>
+                            <TextField
+                                required={true}
+                                hintText="Crear Contraseña"
+                                floatingLabelText="Crear Contraseña"
+                                type="password"
+                                value={this.state.password}
+                                errorText={this.state.passwordErrorText}
+                                errorStyle={this.state.passwordErrorStyle}
+                                onChange={this.handlePassword}
+                                />
+                        </section>
+                        <section>
+                            <TextField
+                                required={true}
+                                hintText="Confirmar Contraseña"
+                                floatingLabelText="Confirmar Contraseña"
+                                type="password"
+                                disabled={this.state.confirmPasswordDisabled}
+                                value={this.state.confirmPassword}
+                                errorText={this.state.confirmPasswordErrorText}
+                                onChange={this.handleConfirmPassword}
+                                />
+                        </section>
+                        <section hidden={!this.state.isSigningUp}>
+                            <p style={styles.signingUp}>Espere un momento...</p>
+                        </section>
+                        <div style={styles.spacer}/>
+                        <hr style={styles.divider}/>
+                        <section>
+                            <RaisedButton
+                                type="submit"
+                                label="Registrar"
+                                primary={true}
+                                style={styles.button}/>
+                        </section>
+                        <section>
+                            <Link to="/ayuda" style={styles.link}>
+                                <FlatButton label="No me puedo registar" secondary={true} style={styles.flatButton} />
+                            </Link>
+                        </section>
+                    </form>
                 </div>
 
             </div>

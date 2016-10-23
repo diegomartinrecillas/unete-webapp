@@ -31,15 +31,25 @@ const styles = {
         paddingTop: 70,
         paddingBottom: '2%'
     },
+    logoContainer: {
+        backgroundColor: 'rgb(20,20,20)',
+        position: 'relative',
+        height: 200
+    },
+    appbar: {
+        position: 'fixed'
+    },
     logo: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
         cursor: 'pointer',
-        fontSize: '30px',
+        fontSize: '20px',
         color: 'white',
-        lineHeight: '64px',
-        fontWeight: 200,
-        backgroundColor: primary,
-        paddingLeft: '24px',
-        marginBottom: '8px'
+        lineHeight: '0',
+        fontWeight: 400,
+        marginBottom: '20px',
+        marginLeft: '15px'
     },
     link: {
         textDecoration: 'none',
@@ -47,13 +57,19 @@ const styles = {
         display: 'block'
     },
     activeLink: {
-        backgroundColor: 'rgba(0,0,0,.2)'
+        backgroundColor: 'rgba(0,0,0,0.05)'
     },
     menuItem: {
-        fontSize: 20
+        fontSize: 16,
+        fontWeight: 500,
+        color: 'rgb(30,30,30)',
     },
-    appbar: {
-        position: 'fixed'
+    drawer: {
+        backgroundColor: '#fafafa'
+    },
+    image: {
+        maxHeight: '100%',
+        opacity: 0.5
     }
 }
 
@@ -142,7 +158,7 @@ export default class AppShell extends React.Component {
         });
     };
     render() {
-
+        let width = window.innerWidth > 400 ? 400 : window.innerWidth;
         return (
             <div>
                 <AppBar
@@ -185,11 +201,14 @@ export default class AppShell extends React.Component {
                             drawerIsOpen: open
                         });
                     }}
+                    style={styles.drawer}
                     docked={false}
-                    width={200}>
-                    <div style={styles.logo}
-                        onTouchTap={this.handleClose}>
-                        MENU
+                    width={width*0.8}>
+                    <div style={styles.logoContainer}>
+                        <img src={require('assets/images/drawer_background.png')} style={styles.image}/>
+                        <div style={styles.logo} onTouchTap={this.handleClose}>
+                            Diego Martin Recillas
+                        </div>
                     </div>
                     <Link to="/app/home" style={styles.link} activeStyle={styles.activeLink}>
                         <MenuItem onTouchTap={this.handleClose} leftIcon={<HomeIcon/>}>
@@ -198,6 +217,7 @@ export default class AppShell extends React.Component {
                             </span>
                         </MenuItem>
                     </Link>
+                    <Divider/>
                     <Link to="/app/chat" style={styles.link} activeStyle={styles.activeLink}>
                         <MenuItem onTouchTap={this.handleClose} leftIcon={<ChatIcon/>}>
                             <span style={styles.menuItem}>

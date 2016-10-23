@@ -58,24 +58,23 @@ export default class Ayuda extends React.Component {
     render() {
         let width = window.innerWidth;
         let height = window.innerHeight + (-styles.container.marginTop);
+        let rippleStyle = {transform: 'scale(1)'}
         return (
             <div>
-                <div hidden={!this.state.isLoadingFBPage} className='news spinner-container'>
-                    <img className='news spinner' src={require('assets/images/spinner.gif')}/>
+                <div hidden={!this.state.isLoadingFBPage} className='news loader-container'>
+                    <div className='loader uil-ripple-css' style={rippleStyle}><div></div><div></div></div>
                 </div>
                 <div className='news container'>
-                    <Paper zDepth={2} style={styles.paper}>
-                        <FBPage
-                            appId="yourFacebookAppId"
-                            style={styles.page}
-                            href="https://www.facebook.com/facebook"
-                            tabs={['timeline']}
-                            locale={'es_MX'}
-                            smallHeader={true}
-                            hideCover={true}
-                            width={width}
-                            height={height}/>
-                    </Paper>
+                    <FBPage
+                        appId="yourFacebookAppId"
+                        style={styles.page}
+                        href="https://www.facebook.com/facebook"
+                        tabs={['timeline']}
+                        locale={'es_MX'}
+                        smallHeader={true}
+                        hideCover={true}
+                        width={width}
+                        height={height}/>
                 </div>
             </div>
         )

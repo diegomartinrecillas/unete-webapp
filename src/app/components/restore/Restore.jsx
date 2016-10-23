@@ -13,6 +13,9 @@ import Divider from 'material-ui/Divider';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import Dialog from 'material-ui/Dialog';
+import IconButton from 'material-ui/IconButton';
+import ArrowBackIcon from 'material-ui/svg-icons/navigation/arrow-back';
+
 
 import { red500 } from 'material-ui/styles/colors';
 import { primary, accent } from 'app/styles/colors';
@@ -69,7 +72,6 @@ const styles = {
         textAlign: 'center'
     },
     divider: {
-
         maxWidth: '80%',
         height: 1,
         border: 'none',
@@ -77,6 +79,19 @@ const styles = {
     },
     spacer: {
         height: '5vh'
+    },
+    icon: {
+        width: 40,
+        height: 40,
+        color: primary
+    },
+    iconButton: {
+        position: 'absolute',
+        left: 0,
+        top: 0,
+        width: 40,
+        height: 40,
+        padding: 10,
     }
 }
 
@@ -203,6 +218,10 @@ export default class Restore extends React.Component {
         return re.test(event);
     }
 
+    goBack = () => {
+        window.history.back();
+    }
+
     render() {
         const actions = [
             <FlatButton
@@ -233,51 +252,51 @@ export default class Restore extends React.Component {
                         ¿Seguro que deseas continuar?
                     </strong>
                 </Dialog>
+                <IconButton
+                    onClick={this.goBack}
+                    iconStyle={styles.icon}
+                    style={styles.iconButton}
+                    >
+                    <ArrowBackIcon />
+                </IconButton>
                 <div style={styles.innerContainer}>
-                    <Paper zDepth={2}>
-                        <section style={styles.title}>
-                            Recuperación
-                        </section>
-                        <section style={styles.restoreText}>
-                            Si <strong>NO</strong> recuerdas tu contraseña puedes restablecer tu cuenta utilizando el <strong>Correo Electrónico</strong> con el que inicias sesión, un correo será enviado a dicha dirección con mas instrucciones.
-                        </section>
-                        <section>
-                            <TextField
-                                hintText="Correo Electrónico"
-                                floatingLabelText="Correo Electrónico"
-                                value={this.state.email}
-                                onChange={this.handleEmail}
-                                errorText={this.state.emailErrorText}
-                                />
-                        </section>
-                        <section>
-                            <TextField
-                                hintText="Confirmar Correo Electrónico"
-                                floatingLabelText="Confirmar Correo Electrónico"
-                                value={this.state.confirmEmail}
-                                onChange={this.handleConfirmEmail}
-                                errorText={this.state.confirmEmailErrorText}
-                                />
-                        </section>
-                        <section>
-                            <RaisedButton
-                                label="Restablecer"
-                                disabled={this.state.restoreDisabled}
-                                secondary={true}
-                                style={styles.button}
-                                onClick={this.handleRestore}/>
-                        </section>
-                        <section>
-                            <Link to="/login" >
-                                <RaisedButton label="Cancelar" primary={true} style={styles.button} />
-                            </Link>
-                        </section>
-                        <section>
-                            <Link to="/ayuda" style={styles.link}>
-                                <FlatButton label="No puedo solucionar mi problema" secondary={true} style={styles.flatButton} />
-                            </Link>
-                        </section>
-                    </Paper>
+                    <section style={styles.title}>
+                        Recuperación
+                    </section>
+                    <section style={styles.restoreText}>
+                        Si <strong>NO</strong> recuerdas tu contraseña puedes restablecer tu cuenta utilizando el <strong>Correo Electrónico</strong> con el que inicias sesión, un correo será enviado a dicha dirección con mas instrucciones.
+                    </section>
+                    <section>
+                        <TextField
+                            hintText="Correo Electrónico"
+                            floatingLabelText="Correo Electrónico"
+                            value={this.state.email}
+                            onChange={this.handleEmail}
+                            errorText={this.state.emailErrorText}
+                            />
+                    </section>
+                    <section>
+                        <TextField
+                            hintText="Confirmar Correo Electrónico"
+                            floatingLabelText="Confirmar Correo Electrónico"
+                            value={this.state.confirmEmail}
+                            onChange={this.handleConfirmEmail}
+                            errorText={this.state.confirmEmailErrorText}
+                            />
+                    </section>
+                    <section>
+                        <RaisedButton
+                            label="Restablecer"
+                            disabled={this.state.restoreDisabled}
+                            secondary={true}
+                            style={styles.button}
+                            onClick={this.handleRestore}/>
+                    </section>
+                    <section>
+                        <Link to="/ayuda" style={styles.link}>
+                            <FlatButton label="No puedo solucionar mi problema" secondary={true} style={styles.flatButton} />
+                        </Link>
+                    </section>
                 </div>
             </div>
         )

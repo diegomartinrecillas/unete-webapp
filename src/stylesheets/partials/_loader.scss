@@ -1,6 +1,6 @@
 @import '../base/colors';
 
-.spinner {
+.loader {
   left: 50%;
   position: fixed;
   top: 50%;
@@ -13,13 +13,13 @@
   }
 }
 
-.spinner-container {
+.loader-container {
   background-color: $background-color;
-  height: 100%;
+  height: 100vh;
   left: 0;
   position: fixed;
   top: 0;
-  width: 100%;
+  width: 100vw;
   z-index: 9999;
 
   &.news {

@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 // Material UI Components
 import AppBar from 'material-ui/AppBar';
 import Paper from 'material-ui/Paper';
-import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 
 import { primary, accent } from 'app/styles/colors';
 
@@ -13,59 +13,65 @@ import { primary, accent } from 'app/styles/colors';
 
 const styles = {
     container: {
-        paddingTop: 70,
+        paddingTop: '2%',
         paddingLeft: '2%',
         paddingRight: '2%',
-        paddingBottom: '15%',
-        textAlign: 'center'
+        paddingBottom: '0%',
+        textAlign: 'center',
     },
-    appbar: {
-        position: 'fixed',
-        textAlign: 'center'
-    },
-    image: {
-        paddingTop: '5%',
-        width: '80%'
-    },
-    button: {
-        marginTop: 12
-    },
-    link: {
+    innerContainer: {
         display: 'inline-block',
-        paddingBottom: '5%',
-        textDecoration: 'none',
-        color: accent
+        width: '100%',
+        maxWidth: 400
     },
-    restoreText: {
+    title: {
+        paddingTop: '12%',
+        paddingBottom: '5%',
+        fontSize: 30,
+        fontWeight: 500,
+        color: primary
+    },
+    legend: {
         color: 'grey',
         paddingTop: '5%',
         paddingLeft: '10%',
         paddingRight: '10%',
         textAlign: 'center'
+    },
+    button: {
+        margin: 12,
+        width: '70%',
+        height: 50
+    },
+    divider: {
+        maxWidth: '80%',
+        height: 1,
+        border: 'none',
+        backgroundColor: 'rgb(224, 224, 224)'
+    },
+    spacer: {
+        height: '5vh'
     }
 }
 
 export default class RestoreFinished extends React.Component {
     render() {
         return (
-            <div>
-                <AppBar
-                    style={styles.appbar}
-                    title='RECUPERACIÓN'
-                    iconElementLeft={<div></div>}
-                    />
-                <div style={styles.container}>
-                    <Paper zDepth={2} style={styles.paper}>
-                        <img src={require('assets/images/unete.png')} style={styles.image}/>
-                        <section style={styles.restoreText}>
-                            Se ha enviado un correo a <strong>{this.props.params.email}</strong> con las instrucciones para restablecer tu cuenta.
-                        </section>
-                        <section>
-                            <Link to="/login" style={styles.link}>
-                                <FlatButton label="Regresar" primary={true} style={styles.button} />
-                            </Link>
-                        </section>
-                    </Paper>
+            <div style={styles.container}>
+                <div style={styles.innerContainer}>
+                    <section style={styles.title}>
+                        <strong>Recuperación</strong>
+                    </section>
+                    <section style={styles.legend}>
+                        Se ha enviado un correo a <strong>{this.props.params.email}</strong> con las instrucciones para restablecer tu cuenta.
+                    </section>
+                    <div style={styles.spacer}/>
+                    <hr style={styles.divider}/>
+                    <section>
+                        <Link to="/login" style={styles.link}>
+                            <RaisedButton label="Regresar" primary={true} style={styles.button} />
+                        </Link>
+                    </section>
                 </div>
             </div>
         )

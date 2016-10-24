@@ -1,9 +1,12 @@
 // React
 import React from 'react';
+import { Link } from 'react-router';
 // Material UI Components
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
 import Toggle from 'material-ui/Toggle';
 import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
+
 import IconButton from 'material-ui/IconButton';
 
 // Material Icons
@@ -64,9 +67,9 @@ const styles = {
         position: 'absolute',
         left: 0,
         top: 0,
-        width: 40,
-        height: 40,
-        padding: 10,
+        width: 80,
+        height: 80,
+        padding: 20,
     }
 }
 
@@ -160,7 +163,11 @@ export default class Ayuda extends React.Component {
                     </Card>
                     <div style={styles.spacer}/>
                     <hr style={styles.divider}/>
-                    
+                    <section>
+                        <Link to="/about" style={styles.link} >
+                            <FlatButton label={'Acerca de UNETE'} secondary={true} style={styles.flatButton}/>
+                        </Link>
+                    </section>
                 </div>
             </div>
         )

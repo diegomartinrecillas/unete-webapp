@@ -1,7 +1,7 @@
 // React
 import React from 'react';
 // React Router
-import { Redirect, Router, Route, hashHistory } from 'react-router'
+import { IndexRoute, Redirect, Router, Route, hashHistory } from 'react-router'
 // Libraries and Helpers
 import requireAuth from 'app/firebase/requireAuth';
 // Material UI Components
@@ -39,8 +39,8 @@ export default class AppRouter extends React.Component {
         return (
             <MuiThemeProvider muiTheme={muiTheme}>
                 <Router history={hashHistory}>
-                    <Redirect from="/" to="/login" />
                     <Route path="/" component={RootShell}>
+                        <IndexRoute component={Login}/>
                         <Route path="/login" component={Login}/>
                         <Route path="/restore" component={Restore}/>
                         <Route path="/restore-finished/:email" component={RestoreFinished}/>

@@ -4,7 +4,7 @@ import React from 'react';
 import SignUpActions from 'app/actions/SignUpActions';
 import SignUpStore from 'app/stores/SignUpStore';
 // React Router
-import { Link } from 'react-router';
+import { Link, hashHistory } from 'react-router';
 // Material UI Components
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
@@ -15,7 +15,8 @@ import TextField from 'material-ui/TextField';
 import Dialog from 'material-ui/Dialog';
 import IconButton from 'material-ui/IconButton';
 import ArrowBackIcon from 'material-ui/svg-icons/navigation/arrow-back';
-
+// Misc Components
+import ArrowBack from 'app/components/misc/ArrowBack';
 
 import { red500 } from 'material-ui/styles/colors';
 import { primary, accent } from 'app/styles/colors';
@@ -79,19 +80,6 @@ const styles = {
     },
     spacer: {
         height: '5vh'
-    },
-    icon: {
-        width: 40,
-        height: 40,
-        color: primary
-    },
-    iconButton: {
-        position: 'absolute',
-        left: 0,
-        top: 0,
-        width: 80,
-        height: 80,
-        padding: 20,
     }
 }
 
@@ -217,11 +205,6 @@ export default class Restore extends React.Component {
         let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(event);
     }
-
-    goBack = () => {
-        window.history.back();
-    }
-
     render() {
         const actions = [
             <FlatButton
@@ -252,13 +235,7 @@ export default class Restore extends React.Component {
                         ¿Seguro que deseas continuar?
                     </strong>
                 </Dialog>
-                <IconButton
-                    onClick={this.goBack}
-                    iconStyle={styles.icon}
-                    style={styles.iconButton}
-                    >
-                    <ArrowBackIcon />
-                </IconButton>
+                <ArrowBack/>
                 <div style={styles.innerContainer}>
                     <section style={styles.title}>
                         Recuperación

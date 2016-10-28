@@ -6,7 +6,7 @@
   top: 50%;
   transform: translate(-50%, -50%);
 
-  &.news {
+  &.facebook {
     left: 50%;
     top: 20%;
     transform: translate(-50%, -20%);
@@ -22,7 +22,7 @@
   width: 100vw;
   z-index: 9999;
 
-  &.news {
+  &.facebook {
     z-index: 0;
   }
 }

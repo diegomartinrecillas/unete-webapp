@@ -13,8 +13,6 @@ import Divider from 'material-ui/Divider';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-import Paper from 'material-ui/Paper';
-import AppBar from 'material-ui/AppBar';
 import { red500, orange500 } from 'material-ui/styles/colors';
 // Colors
 import { primary, accent } from 'app/styles/colors';
@@ -249,7 +247,6 @@ export default class Login extends React.Component {
             <div hidden={this.state.isCheckingLoggedIn}>
                 <div style={styles.container}>
                     <div style={styles.innerContainer}>
-
                         <img src={require('assets/images/splash-256x256.png')} style={styles.image}/>
                         <form>
                             <section>
@@ -296,12 +293,12 @@ export default class Login extends React.Component {
                                         onClick={this.handleFacebookLogin}
                                         backgroundColor={"#3B5998"}
                                         labelColor={"white"}/>
-                                        <RaisedButton
-                                            label="Google"
-                                            style={styles.socialButton}
-                                            onClick={this.handleGoogleLogin}
-                                            backgroundColor={"#DD4B39"}
-                                            labelColor={"white"}/>
+                                    <RaisedButton
+                                        label="Google"
+                                        style={styles.socialButton}
+                                        onClick={this.handleGoogleLogin}
+                                        backgroundColor={"#DD4B39"}
+                                        labelColor={"white"}/>
                                 </span>
 
                             </section>
@@ -313,8 +310,8 @@ export default class Login extends React.Component {
                                 </Link>
                             </section>
                             <section>
-                                <Link to="/about" style={styles.link} >
-                                    <FlatButton label={'Acerca de UNETE'} secondary={true} style={styles.flatButton}/>
+                                <Link to="/ayuda" style={styles.link} >
+                                    <FlatButton label={'Ayuda'} secondary={true} style={styles.flatButton}/>
                                 </Link>
                             </section>
                         </form>

@@ -15,15 +15,16 @@ import Chat from './chat/Chat';
 import Curp from './curp/Curp';
 import Datos from './datos/Datos';
 import Error from './error/Error';
+import Eventos from './eventos/Eventos';
 import Home from './home/Home';
 import Login from './login/Login';
+import Mensajes from './mensajes/Mensajes';
 import Noticias from './noticias/Noticias';
 import Perfil from './perfil/Perfil';
 import Registro from './registro/Registro';
 import Restore from './restore/Restore';
 import RestoreFinished from './restore/RestoreFinished';
 import RootShell from './root_shell/RootShell';
-
 // Common colors
 import { primary, accent } from 'app/styles/colors';
 
@@ -53,7 +54,9 @@ export default class AppRouter extends React.Component {
                             <Route path="/app/chat" component={Chat}/>
                             <Route path="/app/perfil" component={Perfil}/>
                             <Route path="/app/curp" component={Curp}/>
-                            <Route path="/app/news" component={Noticias}/>
+                            <Route path="/app/noticias" component={Noticias}/>
+                            <Route path="/app/mensajes" component={Mensajes}/>
+                            <Route path="/app/eventos" component={Eventos}/>
                         </Route>
                         <Route path="/datos" component={Datos} onEnter={requireAuth}/>
                     </Route>

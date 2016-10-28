@@ -1,0 +1,25 @@
+.facebook.prevent-reload {
+  overflow-y: hidden;
+}
+
+.facebook.container {
+  left: 0;
+  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  position: fixed;
+  right: 0;
+  text-align: center;
+
+  &.comments {
+    margin-top: 0;
+  }
+
+  &.messages {
+    margin-top: -75px;
+  }
+
+  &.news {
+    margin-top: -75px;
+  }
+}

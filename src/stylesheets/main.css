@@ -6,15 +6,23 @@ body {
   line-height: 20px;
   margin: 0; }
 
-.news.container {
+.facebook.prevent-reload {
+  overflow-y: hidden; }
+
+.facebook.container {
   left: 0;
   margin-bottom: 20px;
   margin-left: auto;
   margin-right: auto;
-  margin-top: -75px;
   position: fixed;
   right: 0;
   text-align: center; }
+  .facebook.container.comments {
+    margin-top: 0; }
+  .facebook.container.messages {
+    margin-top: -75px; }
+  .facebook.container.news {
+    margin-top: -75px; }
 
 @keyframes uil-ripple {
   0% {
@@ -60,7 +68,7 @@ body {
   position: fixed;
   top: 50%;
   transform: translate(-50%, -50%); }
-  .loader.news {
+  .loader.facebook {
     left: 50%;
     top: 20%;
     transform: translate(-50%, -20%); }
@@ -73,7 +81,7 @@ body {
   top: 0;
   width: 100vw;
   z-index: 9999; }
-  .loader-container.news {
+  .loader-container.facebook {
     z-index: 0; }
 
 .root.background {

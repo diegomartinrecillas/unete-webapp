@@ -30,6 +30,7 @@ class LoginStore extends Store {
         super('LoginStore', DEBUG);
 
         this.state = new LoginState();
+        this.state.on('change',this.update, this);
 
         this.bindActions({
             [login.CHECK_LOGGED_IN]: this.checkLoggedIn,
@@ -44,9 +45,8 @@ class LoginStore extends Store {
     logout = () => {
         firebaseAuth.signOut()
         .then(() => {
-            this.state.set('isLoggedIn', false);
+            this.state.set({'isLoggedIn': false});
             SignUpActions.resetError();
-            this.update();
         })
         .catch((error) => {
             this._loginError(error);
@@ -54,37 +54,41 @@ class LoginStore extends Store {
     }
 
     checkLoggedIn = () => {
-        this.state.set('isCheckingLoggedIn', true);
-        this.update();
+        this.state.set({'isCheckingLoggedIn': true});
         firebaseAuth.onAuthStateChanged((user) => {
             if (user) {
-                this.state.set('isLoggedIn', true);
-                this.state.set('isCheckingLoggedIn', false);
+                this.state.set({
+                    'isLoggedIn': true,
+                    'isCheckingLoggedIn': false
+                });
             } else {
-                this.state.set('isLoggedIn', false);
-                this.state.set('isCheckingLoggedIn', false);
+                this.state.set({
+                    'isLoggedIn': false,
+                    'isCheckingLoggedIn': false
+                });
             }
-            this.update();
         });
     }
 
     _loginWithProviderPopup = (provider) => {
-        this.state.set('isLoggingIn', true);
-        this.state.set('isLoginError', false);
-        this.update();
+        this.state.set({
+            'isLoggingIn': true,
+            'isLoginError': false
+        });
+
         firebaseAuth.signInWithPopup(provider)
         .then((result) => {
-            this.state.set('isLoggedIn', true);
-            this.state.set('isLoginError', false);
-            this.state.set('isLoggingIn', false);
+            this.state.set({
+                'isLoggedIn': true,
+                'isLoginError': false,
+                'isLoggingIn': false
+            });
             SignUpActions.checkSignUpDone();
-            this.update();
         })
         .catch((error) => {
             console.log(error);
             this._loginError(error);
-            this.state.set('isLoggingIn', false);
-            this.update();
+            this.state.set({'isLoggingIn': false});
         });
     }
 
@@ -102,45 +106,51 @@ class LoginStore extends Store {
         let email = data['email'];
         let password = data['password'];
 
-        this.state.set('isLoggingIn', true);
-        this.state.set('isLoginError', false);
-        this.update();
+        this.state.set({
+            'isLoggingIn': true,
+            'isLoginError': false
+        });
 
         firebaseAuth.signInWithEmailAndPassword(email, password)
         .then((result) => {
             console.log(result);
-            this.state.set('isLoggedIn', true);
-            this.state.set('isLoginError', false);
-            this.state.set('isLoggingIn', false);
+            this.state.set({
+                'isLoggedIn': true,
+                'isLoginError': false,
+                'isLoggingIn': false
+            });
             SignUpActions.checkSignUpDone();
-            this.update();
         })
         .catch((error) => {
             this._loginError(error);
-            this.state.set('isLoggingIn', false);
-            this.update();
+            this.state.set({'isLoggingIn': false});
         });
 
     }
 
     resetError = () => {
-        this.state.set('isLoginError', false);
-        this.state.set('loginErrorMessage', false);
-        this.update();
+        this.state.set({
+            'isLoginError': false,
+            'loginErrorMessage': false
+        });
     }
 
     _loginError = (error) => {
         console.log(error);
+        let errorMsg;
         if (error.code == "auth/network-request-failed") {
-            this.state.set('loginErrorMessage', 'No hay conexión a Internet');
+            errorMsg = 'No hay conexión a Internet';
         } else if (error.code == "auth/user-not-found") {
-            this.state.set('loginErrorMessage', 'Usuario y/o contreseña incorrectos');
+            errorMsg = 'Usuario y/o contreseña incorrectos';
         } else if (error.code == "auth/wrong-password") {
-            this.state.set('loginErrorMessage', 'Usuario y/o contreseña incorrectos');
+            errorMsg = 'Usuario y/o contreseña incorrectos';
         } else {
-            this.state.set('loginErrorMessage', 'Servicio temporalmente no disponible');
+            errorMsg = 'Servicio temporalmente no disponible';
         }
-        this.state.set('isLoginError', true);
+        this.state.set({
+            'isLoginError': true,
+            'loginErrorMessage': errorMsg
+        });
     }
 }
 

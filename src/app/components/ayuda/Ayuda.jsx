@@ -1,16 +1,14 @@
 // React
 import React from 'react';
-import { Link } from 'react-router';
+import { Link, hashHistory } from 'react-router';
 // Material UI Components
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
 import Toggle from 'material-ui/Toggle';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-
-import IconButton from 'material-ui/IconButton';
-
-// Material Icons
-import ArrowBackIcon from 'material-ui/svg-icons/navigation/arrow-back';
+// My Components
+import ArrowBack from 'app/components/misc/ArrowBack';
+// Colors
 import { primary, accent } from 'app/styles/colors';
 
 
@@ -51,6 +49,9 @@ const styles = {
         height: 1,
         border: 'none',
         backgroundColor: 'rgb(224, 224, 224)'
+    },
+    cardsContainer: {
+        textAlign: 'left'
     },
     cardSpacer: {
         height: 10
@@ -108,59 +109,52 @@ export default class Ayuda extends React.Component {
         });
     };
 
-    goBack = () => {
-        window.history.back();
-    }
     render() {
         return (
             <div style={styles.container}>
-                <IconButton
-                    onClick={this.goBack}
-                    iconStyle={styles.icon}
-                    style={styles.iconButton}
-                    >
-                    <ArrowBackIcon />
-                </IconButton>
+                <ArrowBack />
                 <div style={styles.innerContainer}>
                     <section style={styles.title}>
                         Ayuda
                     </section>
                     <div style={styles.spacer}/>
-                    <Card expanded={this.state.expandedOne} onExpandChange={this.handleExpandChangeOne}>
-                        <CardHeader
-                            title="Ayuda Uno"
-                            subtitle="Subtítulo de Ayuda Uno"
-                            actAsExpander={true}
-                            showExpandableButton={true}
-                            />
-                        <CardText expandable={true}>
-                            Bacon ipsum dolor amet venison shankle pastrami, andouille biltong ground round short loin doner cupim turducken swine spare ribs. Ball tip picanha fatback jowl pork belly beef ribs bacon tenderloin venison shoulder ribeye salami rump corned beef spare ribs. T-bone shoulder alcatra kevin cupim chicken strip steak meatloaf pancetta. Fatback boudin frankfurter bacon tail. Alcatra beef shankle tail shoulder, chicken swine capicola doner ham hock tri-tip flank drumstick pork. Burgdoggen jerky hamburger chuck, picanha boudin tri-tip biltong short loin spare ribs pig chicken drumstick shankle pork belly.
-                        </CardText>
-                    </Card>
-                    <div style={styles.cardSpacer}/>
-                    <Card expanded={this.state.expandedTwo} onExpandChange={this.handleExpandChangeTwo}>
-                        <CardHeader
-                            title="Ayuda Dos"
-                            subtitle="Subtítulo de Ayuda Dos"
-                            actAsExpander={true}
-                            showExpandableButton={true}
-                            />
-                        <CardText expandable={true}>
-                            Bacon ipsum dolor amet venison shankle pastrami, andouille biltong ground round short loin doner cupim turducken swine spare ribs. Ball tip picanha fatback jowl pork belly beef ribs bacon tenderloin venison shoulder ribeye salami rump corned beef spare ribs. T-bone shoulder alcatra kevin cupim chicken strip steak meatloaf pancetta. Fatback boudin frankfurter bacon tail. Alcatra beef shankle tail shoulder, chicken swine capicola doner ham hock tri-tip flank drumstick pork. Burgdoggen jerky hamburger chuck, picanha boudin tri-tip biltong short loin spare ribs pig chicken drumstick shankle pork belly.
-                        </CardText>
-                    </Card>
-                    <div style={styles.cardSpacer}/>
-                    <Card expanded={this.state.expandedThree} onExpandChange={this.handleExpandChangeThree}>
-                        <CardHeader
-                            title="Ayuda Tres"
-                            subtitle="Subtítulo de Ayuda Tres"
-                            actAsExpander={true}
-                            showExpandableButton={true}
-                            />
-                        <CardText expandable={true}>
-                            Bacon ipsum dolor amet venison shankle pastrami, andouille biltong ground round short loin doner cupim turducken swine spare ribs. Ball tip picanha fatback jowl pork belly beef ribs bacon tenderloin venison shoulder ribeye salami rump corned beef spare ribs. T-bone shoulder alcatra kevin cupim chicken strip steak meatloaf pancetta. Fatback boudin frankfurter bacon tail. Alcatra beef shankle tail shoulder, chicken swine capicola doner ham hock tri-tip flank drumstick pork. Burgdoggen jerky hamburger chuck, picanha boudin tri-tip biltong short loin spare ribs pig chicken drumstick shankle pork belly.
-                        </CardText>
-                    </Card>
+                    <div style={styles.cardsContainer}>
+                        <Card expanded={this.state.expandedOne} onExpandChange={this.handleExpandChangeOne}>
+                            <CardHeader
+                                title="Ayuda Uno"
+                                subtitle="Subtítulo de Ayuda Uno"
+                                actAsExpander={true}
+                                showExpandableButton={true}
+                                />
+                            <CardText expandable={true}>
+                                Bacon ipsum dolor amet venison shankle pastrami, andouille biltong ground round short loin doner cupim turducken swine spare ribs. Ball tip picanha fatback jowl pork belly beef ribs bacon tenderloin venison shoulder ribeye salami rump corned beef spare ribs. T-bone shoulder alcatra kevin cupim chicken strip steak meatloaf pancetta. Fatback boudin frankfurter bacon tail. Alcatra beef shankle tail shoulder, chicken swine capicola doner ham hock tri-tip flank drumstick pork. Burgdoggen jerky hamburger chuck, picanha boudin tri-tip biltong short loin spare ribs pig chicken drumstick shankle pork belly.
+                            </CardText>
+                        </Card>
+                        <div style={styles.cardSpacer}/>
+                        <Card expanded={this.state.expandedTwo} onExpandChange={this.handleExpandChangeTwo}>
+                            <CardHeader
+                                title="Ayuda Dos"
+                                subtitle="Subtítulo de Ayuda Dos"
+                                actAsExpander={true}
+                                showExpandableButton={true}
+                                />
+                            <CardText expandable={true}>
+                                Bacon ipsum dolor amet venison shankle pastrami, andouille biltong ground round short loin doner cupim turducken swine spare ribs. Ball tip picanha fatback jowl pork belly beef ribs bacon tenderloin venison shoulder ribeye salami rump corned beef spare ribs. T-bone shoulder alcatra kevin cupim chicken strip steak meatloaf pancetta. Fatback boudin frankfurter bacon tail. Alcatra beef shankle tail shoulder, chicken swine capicola doner ham hock tri-tip flank drumstick pork. Burgdoggen jerky hamburger chuck, picanha boudin tri-tip biltong short loin spare ribs pig chicken drumstick shankle pork belly.
+                            </CardText>
+                        </Card>
+                        <div style={styles.cardSpacer}/>
+                        <Card expanded={this.state.expandedThree} onExpandChange={this.handleExpandChangeThree}>
+                            <CardHeader
+                                title="Ayuda Tres"
+                                subtitle="Subtítulo de Ayuda Tres"
+                                actAsExpander={true}
+                                showExpandableButton={true}
+                                />
+                            <CardText expandable={true}>
+                                Bacon ipsum dolor amet venison shankle pastrami, andouille biltong ground round short loin doner cupim turducken swine spare ribs. Ball tip picanha fatback jowl pork belly beef ribs bacon tenderloin venison shoulder ribeye salami rump corned beef spare ribs. T-bone shoulder alcatra kevin cupim chicken strip steak meatloaf pancetta. Fatback boudin frankfurter bacon tail. Alcatra beef shankle tail shoulder, chicken swine capicola doner ham hock tri-tip flank drumstick pork. Burgdoggen jerky hamburger chuck, picanha boudin tri-tip biltong short loin spare ribs pig chicken drumstick shankle pork belly.
+                            </CardText>
+                        </Card>
+                    </div>
                     <div style={styles.spacer}/>
                     <hr style={styles.divider}/>
                     <section>

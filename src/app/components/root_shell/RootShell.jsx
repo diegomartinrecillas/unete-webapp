@@ -48,7 +48,9 @@ export default class RootShell extends React.Component {
                     <div className='loader uil-ripple-css' style={rippleStyle}><div></div><div></div></div>
                 </div>
                 <div className='root background'>
-                    {this.props.children}
+                    <div hidden={this.state.isCheckingLoggedIn}>
+                        {this.props.children}
+                    </div>
                 </div>
             </div>
         )

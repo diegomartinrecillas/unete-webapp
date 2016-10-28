@@ -10,30 +10,19 @@ import SignUpStore from 'app/stores/SignUpStore';
 import SignUpActions from 'app/actions/SignUpActions';
 import LoginStore from 'app/stores/LoginStore';
 // Material UI Components
-import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
-import ArrowBackIcon from 'material-ui/svg-icons/navigation/arrow-back';
-import IconButton from 'material-ui/IconButton';
+// My Components
+import ArrowBack from 'app/components/misc/ArrowBack';
+import CenteredContainer from 'app/components/misc/CenteredContainer';
+import InnerContainer from 'app/components/misc/InnerContainer';
 
 import {red500, orange500, green500} from 'material-ui/styles/colors';
 import { primary, accent } from 'app/styles/colors';
 
 // CSS-in-JS
 const styles = {
-    container: {
-        paddingTop: '2%',
-        paddingLeft: '2%',
-        paddingRight: '2%',
-        paddingBottom: '0%',
-        textAlign: 'center',
-    },
-    innerContainer: {
-        display: 'inline-block',
-        width: '100%',
-        maxWidth: 400
-    },
     title: {
         paddingTop: '12%',
         paddingBottom: '5%',
@@ -84,19 +73,6 @@ const styles = {
     },
     spacer: {
         height: '5vh'
-    },
-    icon: {
-        width: 40,
-        height: 40,
-        color: primary
-    },
-    iconButton: {
-        position: 'absolute',
-        left: 0,
-        top: 0,
-        width: 80,
-        height: 80,
-        padding: 20,
     }
 }
 
@@ -236,20 +212,11 @@ export default class RegistroInicio extends React.Component {
             })
         }
     }
-    goBack = () => {
-        window.history.back();
-    }
     render() {
         return (
-            <div style={styles.container}>
-                <IconButton
-                    onClick={this.goBack}
-                    iconStyle={styles.icon}
-                    style={styles.iconButton}
-                    >
-                    <ArrowBackIcon />
-                </IconButton>
-                <div style={styles.innerContainer}>
+            <CenteredContainer>
+                <ArrowBack />
+                <InnerContainer>
                     <section style={styles.title}>
                         Regístrate
                     </section>
@@ -306,9 +273,8 @@ export default class RegistroInicio extends React.Component {
                             </Link>
                         </section>
                     </form>
-                </div>
-
-            </div>
+                </InnerContainer>
+            </CenteredContainer>
         )
     }
 }

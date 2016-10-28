@@ -1,14 +1,11 @@
 // React
 import React from 'react';
-// React Router
-import { Link } from 'react-router';
 // Material UI Components
-import AppBar from 'material-ui/AppBar';
-import Paper from 'material-ui/Paper';
-import RaisedButton from 'material-ui/RaisedButton';
-
+import FlatButton from 'material-ui/FlatButton';
+// My Components
+import ArrowBack from 'app/components/misc/ArrowBack';
+// Colors
 import { primary, accent } from 'app/styles/colors';
-
 
 
 const styles = {
@@ -55,27 +52,16 @@ const styles = {
 }
 
 export default class Error extends React.Component {
-    goBack = () => {
-        window.history.back();
-    }
     render() {
         return (
-            <div style={styles.container}>
+            <div style={styles.container} className='root background'>
+                <ArrowBack/>
                 <div style={styles.innerContainer}>
                     <section style={styles.title}>
                         <strong>404</strong>
                     </section>
                     <section style={styles.legend}>
                         Esta sección no existe.
-                    </section>
-                    <div style={styles.spacer}/>
-                    <hr style={styles.divider}/>
-                    <section>
-                        <RaisedButton
-                            label="Regresar"
-                            primary={true}
-                            style={styles.button}
-                            onClick={this.goBack}/>
                     </section>
                 </div>
             </div>

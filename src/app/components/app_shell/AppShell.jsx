@@ -23,8 +23,11 @@ import AccountIcon from 'material-ui/svg-icons/action/account-circle';
 import ChatIcon from 'material-ui/svg-icons/communication/chat';
 import HomeIcon from 'material-ui/svg-icons/action/home';
 import NoteIcon from 'material-ui/svg-icons/AV/note';
+import AnnouncementIcon from 'material-ui/svg-icons/action/announcement';
+import ForumIcon from 'material-ui/svg-icons/communication/forum';
+import EventIcon from 'material-ui/svg-icons/action/event';
 // Colors
-import { primary, accent } from 'app/styles/colors';
+import { primary, accent, background } from 'app/styles/colors';
 
 const styles = {
     container: {
@@ -65,10 +68,11 @@ const styles = {
         color: 'rgb(30,30,30)',
     },
     drawer: {
-        backgroundColor: '#fafafa'
+        backgroundColor: background
     },
     image: {
-        maxHeight: '100%',
+        height: '100%',
+        maxWidth: '100%',
         opacity: 0.5
     }
 }
@@ -88,7 +92,7 @@ export default class AppShell extends React.Component {
     }
     // Store registration
     componentDidMount() {
-        // Register component callback and execute it instantly
+        // Register component callback and execute instantly
         this.LOGIN_STORE_ID = LoginStore.register(this._onChange, false);
         this.SIGNUP_STORE_ID = SignUpStore.register(this._onChange, false);
         SignUpActions.checkSignUpDone();
@@ -171,7 +175,7 @@ export default class AppShell extends React.Component {
                 <Popover
                     open={this.state.popoverIsOpen}
                     anchorEl={this.state.anchorEl}
-                    anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+                    anchorOrigin={{horizontal: 'left', vertical: 'top'}}
                     targetOrigin={{horizontal: 'left', vertical: 'top'}}
                     onRequestClose={this.handleRequestClose}
                     animation={PopoverAnimationVertical}
@@ -219,21 +223,28 @@ export default class AppShell extends React.Component {
                     </Link>
                     <Divider/>
                     <Link to="/app/chat" style={styles.link} activeStyle={styles.activeLink}>
+                        <MenuItem onTouchTap={this.handleClose} leftIcon={<ForumIcon/>}>
+                            <span style={styles.menuItem}>
+                                Discusión
+                            </span>
+                        </MenuItem>
+                    </Link>
+                    <Link to="/app/eventos" style={styles.link} activeStyle={styles.activeLink}>
+                        <MenuItem onTouchTap={this.handleClose} leftIcon={<EventIcon/>}>
+                            <span style={styles.menuItem}>
+                                Eventos
+                            </span>
+                        </MenuItem>
+                    </Link>
+                    <Link to="/app/mensajes" style={styles.link} activeStyle={styles.activeLink}>
                         <MenuItem onTouchTap={this.handleClose} leftIcon={<ChatIcon/>}>
                             <span style={styles.menuItem}>
-                                Chat
+                                Mensajes
                             </span>
                         </MenuItem>
                     </Link>
-                    <Link to="/app/curp" style={styles.link} activeStyle={styles.activeLink}>
-                        <MenuItem onTouchTap={this.handleClose} leftIcon={<NoteIcon/>}>
-                            <span style={styles.menuItem}>
-                                CURP
-                            </span>
-                        </MenuItem>
-                    </Link>
-                    <Link to="/app/news" style={styles.link} activeStyle={styles.activeLink}>
-                        <MenuItem onTouchTap={this.handleClose} leftIcon={<NoteIcon/>}>
+                    <Link to="/app/noticias" style={styles.link} activeStyle={styles.activeLink}>
+                        <MenuItem onTouchTap={this.handleClose} leftIcon={<AnnouncementIcon/>}>
                             <span style={styles.menuItem}>
                                 Noticias
                             </span>

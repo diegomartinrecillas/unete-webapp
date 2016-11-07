@@ -22,7 +22,7 @@ class UserStore extends Store {
     constructor() {
         const DEBUG = false;
         super('UserStore', DEBUG);
-
+        
         this.state = new UserState();
         this.state.on('change', this.update, this);
 
@@ -41,11 +41,13 @@ class UserStore extends Store {
                     let lastName1 = snapshot.val().lastName1;
                     let lastName2 = snapshot.val().lastName2;
                     let cellphone = snapshot.val().cellphone;
+                    let cct = snapshot.val().cct;
                     this.state.set({
                         name: name,
                         lastName1: lastName1,
                         lastName2: lastName2,
-                        cellphone: cellphone
+                        cellphone: cellphone,
+                        cct: cct
                     });
                 })
                 .catch((error) => {

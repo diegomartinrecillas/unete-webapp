@@ -108,6 +108,7 @@ class SignUpStore extends Store {
         let lastName1 = data['lastName1'];
         let lastName2 = data['lastName2'];
         let cellphone = data['cellphone'];
+        let cct = data['cct'];
 
         if (firebaseAuth.currentUser !== null) {
             let userId = firebaseAuth.currentUser.uid;
@@ -116,11 +117,15 @@ class SignUpStore extends Store {
                 name: name,
                 lastName1: lastName1,
                 lastName2: lastName2,
-                cellphone: cellphone
+                cellphone: cellphone,
+                cct: cct
             })
             .then((result) => {
                 this.state.set('doneSignUp', true);
                 this.update();
+            })
+            .catch((error) => {
+                console.log(error);
             });
         }
     }

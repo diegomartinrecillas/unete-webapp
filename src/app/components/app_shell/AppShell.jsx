@@ -5,6 +5,7 @@ import LoginActions from 'app/actions/LoginActions';
 import LoginStore from 'app/stores/LoginStore';
 import SignUpStore from 'app/stores/SignUpStore';
 import SignUpActions from 'app/actions/SignUpActions';
+import UserStore from 'app/stores/UserStore';
 // React router
 import { Link } from 'react-router';
 // Material UI Components
@@ -87,7 +88,8 @@ export default class AppShell extends React.Component {
             isLoggedIn: false,
             doneSignUp: false,
             drawerIsOpen: false,
-            popoverIsOpen: false
+            popoverIsOpen: false,
+            fullName: ''
         }
     }
     // Store registration
@@ -130,8 +132,18 @@ export default class AppShell extends React.Component {
     _onChange = () => {
         this.setState({
             isLoggedIn: LoginStore.state.get('isLoggedIn'),
-            doneSignUp: SignUpStore.state.get('doneSignUp')
+            doneSignUp: SignUpStore.state.get('doneSignUp'),
+            fullName: this.getFullName()
         });
+    }
+    getFullName = () => {
+        let name = UserStore.state.get('name');
+        let lastName1 = UserStore.state.get('lastName1');
+        let lastName2 = UserStore.state.get('lastName2');
+
+        let fullName = `${name} ${lastName1} ${lastName2}`
+
+        return fullName;
     }
     handleLogout = () => {
         LoginActions.logout();
@@ -211,7 +223,7 @@ export default class AppShell extends React.Component {
                     <div style={styles.logoContainer}>
                         <img src={require('assets/images/drawer_background.png')} style={styles.image}/>
                         <div style={styles.logo} onTouchTap={this.handleClose}>
-                            Diego Martin Recillas
+                            {this.state.fullName}
                         </div>
                     </div>
                     <Link to="/app/home" style={styles.link} activeStyle={styles.activeLink}>

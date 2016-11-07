@@ -86,7 +86,6 @@ export default class Datos extends React.Component {
             lastName1: '',
             lastName2: '',
             cellphone: '',
-            genero: '',
             cct: '',
             doneSignUp: false
         };

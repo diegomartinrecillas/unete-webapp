@@ -105,9 +105,9 @@ export default class Login extends React.Component {
     }
     // Store registration
     componentDidMount() {
-        // Register component callback and execute it instantly
+        // Register component callback
         this.LOGIN_STORE_ID = LoginStore.register(this._onChange, false);
-        LoginActions.checkLoggedIn();
+       // LoginActions.checkLoggedIn();
         LoginActions.resetError();
     }
     componentWillUnmount() {

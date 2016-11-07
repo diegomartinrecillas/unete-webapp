@@ -4,7 +4,7 @@ import appDispatcher from 'app/dispatcher/AppDispatcher';
 import LOGIN_CONSTANTS from 'app/constants/LoginConstants';
 import LoginActions from 'app/actions/LoginActions';
 import SignUpActions from 'app/actions/SignUpActions';
-import SignUpStore from 'app/stores/SignUpStore';
+import UserActions from 'app/actions/UserActions';
 // Firebase
 import firebase from 'firebase';
 import { firebaseAuth } from 'app/firebase/firebase';
@@ -61,6 +61,7 @@ class LoginStore extends Store {
                     'isLoggedIn': true,
                     'isCheckingLoggedIn': false
                 });
+                UserActions.getUserInfo();
             } else {
                 this.state.set({
                     'isLoggedIn': false,

@@ -26,7 +26,6 @@ const styles = {
         paddingLeft: '10%',
         paddingRight: '10%'
     },
-
     button: {
         margin: 12,
         width: '70%',
@@ -51,7 +50,6 @@ const styles = {
         color: primary
     },
     divider: {
-
         maxWidth: '80%',
         height: 1,
         border: 'none',
@@ -98,7 +96,6 @@ export default class Ayuda extends React.Component {
                     </section>
                 <InnerContainer>
                     <div style={styles.alignment}>
-
                         <section style={styles.legend}>
                             Nombre: {this.state.name}
                         </section>
@@ -115,7 +112,6 @@ export default class Ayuda extends React.Component {
                             Clave de Centro de Trabajo (CCT): {this.state.cct}
                         </section>
                     </div>
-
                 </InnerContainer>
             </CenteredContainer>
         )

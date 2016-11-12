@@ -251,7 +251,7 @@ export default class AppShell extends React.Component {
                     <Link to="/app/mensajes" style={styles.link} activeStyle={styles.activeLink}>
                         <MenuItem onTouchTap={this.handleClose} leftIcon={<ChatIcon/>}>
                             <span style={styles.menuItem}>
-                                Mensajes
+                                Mensaje a ÚNETE
                             </span>
                         </MenuItem>
                     </Link>

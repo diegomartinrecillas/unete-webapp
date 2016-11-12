@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 import {GridList, GridTile} from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
 import Subheader from 'material-ui/Subheader';
@@ -19,39 +20,39 @@ const styles = {
         height: '100%',
         overflowY: 'auto',
         marginBottom: 0,
-    },
+    }
 };
 
 const tilesData = [
     {
+        id: 0,
         img: require('assets/images/libros.jpg'),
-        title: 'Cursos',
-        author: 'avepizz',
+        title: 'Discusión',
+        link: '/app/chat'
     },
     {
+        id: 1,
         img: require('assets/images/estadistica.jpg'),
-        title: 'Estadisticas',
-        author: 'avepizz',
+        title: 'Eventos',
+        link: '/app/eventos'
     },
     {
+        id: 2,
+        img: require('assets/images/mensaje.jpg'),
+        title: 'Mensaje a ÚNETE',
+        link: '/app/mensajes'
+    },
+    {
+        id: 3,
         img: require('assets/images/noticias.jpg'),
         title: 'Noticias',
-        author: 'avepizz',
-    },
-    {
-        img: require('assets/images/curp.jpg'),
-        title: 'CURP',
-        author: 'avepizz',
-    },
-    {
-        img: require('assets/images/mensaje.jpg'),
-        title: 'Mensajes',
-        author: 'avepizz',
+        link: '/app/noticias'
     }
 
 ];
 
 export default class Launcher extends React.Component {
+
     render() {
         return (
             <div style={styles.container}>
@@ -60,13 +61,14 @@ export default class Launcher extends React.Component {
                         cellHeight={200}
                         style={styles.gridList}>
                         {tilesData.map((tile) => (
-                            <GridTile
-                                key={tile.img}
-                                title={tile.title}
-                                subtitle={<span>by <b>{tile.author}</b></span>}
-                                actionIcon={<IconButton><StarBorder color="white" /></IconButton>}>
-                                <img src={tile.img} />
-                            </GridTile>
+                            <Link key={tile.id} to={tile.link} >
+                                <GridTile
+                                    key={tile.id}
+                                    title={tile.title}
+                                    >
+                                    <img src={tile.img} />
+                                </GridTile>
+                            </Link>
                         ))}
                     </GridList>
                 </div>

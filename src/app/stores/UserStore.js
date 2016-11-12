@@ -22,7 +22,7 @@ class UserStore extends Store {
     constructor() {
         const DEBUG = false;
         super('UserStore', DEBUG);
-        
+
         this.state = new UserState();
         this.state.on('change', this.update, this);
 
@@ -36,23 +36,23 @@ class UserStore extends Store {
         if (firebaseAuth.currentUser !== null) {
             let uid = firebaseAuth.currentUser.uid;
             firebaseDatabase.ref('/users/' + uid).once('value')
-                .then((snapshot) => {
-                    let name = snapshot.val().name;
-                    let lastName1 = snapshot.val().lastName1;
-                    let lastName2 = snapshot.val().lastName2;
-                    let cellphone = snapshot.val().cellphone;
-                    let cct = snapshot.val().cct;
-                    this.state.set({
-                        name: name,
-                        lastName1: lastName1,
-                        lastName2: lastName2,
-                        cellphone: cellphone,
-                        cct: cct
-                    });
-                })
-                .catch((error) => {
-                    console.log(error);
+            .then((snapshot) => {
+                let name = snapshot.val().name;
+                let lastName1 = snapshot.val().lastName1;
+                let lastName2 = snapshot.val().lastName2;
+                let cellphone = snapshot.val().cellphone;
+                let cct = snapshot.val().cct;
+                this.state.set({
+                    name: name,
+                    lastName1: lastName1,
+                    lastName2: lastName2,
+                    cellphone: cellphone,
+                    cct: cct
                 });
+            })
+            .catch((error) => {
+                console.log(error);
+            });
         }
     }
 }

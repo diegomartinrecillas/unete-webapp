@@ -37,7 +37,7 @@ const ArrowBack = () => {
             >
             <ArrowBackIcon />
         </IconButton>
-    )
+    );
 }
 
 export default ArrowBack;

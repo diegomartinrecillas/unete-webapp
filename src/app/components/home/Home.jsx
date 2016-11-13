@@ -20,7 +20,9 @@ const styles = {
         height: '100%',
         overflowY: 'auto',
         marginBottom: 0,
-    }
+        maxWidth: 440
+    },
+    tile: {}
 };
 
 const tilesData = [
@@ -65,6 +67,7 @@ export default class Launcher extends React.Component {
                                 <GridTile
                                     key={tile.id}
                                     title={tile.title}
+                                    style={styles.tile}
                                     >
                                     <img src={tile.img} />
                                 </GridTile>

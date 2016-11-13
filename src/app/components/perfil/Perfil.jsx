@@ -5,6 +5,7 @@ import UserStore from 'app/stores/UserStore';
 // Components
 import CenteredContainer from 'app/components/misc/CenteredContainer';
 import InnerContainer from 'app/components/misc/InnerContainer';
+import Divider from 'app/components/misc/Divider';
 // Colors
 import { primary, accent } from 'app/styles/colors';
 
@@ -26,38 +27,10 @@ const styles = {
         paddingLeft: '10%',
         paddingRight: '10%'
     },
-    button: {
-        margin: 12,
-        width: '70%',
-        height: 50
-    },
-    paper: {
-        display: 'inline-block',
-        width: '100%',
-        maxWidth: 400
-    },
-    image: {
-        paddingTop: '5%',
-        width: '80%'
-    },
-    link: {
-        display: 'inline-block',
-        paddingBottom: '5%',
-        textDecoration: 'none',
+    entry: {
         color: accent
-    },
-    signingUp: {
-        color: primary
-    },
-    divider: {
-        maxWidth: '80%',
-        height: 1,
-        border: 'none',
-        backgroundColor: 'rgb(224, 224, 224)'
-    },
-    spacer: {
-        height: '5vh'
     }
+
 }
 
 export default class Ayuda extends React.Component {
@@ -93,24 +66,29 @@ export default class Ayuda extends React.Component {
             <CenteredContainer>
                 <section style={styles.title}>
                     Mi Perfil
-                    </section>
+                </section>
                 <InnerContainer>
                     <div style={styles.alignment}>
                         <section style={styles.legend}>
-                            Nombre: {this.state.name}
+                            NOMBRE: <span style={styles.entry}>{this.state.name}</span>
                         </section>
+                        <Divider/>
                         <section style={styles.legend}>
-                            Apellido Paterno: {this.state.lastName1}
+                            APELLIDO PATERNO: <span style={styles.entry}>{this.state.lastName1}</span>
                         </section>
+                        <Divider/>
                         <section style={styles.legend}>
-                            Apellido Materno: {this.state.lastName2}
+                            APELLIDO MATERNO: <span style={styles.entry}>{this.state.lastName2}</span>
                         </section>
+                        <Divider/>
                         <section style={styles.legend}>
-                            Teléfono Celular: {this.state.cellphone}
+                            TELÉFONO CELULAR: <span style={styles.entry}>{this.state.cellphone}</span>
                         </section>
+                        <Divider/>
                         <section style={styles.legend}>
-                            Clave de Centro de Trabajo (CCT): {this.state.cct}
+                            CLAVE DE DENTRO DE TRABAJO (CCT): <span style={styles.entry}>{this.state.cct}</span>
                         </section>
+                        <Divider/>
                     </div>
                 </InnerContainer>
             </CenteredContainer>

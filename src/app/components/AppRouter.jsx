@@ -9,6 +9,7 @@ import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 // App Components
+import About from './about/About';
 import AppShell from './app_shell/AppShell';
 import Ayuda from './ayuda/Ayuda';
 import Chat from './chat/Chat';
@@ -47,6 +48,7 @@ export default class AppRouter extends React.Component {
                         <Route path="/restore-finished/:email" component={RestoreFinished}/>
                         <Route path="/registro" component={Registro}/>
                         <Route path="/ayuda" component={Ayuda}/>
+                        <Route path="/about" component={About}/>
                         <Route path="/error" component={Error}/>
                         <Redirect from="/app" to="/app/home" />
                         <Route path="/app" component={AppShell} onEnter={requireAuth}>

@@ -3,10 +3,9 @@ import React from 'react';
 import { Link, hashHistory } from 'react-router';
 // Material UI Components
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
-import Toggle from 'material-ui/Toggle';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-// My Components
+// Components
 import ArrowBack from 'app/components/misc/ArrowBack';
 // Colors
 import { primary, accent } from 'app/styles/colors';
@@ -58,19 +57,6 @@ const styles = {
     },
     spacer: {
         height: '5vh'
-    },
-    icon: {
-        width: 40,
-        height: 40,
-        color: primary
-    },
-    iconButton: {
-        position: 'absolute',
-        left: 0,
-        top: 0,
-        width: 80,
-        height: 80,
-        padding: 20,
     }
 }
 

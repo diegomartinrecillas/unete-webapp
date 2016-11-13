@@ -65,7 +65,6 @@ const styles = {
         color: primary
     },
     divider: {
-
         maxWidth: '80%',
         height: 1,
         border: 'none',

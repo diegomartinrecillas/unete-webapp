@@ -27,6 +27,7 @@ import NoteIcon from 'material-ui/svg-icons/AV/note';
 import AnnouncementIcon from 'material-ui/svg-icons/action/announcement';
 import ForumIcon from 'material-ui/svg-icons/communication/forum';
 import EventIcon from 'material-ui/svg-icons/action/event';
+import InfoOutlineIcon from 'material-ui/svg-icons/action/info-outline';
 // Colors
 import { primary, accent, background } from 'app/styles/colors';
 
@@ -178,7 +179,7 @@ export default class AppShell extends React.Component {
         return (
             <div>
                 <AppBar
-                    title='ÚNETE'
+                    title='UNETE'
                     style={styles.appbar}
                     onLeftIconButtonTouchTap={this.handleToggle}
                     onTitleTouchTap={this.handleToggle}
@@ -251,7 +252,7 @@ export default class AppShell extends React.Component {
                     <Link to="/app/mensajes" style={styles.link} activeStyle={styles.activeLink}>
                         <MenuItem onTouchTap={this.handleClose} leftIcon={<ChatIcon/>}>
                             <span style={styles.menuItem}>
-                                Mensaje a ÚNETE
+                                Mensaje a UNETE
                             </span>
                         </MenuItem>
                     </Link>
@@ -259,6 +260,14 @@ export default class AppShell extends React.Component {
                         <MenuItem onTouchTap={this.handleClose} leftIcon={<AnnouncementIcon/>}>
                             <span style={styles.menuItem}>
                                 Noticias
+                            </span>
+                        </MenuItem>
+                    </Link>
+                    <Divider/>
+                    <Link to="/about" style={styles.link} activeStyle={styles.activeLink}>
+                        <MenuItem onTouchTap={this.handleClose} leftIcon={<InfoOutlineIcon/>}>
+                            <span style={styles.menuItem}>
+                                Acerca de UNETE
                             </span>
                         </MenuItem>
                     </Link>

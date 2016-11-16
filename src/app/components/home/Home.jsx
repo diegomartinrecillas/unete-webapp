@@ -1,5 +1,8 @@
+// React
 import React from 'react';
+// React router
 import { Link } from 'react-router';
+// Material UI Components
 import {GridList, GridTile} from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
 import Subheader from 'material-ui/Subheader';
@@ -41,7 +44,7 @@ const tilesData = [
     {
         id: 2,
         img: require('assets/images/mensaje.jpg'),
-        title: 'Mensaje a ÚNETE',
+        title: 'Mensaje a UNETE',
         link: '/app/mensajes'
     },
     {

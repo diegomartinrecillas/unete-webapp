@@ -28,7 +28,7 @@ export default class Mensajes extends React.Component {
         let height = Math.round(window.innerHeight * 1.01);
         let rippleStyle = {transform: 'scale(1)'};
         return (
-            <div className="facebook prevent-reload">
+            <div style={{marginTop: 10}} className="facebook prevent-reload">
                 <div hidden={!this.state.isLoadingFBPage} className='facebook loader-container'>
                     <div className='loader uil-ripple-css' style={rippleStyle}><div></div><div></div></div>
                 </div>

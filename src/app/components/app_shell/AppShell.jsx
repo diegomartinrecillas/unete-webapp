@@ -33,7 +33,7 @@ import { primary, accent, background } from 'app/styles/colors';
 
 const styles = {
     container: {
-        paddingTop: 70,
+        paddingTop: 60,
         paddingBottom: '2%'
     },
     logoContainer: {

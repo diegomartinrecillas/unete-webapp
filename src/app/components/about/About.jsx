@@ -88,7 +88,7 @@ export default class About extends React.Component {
                 <ArrowBack/>
                 <InnerContainer>
                     <section style={styles.title}>
-                        Acerca de UNETE
+                        UNETE
                     </section>
                     <div style={styles.spacer}/>
                     <div style={styles.cardsContainer}>

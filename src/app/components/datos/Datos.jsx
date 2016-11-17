@@ -120,7 +120,8 @@ export default class Datos extends React.Component {
         data.name = this.state.name;
         data.lastName1 = this.state.lastName1;
         data.lastName2 = this.state.lastName2;
-        data.cellphone = this.state.cellphone
+        data.cellphone = this.state.cellphone;
+        data.cct = this.state.cct;
 
         SignUpActions.setSignUpData(data);
 

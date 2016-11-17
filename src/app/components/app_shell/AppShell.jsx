@@ -98,12 +98,14 @@ export default class AppShell extends React.Component {
         // Register component callback and execute instantly
         this.LOGIN_STORE_ID = LoginStore.register(this._onChange, false);
         this.SIGNUP_STORE_ID = SignUpStore.register(this._onChange, false);
+        this.USER_STORE_ID = UserStore.register(this._onChange);
         SignUpActions.checkSignUpDone();
     }
     componentWillUnmount() {
         // Unregister
         LoginStore.unregister(this.LOGIN_STORE_ID);
         SignUpStore.unregister(this.SIGNUP_STORE_ID);
+        UserStore.unregister(this.USER_STORE_ID);
     }
     componentDidUpdate() {
         if (this.state.isLoggedIn !== null) {

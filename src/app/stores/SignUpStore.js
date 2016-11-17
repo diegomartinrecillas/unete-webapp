@@ -4,6 +4,7 @@ import appDispatcher from 'app/dispatcher/AppDispatcher';
 import SIGNUP_CONSTANTS from 'app/constants/SignUpConstants';
 import LOGIN_CONSTANTS from 'app/constants/LoginConstants';
 import LoginActions from 'app/actions/LoginActions';
+import UserActions from 'app/actions/UserActions';
 
 // Firebase
 import { firebaseAuth, firebaseDatabase } from 'app/firebase/firebase';
@@ -51,6 +52,7 @@ class SignUpStore extends Store {
             let uid = firebaseAuth.currentUser.uid;
             firebaseDatabase.ref('/users/' + uid).once('value')
             .then((snapshot) => {
+                UserActions.getUserInfo();
                 let doneSignUp = snapshot.val().doneSignUp;
                 this.state.set('doneSignUp', doneSignUp);
                 this.state.set('isCheckingFinished', false);
@@ -103,6 +105,7 @@ class SignUpStore extends Store {
     }
 
     setSignUpData = (data) => {
+        console.log(data);
 
         let name = data['name'];
         let lastName1 = data['lastName1'];

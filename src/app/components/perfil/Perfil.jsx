@@ -40,7 +40,8 @@ export default class Ayuda extends React.Component {
             name: '',
             lastName1: '',
             lastName2: '',
-            cellphone: ''
+            cellphone: '',
+            cct: ''
         };
     }
 
@@ -57,7 +58,8 @@ export default class Ayuda extends React.Component {
             name: UserStore.state.get('name'),
             lastName1: UserStore.state.get('lastName1'),
             lastName2: UserStore.state.get('lastName2'),
-            cellphone: UserStore.state.get('cellphone')
+            cellphone: UserStore.state.get('cellphone'),
+            cct: UserStore.state.get('cct')
         });
     }
 

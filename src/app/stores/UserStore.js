@@ -12,7 +12,8 @@ const UserState = Model.extend({
         name: '',
         lastName1: '',
         lastName2: '',
-        cellphone: ''
+        cellphone: '',
+        cct: ''
     }
 });
 
@@ -43,11 +44,11 @@ class UserStore extends Store {
                 let cellphone = snapshot.val().cellphone;
                 let cct = snapshot.val().cct;
                 this.state.set({
-                    name: name,
-                    lastName1: lastName1,
-                    lastName2: lastName2,
-                    cellphone: cellphone,
-                    cct: cct
+                    'name': name,
+                    'lastName1': lastName1,
+                    'lastName2': lastName2,
+                    'cellphone': cellphone,
+                    'cct': cct
                 });
             })
             .catch((error) => {

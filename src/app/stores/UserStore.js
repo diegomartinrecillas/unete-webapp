@@ -9,6 +9,7 @@ import { Collection, Model } from 'backbone';
 
 const UserState = Model.extend({
     defaults: {
+        email: '',
         name: '',
         lastName1: '',
         lastName2: '',
@@ -44,6 +45,7 @@ class UserStore extends Store {
                 let cellphone = snapshot.val().cellphone;
                 let cct = snapshot.val().cct;
                 this.state.set({
+                    'email': firebaseAuth.currentUser.email,
                     'name': name,
                     'lastName1': lastName1,
                     'lastName2': lastName2,

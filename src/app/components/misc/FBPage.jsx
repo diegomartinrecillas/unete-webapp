@@ -21,14 +21,14 @@ export default class FBPage extends React.Component {
 
     static defaultProps = {
         adaptContainerWidth: true,
-        locale: 'en_US',
+        locale: 'es_ES',
         height: 500,
         hideCover: false,
         hideCta: true,
         showFacepile: false,
         smallHeader: false,
         tabs: ['timeline'],
-        version: 'v2.5',
+        version: 'v2.8',
         width: 340,
         xfbml: true
     }

@@ -18,9 +18,7 @@ const styles = {
         textAlign: 'left'
     },
     title: {
-        paddingTop: '10%',
-        paddingBottom: '10%',
-        fontSize: 30,
+        fontSize: 12,
         fontWeight: 500,
         color: primary
     },
@@ -31,7 +29,9 @@ const styles = {
         paddingRight: '10%'
     },
     entry: {
-        color: accent
+        color: 'black',
+        paddingRight: '0.3em',
+        overflowWrap: 'normal'
     },
     avatar: {
 
@@ -56,6 +56,7 @@ export default class Ayuda extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            email: '',
             name: '',
             lastName1: '',
             lastName2: '',
@@ -74,6 +75,7 @@ export default class Ayuda extends React.Component {
 
     _onChange = () => {
         this.setState({
+            email: UserStore.state.get('email'),
             name: UserStore.state.get('name'),
             lastName1: UserStore.state.get('lastName1'),
             lastName2: UserStore.state.get('lastName2'),
@@ -92,35 +94,46 @@ export default class Ayuda extends React.Component {
                         <InnerContainer>
                             <div style={styles.alignment}>
                                 <section style={styles.legend}>
-                                    NOMBRE:
+                                    <span style={styles.title}>
+                                        Nombre
+                                    </span>
+                                    <br/>
                                     <span style={styles.entry}>
                                         {this.state.name}
                                     </span>
-                                </section>
-                                <Divider/>
-                                <section style={styles.legend}>
-                                    APELLIDO PATERNO:
                                     <span style={styles.entry}>
                                         {this.state.lastName1}
                                     </span>
-                                </section>
-                                <Divider/>
-                                <section style={styles.legend}>
-                                    APELLIDO MATERNO:
                                     <span style={styles.entry}>
                                         {this.state.lastName2}
                                     </span>
                                 </section>
                                 <Divider/>
                                 <section style={styles.legend}>
-                                    TELÉFONO CELULAR:
+                                    <span style={styles.title}>
+                                        Correo Electrónico
+                                    </span>
+                                    <br/>
+                                    <span style={styles.entry}>
+                                        {this.state.email}
+                                    </span>
+                                </section>
+                                <Divider/>
+                                <section style={styles.legend}>
+                                    <span style={styles.title}>
+                                        Teléfono Celular
+                                    </span>
+                                    <br/>
                                     <span style={styles.entry}>
                                         {this.state.cellphone}
                                     </span>
                                 </section>
                                 <Divider/>
                                 <section style={styles.legend}>
-                                    CLAVE DE CENTRO DE TRABAJO (CCT):
+                                    <span style={styles.title}>
+                                        Clave de Centro de Trabajo
+                                    </span>
+                                    <br/>
                                     <span style={styles.entry}>
                                         {this.state.cct}
                                     </span>

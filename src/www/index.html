@@ -55,24 +55,22 @@
 
     <!-- This scripts adds the Facebook SDK to the project so we can use it's plugins -->
     <script>
-    window.fbAsyncInit = function () {
+    window.fbAsyncInit = function() {
         FB.init({
-            appId: 'myFacebookAappID',
+            appId: 'yourFacebookAppId',
             xfbml: true,
-            version: 'v2.5'
+            version: 'v2.8'
         });
+        //FB.AppEvents.logPageView();
     };
 
-    // Load the SDK asynchronously
-    ((d, s, id) => { // eslint-disable-line id-length
-        const element = d.getElementsByTagName(s)[0];
-        const fjs = element;
-        let js = element;
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) {return;}
         js = d.createElement(s); js.id = id;
-        js.src = `//connect.facebook.net/es_MX/sdk.js`;
+        js.src = "//connect.facebook.net/es_ES/sdk.js";
         fjs.parentNode.insertBefore(js, fjs);
-    })(document, 'script', 'facebook-jssdk');
+    }(document, 'script', 'facebook-jssdk'));
     </script>
 </head>
 

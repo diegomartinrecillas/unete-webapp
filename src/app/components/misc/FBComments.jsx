@@ -17,10 +17,10 @@ export default class FBComments extends Component {
 
     static defaultProps = {
         colorScheme: 'light',
-        locale: 'en_US',
+        locale: 'es_ES',
         numPosts: 10,
         orderBy: 'social',
-        version: 'v2.5',
+        version: 'v2.8',
         width: 500,
         xfbml: true
     }

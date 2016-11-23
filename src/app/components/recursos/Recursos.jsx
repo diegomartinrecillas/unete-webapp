@@ -4,6 +4,12 @@ import React from 'react';
 import ResourcesStore from 'app/stores/ResourcesStore';
 import ResourcesActions from 'app/actions/ResourcesActions';
 
+const styles = {
+    recursos: {
+        width: '100%',
+        heght: '100%'
+    }
+}
 export default class Recursos extends React.Component {
     constructor(props) {
         super(props);
@@ -19,9 +25,17 @@ export default class Recursos extends React.Component {
 
     }
     render() {
+        let marginTop = -75;
+        let width = window.innerWidth;
+        let height = window.innerHeight + (-marginTop);
         return (
             <div>
-                RECURSOS
+                <iframe
+                    style={{
+                        width: width,
+                        height: height
+                    }}
+                    src='http://comunidadunete.net/buscador/'/>
             </div>
         );
     }

@@ -53,6 +53,12 @@ const tilesData = [
         img: require('assets/images/noticias.jpg'),
         title: 'Noticias',
         link: '/app/noticias'
+    },
+    {
+        id: 4,
+        img: require('assets/images/libros.jpg'),
+        title: 'Recursos',
+        link: '/app/recursos'
     }
 
 ];

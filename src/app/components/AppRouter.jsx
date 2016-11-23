@@ -22,6 +22,7 @@ import Login from './login/Login';
 import Mensajes from './mensajes/Mensajes';
 import Noticias from './noticias/Noticias';
 import Perfil from './perfil/Perfil';
+import Recursos from './recursos/Recursos';
 import Registro from './registro/Registro';
 import Restore from './restore/Restore';
 import RestoreFinished from './restore/RestoreFinished';
@@ -59,6 +60,7 @@ export default class AppRouter extends React.Component {
                             <Route path="/app/noticias" component={Noticias}/>
                             <Route path="/app/mensajes" component={Mensajes}/>
                             <Route path="/app/eventos" component={Eventos}/>
+                            <Route path="/app/recursos" component={Recursos}/>
                         </Route>
                         <Route path="/datos" component={Datos} onEnter={requireAuth}/>
                     </Route>

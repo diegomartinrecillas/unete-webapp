@@ -9,17 +9,20 @@ export default class Recursos extends React.Component {
         super(props);
     }
     componentDidMount() {
-        this.RESOURCES_STORE_ID = ResourcesStore.regiser(this._onchange, false);
+        this.RESOURCES_STORE_ID = ResourcesStore.register(this._onChange);
     }
-    componentWillMount() {
+
+    componentWillUnmount() {
         ResourcesStore.unregister(this.RESOURCES_STORE_ID);
     }
     _onChange = () => {
 
     }
     render() {
-        <div>
-            RECURSOS
-        </div>
+        return (
+            <div>
+                RECURSOS
+            </div>
+        );
     }
 }

@@ -40,8 +40,7 @@ const styles = {
         top: 0,
         left: 0,
         height: '50%',
-        width: '100%',
-
+        width: '100%'
     },
     container: {
 
@@ -124,8 +123,9 @@ export default class Ayuda extends React.Component {
                                         Teléfono Celular
                                     </span>
                                     <br/>
+
                                     <span style={styles.entry}>
-                                        {this.state.cellphone}
+                                        (+52) {this.state.cellphone}
                                     </span>
                                 </section>
                                 <Divider/>

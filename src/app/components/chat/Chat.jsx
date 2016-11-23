@@ -28,12 +28,12 @@ export default class Chat extends React.Component {
                     <div className='loader uil-ripple-css' style={rippleStyle}><div></div><div></div></div>
                 </div>
                 <FBComments className='facebook comments container'
-                    appId="yourFacebookAppId"
+                    appId="1100956576688933"
                     href="https://www.facebook.com/unetecomunidad"
                     width={'100%'}
                     numPosts={10}
                     colorScheme={'light'}
-                    locale="es_MX"/>
+                    locale="es_ES"/>
             </div>
         )
     }

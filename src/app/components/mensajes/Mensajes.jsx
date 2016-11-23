@@ -34,7 +34,7 @@ export default class Mensajes extends React.Component {
                 </div>
                 <div className='facebook messages container'>
                     <FBPage
-                        appId="yourFacebookAppId"
+                        appId="1100956576688933"
                         href="https://www.facebook.com/unetecomunidad"
                         tabs={['messages']}
                         locale={'es_MX'}

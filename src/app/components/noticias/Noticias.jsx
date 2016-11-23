@@ -36,7 +36,7 @@ export default class Ayuda extends React.Component {
                 </div>
                 <div className='facebook news container'>
                     <FBPage
-                        appId="yourFacebookAppId"
+                        appId="1100956576688933"
                         href="https://www.facebook.com/unetecomunidad"
                         tabs={['timeline']}
                         locale={'es_MX'}

@@ -34,7 +34,7 @@ export default class Eventos extends React.Component {
                 </div>
                 <div className='facebook messages container'>
                     <FBPage
-                        appId="yourFacebookAppId"
+                        appId="1100956576688933"
                         href="https://www.facebook.com/unetecomunidad"
                         tabs={['events']}
                         locale={'es_MX'}

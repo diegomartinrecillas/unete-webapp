@@ -12,6 +12,9 @@ import SignUpActions from 'app/actions/SignUpActions';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import AppBar from 'material-ui/AppBar';
+// Phone
+import ReactPhoneInput from 'react-phone-input';
+// Colots
 import { primary, accent } from 'app/styles/colors';
 
 // CSS-in-JS
@@ -116,17 +119,53 @@ export default class Datos extends React.Component {
         // Prevent default form submit behaviour
         e.preventDefault();
 
-        let data = {};
-        data.name = this.state.name;
-        data.lastName1 = this.state.lastName1;
-        data.lastName2 = this.state.lastName2;
-        data.cellphone = this.state.cellphone;
-        data.cct = this.state.cct;
+        if (this.allOk()) {
+            let data = {};
+            data.name = this.state.name;
+            data.lastName1 = this.state.lastName1;
+            data.lastName2 = this.state.lastName2;
+            data.cellphone = this.state.cellphone;
+            data.cct = this.state.cct;
 
-        SignUpActions.setSignUpData(data);
+            SignUpActions.setSignUpData(data);
+        }
 
         return false;
     }
+
+    handleCellphone = (event) => {
+        let value = event.target.value;
+        if (value.match(/\d/g).length <= 10) {
+            this.setState({
+                'cellphone': value
+            });
+        }
+    }
+
+    handleCCT = (event) => {
+        let value = event.target.value;
+        if (value.length <= 6) {
+            this.setState({
+                'cct': value
+            });
+        }
+    }
+
+    allOk = () => {
+        let cellphone = false;
+        let cct = false;
+
+        if (this.state.cellphone.length === 10) {
+            cellphone = true;
+        }
+        if (this.state.cct.length === 6) {
+            cct = true;
+        }
+
+        return cellphone && cct;
+
+    }
+
     render() {
         return (
             <div style={styles.container}>
@@ -167,20 +206,21 @@ export default class Datos extends React.Component {
                         </section>
                         <section>
                             <TextField
+                                type='number'
                                 required={true}
                                 hintText="Número Celular"
-                                floatingLabelText="Número Celular"
+                                floatingLabelText="Número Celular (10 digitos)"
                                 value={this.state.cellphone}
-                                onChange={linkState(this, 'cellphone')}
+                                onChange={this.handleCellphone}
                                 />
                         </section>
                         <section>
                             <TextField
                                 required={true}
-                                hintText="Clave de Centro de Trabajo (CCT)"
-                                floatingLabelText="Clave de Centro de Trabajo (CCT)"
+                                hintText="Clave de Centro de Trabajo"
+                                floatingLabelText="CCT (6 dígitos)"
                                 value={this.state.cct}
-                                onChange={linkState(this, 'cct')}
+                                onChange={this.handleCCT}
                                 />
                         </section>
                         <section>

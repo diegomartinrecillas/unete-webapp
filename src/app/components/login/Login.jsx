@@ -16,8 +16,6 @@ import FlatButton from 'material-ui/FlatButton';
 import { red500, orange500 } from 'material-ui/styles/colors';
 // Colors
 import { primary, accent } from 'app/styles/colors';
-// Spinner Loader
-import Loader from 'react-loader'
 
 // CSS-in-JS
 const styles = {
@@ -221,14 +219,6 @@ export default class Login extends React.Component {
     }
     // Render
     render() {
-        let loaderOptions = {
-            lines: 9,
-            length: 20,
-            color: primary,
-            radius: 30,
-            width: 10
-        }
-
         let loggingIn;
         if (this.state.isLoggingIn) {
             loggingIn =

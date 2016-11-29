@@ -14,12 +14,12 @@ export default class Recursos extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isLoadingIFrame: true
+            isLoadingIframe: true
         }
     }
     componentDidMount() {
         this.RESOURCES_STORE_ID = ResourcesStore.register(this._onChange);
-        document.getElementById("iframe-recursos").addEventListener('load', this._iFrameFinishedLoading);
+        document.getElementById("iframe-recursos").addEventListener('load', this._iframeFinishedLoading);
     }
 
     componentWillUnmount() {
@@ -30,9 +30,9 @@ export default class Recursos extends React.Component {
 
     }
 
-    _iFrameFinishedLoading = () => {
+    _iframeFinishedLoading = () => {
         this.setState({
-            isLoadingIFrame: false
+            isLoadingIframe: false
         })
     }
 
@@ -43,10 +43,11 @@ export default class Recursos extends React.Component {
         let rippleStyle = {transform: 'scale(1)'}
         return (
             <div>
-                <div hidden={!this.state.isLoadingIFrame} className='facebook loader-container'>
+                <div hidden={!this.state.isLoadingIframe} className='facebook loader-container'>
                     <div className='loader uil-ripple-css' style={rippleStyle}><div></div><div></div></div>
                 </div>
                 <iframe
+                    className="recursos container"
                     style={{
                         width: width,
                         height: height

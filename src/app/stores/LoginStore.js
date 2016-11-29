@@ -145,7 +145,8 @@ class LoginStore extends Store {
             errorMsg = 'Usuario y/o contreseña incorrectos';
         } else {
             errorMsg = 'Servicio temporalmente no disponible';
-        }
+        }//
+        //"auth/account-exists-with-different-credential"
         this.state.set({
             'isLoginError': true,
             'loginErrorMessage': errorMsg

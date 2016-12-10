@@ -146,6 +146,12 @@ export default class AppShell extends React.Component {
         let lastName2 = UserStore.state.get('lastName2');
 
         let fullName = `${name} ${lastName1} ${lastName2}`
+        if (fullName.length > 25) {
+            fullName = `${name} ${lastName1}`
+        }
+        if (fullName.length > 25) {
+            fullName = `${name}`
+        }
 
         return fullName;
     }

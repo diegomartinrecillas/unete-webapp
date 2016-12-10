@@ -89,7 +89,9 @@ export default class Datos extends React.Component {
             lastName1: '',
             lastName2: '',
             cellphone: '',
+            cellphoneError: '',
             cct: '',
+            cctError: '',
             doneSignUp: false
         };
     }
@@ -126,27 +128,29 @@ export default class Datos extends React.Component {
             data.lastName2 = this.state.lastName2;
             data.cellphone = this.state.cellphone;
             data.cct = this.state.cct;
-
+        
             SignUpActions.setSignUpData(data);
         }
-
+        
         return false;
     }
 
     handleCellphone = (event) => {
         let value = event.target.value;
-        if (value.match(/\d/g).length <= 10) {
+        if (value.length <= 10 && this.state.cellphone !== null) {
             this.setState({
-                'cellphone': value
+                'cellphone': value,
+                'cellphoneError': ''
             });
         }
     }
 
     handleCCT = (event) => {
         let value = event.target.value;
-        if (value.length <= 6) {
+        if (value.length <= 10 && this.state.cct !== null) {
             this.setState({
-                'cct': value
+                'cct': value,
+                'cctError': ''
             });
         }
     }
@@ -157,9 +161,26 @@ export default class Datos extends React.Component {
 
         if (this.state.cellphone.length === 10) {
             cellphone = true;
+        } else {
+            this.setState({
+                'cellphoneError': 'Número celular inválido'
+            })
         }
-        if (this.state.cct.length === 6) {
-            cct = true;
+
+        let reg = new RegExp('^([0-2][1-9]|[3][0-2]|[1-2][0])[A-Z]{3}\\d{4}[A-Z]{1}$');
+
+        if (this.state.cct.length === 10) {
+            if (reg.test(this.state.cct)) {
+                cct = true;
+            } else {
+                this.setState({
+                    'cctError': 'Formato de CCT inválido'
+                })
+            }
+        } else {
+            this.setState({
+                'cctError': 'Formato de CCT inválido'
+            })
         }
 
         return cellphone && cct;
@@ -209,7 +230,8 @@ export default class Datos extends React.Component {
                                 type='number'
                                 required={true}
                                 hintText="Número Celular"
-                                floatingLabelText="Número Celular (10 digitos)"
+                                floatingLabelText="Número Celular (10 dígitos)"
+                                errorText={this.state.cellphoneError}
                                 value={this.state.cellphone}
                                 onChange={this.handleCellphone}
                                 />
@@ -218,7 +240,8 @@ export default class Datos extends React.Component {
                             <TextField
                                 required={true}
                                 hintText="Clave de Centro de Trabajo"
-                                floatingLabelText="CCT (6 dígitos)"
+                                floatingLabelText="CCT (10 caracteres)"
+                                errorText={this.state.cctError}
                                 value={this.state.cct}
                                 onChange={this.handleCCT}
                                 />
@@ -229,7 +252,7 @@ export default class Datos extends React.Component {
                                     type="submit"
                                     label="Terminar Registro"
                                     secondary={true}
-                                    style={styles.button}/>
+                                    style={styles.button} />
                             </span>
                         </section>
                     </form>

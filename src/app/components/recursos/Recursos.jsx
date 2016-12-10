@@ -1,8 +1,5 @@
 // React
 import React from 'react';
-// Flux
-import ResourcesStore from 'app/stores/ResourcesStore';
-import ResourcesActions from 'app/actions/ResourcesActions';
 
 const styles = {
     recursos: {
@@ -17,17 +14,13 @@ export default class Recursos extends React.Component {
             isLoadingIframe: true
         }
     }
+
     componentDidMount() {
-        this.RESOURCES_STORE_ID = ResourcesStore.register(this._onChange);
-        document.getElementById("iframe-recursos").addEventListener('load', this._iframeFinishedLoading);
+        document.getElementById('iframe-recursos').addEventListener('load', this._iframeFinishedLoading);
     }
 
     componentWillUnmount() {
-        ResourcesStore.unregister(this.RESOURCES_STORE_ID);
-    }
-
-    _onChange = () => {
-
+        document.getElementById('iframe-recursos').removeEventListener('load', this._iframeFinishedLoading);
     }
 
     _iframeFinishedLoading = () => {

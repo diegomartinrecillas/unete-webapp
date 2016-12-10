@@ -63,7 +63,7 @@ const styles = {
 
 export default class Ayuda extends React.Component {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
             expandedOne: false,
             expandedTwo: false,
@@ -76,24 +76,24 @@ export default class Ayuda extends React.Component {
             expandedOne: expanded,
             expandedTwo: false,
             expandedThree: false
-        });
-    };
+        })
+    }
 
     handleExpandChangeTwo = (expanded) => {
         this.setState({
             expandedOne: false,
             expandedTwo: expanded,
             expandedThree: false
-        });
-    };
+        })
+    }
 
     handleExpandChangeThree = (expanded) => {
         this.setState({
             expandedOne: false,
             expandedTwo: false,
             expandedThree: expanded
-        });
-    };
+        })
+    }
 
     render() {
         return (

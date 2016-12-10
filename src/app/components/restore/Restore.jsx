@@ -132,7 +132,7 @@ export default class Restore extends React.Component {
         this.setState({
             isDialogOpen: false
         });
-    };
+    }
 
     // Handle email change
     handleEmail = (event) => {
@@ -159,6 +159,7 @@ export default class Restore extends React.Component {
             });
         }
     }
+
     handleConfirmEmail = (event) => {
         let confirmEmail = event.target.value;
         this.setState({
@@ -181,6 +182,7 @@ export default class Restore extends React.Component {
             });
         }
     }
+
     handleRestore = () => {
         if (this._validateEmail(this.state.email)) {
             this.setState({
@@ -205,6 +207,7 @@ export default class Restore extends React.Component {
         let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(event);
     }
+    
     render() {
         const actions = [
             <FlatButton

@@ -50,6 +50,7 @@ export default class Curp extends React.Component {
             value: 1
         };
     }
+
     handleChange = (event, index, value) => {
         this.setState({
             value
@@ -58,11 +59,11 @@ export default class Curp extends React.Component {
 
     handleOpen = () => {
         this.setState({open: true});
-    };
+    }
 
     handleClose = () => {
         this.setState({open: false});
-    };
+    }
 
     render() {
         const actions = [

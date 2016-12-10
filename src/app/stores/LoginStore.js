@@ -140,9 +140,9 @@ class LoginStore extends Store {
         if (error.code == "auth/network-request-failed") {
             errorMsg = 'No hay conexión a Internet';
         } else if (error.code == "auth/user-not-found") {
-            errorMsg = 'Usuario y/o contreseña incorrectos';
+            errorMsg = 'Usuario y/o contraseña incorrectos';
         } else if (error.code == "auth/wrong-password") {
-            errorMsg = 'Usuario y/o contreseña incorrectos';
+            errorMsg = 'Usuario y/o contraseña incorrectos';
         } else {
             errorMsg = 'Servicio temporalmente no disponible';
         }//

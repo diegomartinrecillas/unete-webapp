@@ -10,7 +10,7 @@ import Paper from 'material-ui/Paper';
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
 // Colors
 import { primary, accent } from 'app/styles/colors';
-
+// CSS in JS
 const styles = {
     button: {
         margin: 12,

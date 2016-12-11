@@ -117,18 +117,6 @@ export default class AppShell extends React.Component {
             else if (!this.state.doneSignUp) {
                 let router = this.context.router;
                 router.push('/datos');
-            } else {
-                // TODO redirect to last url before reload
-                // let url = window.APP.targetURL;
-                // if (url.indexOf('/app/') !== -1) {
-                //     if (url.indexOf('/app/home') == -1) {
-                //         if (!window.APP.redirectDone) {
-                //             window.APP.redirectDone = true;
-                //             let router = this.context.router;
-                //             router.push(url);
-                //         }
-                //     }
-                // }
             }
         }
     }

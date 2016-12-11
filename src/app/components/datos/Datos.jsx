@@ -128,10 +128,10 @@ export default class Datos extends React.Component {
             data.lastName2 = this.state.lastName2;
             data.cellphone = this.state.cellphone;
             data.cct = this.state.cct;
-        
+
             SignUpActions.setSignUpData(data);
         }
-        
+
         return false;
     }
 
@@ -257,7 +257,6 @@ export default class Datos extends React.Component {
                         </section>
                     </form>
                 </div>
-
             </div>
         )
     }

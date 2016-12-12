@@ -65,33 +65,41 @@ export default class Ayuda extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            expandedOne: false,
-            expandedTwo: false,
-            expandedThree: false,
+            chatHelp: false,
+            eventsHelp: false,
+            messagesHelp: false,
+            newsHelp: false,
+            resourcesHelp: false
         };
     }
 
-    handleExpandChangeOne = (expanded) => {
+    handleChatHelp = (expanded) => {
         this.setState({
-            expandedOne: expanded,
-            expandedTwo: false,
-            expandedThree: false
+            chatHelp: expanded
         })
     }
 
-    handleExpandChangeTwo = (expanded) => {
+    handleEventsHelp = (expanded) => {
         this.setState({
-            expandedOne: false,
-            expandedTwo: expanded,
-            expandedThree: false
+            eventsHelp: expanded
         })
     }
 
-    handleExpandChangeThree = (expanded) => {
+    handleMessagesHelp = (expanded) => {
         this.setState({
-            expandedOne: false,
-            expandedTwo: false,
-            expandedThree: expanded
+            messagesHelp: expanded
+        })
+    }
+
+    handleNewsHelp = (expanded) => {
+        this.setState({
+            newsHelp: expanded
+        })
+    }
+
+    handleResourcesHelp = (expanded) => {
+        this.setState({
+            resourcesHelp: expanded
         })
     }
 
@@ -105,10 +113,10 @@ export default class Ayuda extends React.Component {
                     </section>
                     <div style={styles.spacer}/>
                     <div style={styles.cardsContainer}>
-                        <Card expanded={this.state.expandedOne} onExpandChange={this.handleExpandChangeOne}>
+                        <Card expanded={this.state.chatHelp} onExpandChange={this.handleChatHelp}>
                             <CardHeader
-                                title="Ayuda Uno"
-                                subtitle="Subtítulo de Ayuda Uno"
+                                title="COMENTARIOS"
+                                subtitle="Subtítulo de ayuda de Comentarios"
                                 actAsExpander={true}
                                 showExpandableButton={true}
                                 />
@@ -117,10 +125,10 @@ export default class Ayuda extends React.Component {
                             </CardText>
                         </Card>
                         <div style={styles.cardSpacer}/>
-                        <Card expanded={this.state.expandedTwo} onExpandChange={this.handleExpandChangeTwo}>
+                        <Card expanded={this.state.eventsHelp} onExpandChange={this.handleEventsHelp}>
                             <CardHeader
-                                title="Ayuda Dos"
-                                subtitle="Subtítulo de Ayuda Dos"
+                                title="EVENTOS"
+                                subtitle="Subtítulo de ayuda de Eventos"
                                 actAsExpander={true}
                                 showExpandableButton={true}
                                 />
@@ -129,10 +137,34 @@ export default class Ayuda extends React.Component {
                             </CardText>
                         </Card>
                         <div style={styles.cardSpacer}/>
-                        <Card expanded={this.state.expandedThree} onExpandChange={this.handleExpandChangeThree}>
+                        <Card expanded={this.state.messagesHelp} onExpandChange={this.handleMessagesHelp}>
                             <CardHeader
-                                title="Ayuda Tres"
-                                subtitle="Subtítulo de Ayuda Tres"
+                                title="MENSAJE A UNETE"
+                                subtitle="Subtítulo de ayuda de Mensaje a UNETE"
+                                actAsExpander={true}
+                                showExpandableButton={true}
+                                />
+                            <CardText expandable={true}>
+                                Bacon ipsum dolor amet venison shankle pastrami, andouille biltong ground round short loin doner cupim turducken swine spare ribs. Ball tip picanha fatback jowl pork belly beef ribs bacon tenderloin venison shoulder ribeye salami rump corned beef spare ribs. T-bone shoulder alcatra kevin cupim chicken strip steak meatloaf pancetta. Fatback boudin frankfurter bacon tail. Alcatra beef shankle tail shoulder, chicken swine capicola doner ham hock tri-tip flank drumstick pork. Burgdoggen jerky hamburger chuck, picanha boudin tri-tip biltong short loin spare ribs pig chicken drumstick shankle pork belly.
+                            </CardText>
+                        </Card>
+                        <div style={styles.cardSpacer}/>
+                        <Card expanded={this.state.newsHelp} onExpandChange={this.handleNewsHelp}>
+                            <CardHeader
+                                title="NOTICIAS"
+                                subtitle="Subtítulo de ayuda de Noticias"
+                                actAsExpander={true}
+                                showExpandableButton={true}
+                                />
+                            <CardText expandable={true}>
+                                Bacon ipsum dolor amet venison shankle pastrami, andouille biltong ground round short loin doner cupim turducken swine spare ribs. Ball tip picanha fatback jowl pork belly beef ribs bacon tenderloin venison shoulder ribeye salami rump corned beef spare ribs. T-bone shoulder alcatra kevin cupim chicken strip steak meatloaf pancetta. Fatback boudin frankfurter bacon tail. Alcatra beef shankle tail shoulder, chicken swine capicola doner ham hock tri-tip flank drumstick pork. Burgdoggen jerky hamburger chuck, picanha boudin tri-tip biltong short loin spare ribs pig chicken drumstick shankle pork belly.
+                            </CardText>
+                        </Card>
+                        <div style={styles.cardSpacer}/>
+                        <Card expanded={this.state.resourcesHelp} onExpandChange={this.handleResourcesHelp}>
+                            <CardHeader
+                                title="RECURSOS"
+                                subtitle="Subtítulo de ayuda de Recursos"
                                 actAsExpander={true}
                                 showExpandableButton={true}
                                 />

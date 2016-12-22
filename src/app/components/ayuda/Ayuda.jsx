@@ -57,6 +57,9 @@ const styles = {
     },
     spacer: {
         height: '5vh'
+    },
+    footer: {
+        color: 'grey'
     }
 }
 
@@ -175,11 +178,9 @@ export default class Ayuda extends React.Component {
                     </div>
                     <div style={styles.spacer}/>
                     <hr style={styles.divider}/>
-                    <section>
-                        <Link to="/about" style={styles.link} >
-                            <FlatButton label={'Acerca de UNETE'} secondary={true} style={styles.flatButton}/>
-                        </Link>
-                    </section>
+                    <p style={styles.footer}>
+                        Comunidad UNETE 2016
+                    </p>
                 </div>
             </div>
         )

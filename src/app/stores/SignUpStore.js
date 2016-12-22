@@ -117,6 +117,7 @@ class SignUpStore extends Store {
             let userId = firebaseAuth.currentUser.uid;
             firebaseDatabase.ref('users/' + userId).set({
                 doneSignUp: true,
+                aceptoAvisoDePrivacidad: true,
                 name: name,
                 lastName1: lastName1,
                 lastName2: lastName2,

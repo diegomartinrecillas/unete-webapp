@@ -237,7 +237,7 @@ export default class Login extends React.Component {
             <div hidden={this.state.isCheckingLoggedIn}>
                 <div style={styles.container}>
                     <div style={styles.innerContainer}>
-                        <img src={require('assets/images/splash-256x256.png')} style={styles.image}/>
+                        <img src={require('assets/images/u-unete.png')} style={styles.image}/>
                         <form>
                             <section>
                                 <TextField
@@ -300,8 +300,8 @@ export default class Login extends React.Component {
                                 </Link>
                             </section>
                             <section>
-                                <Link to="/ayuda" style={styles.link} >
-                                    <FlatButton label={'Ayuda'} secondary={true} style={styles.flatButton}/>
+                                <Link to="/about" style={styles.link} >
+                                    <FlatButton label={'Acerca de UNETE'} secondary={true} style={styles.flatButton}/>
                                 </Link>
                             </section>
                         </form>

@@ -9,11 +9,14 @@ import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 // App Components
+/*
+* Para importar un nuevo archivo usamos la instrucción import, por ejemplo:
+* import NuevoComponente from './nuevo_Componente/NuevoComponente';
+*/
 import About from './about/About';
 import AppShell from './app_shell/AppShell';
 import Ayuda from './ayuda/Ayuda';
 import Chat from './chat/Chat';
-import Curp from './curp/Curp';
 import Datos from './datos/Datos';
 import Error from './error/Error';
 import Eventos from './eventos/Eventos';
@@ -56,11 +59,14 @@ export default class AppRouter extends React.Component {
                             <Route path="/app/home" component={Home}/>
                             <Route path="/app/chat" component={Chat}/>
                             <Route path="/app/perfil" component={Perfil}/>
-                            <Route path="/app/curp" component={Curp}/>
                             <Route path="/app/noticias" component={Noticias}/>
                             <Route path="/app/mensajes" component={Mensajes}/>
                             <Route path="/app/eventos" component={Eventos}/>
                             <Route path="/app/recursos" component={Recursos}/>
+                            {/*
+                            * Para agregar una nueva ruta usamos el objecto <Route/>, por ejemplo:
+                            * <Route path="/app/nuevo-componente" component={NuevoComponente}/>
+                            */}
                         </Route>
                         <Route path="/datos" component={Datos} onEnter={requireAuth}/>
                     </Route>

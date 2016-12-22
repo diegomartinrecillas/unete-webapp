@@ -86,7 +86,7 @@ export default class Recursos extends React.Component {
             <div>
                 {this.state.isFirstTime &&
                     <Dialog
-                        title="RECURSOS"
+                        title="CONTENIDOS UNETE"
                         actions={actions}
                         modal={false}
                         open={this.state.dialogOpen}

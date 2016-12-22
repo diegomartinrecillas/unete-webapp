@@ -260,14 +260,23 @@ export default class AppShell extends React.Component {
                             </span>
                         </MenuItem>
                     </Link>
-                        <Link to="/app/recursos" style={styles.link} activeStyle={styles.activeLink}>
-                            <MenuItem onTouchTap={this.handleClose} leftIcon={<LibraryBooksIcon/>}>
+                    <Link to="/app/recursos" style={styles.link} activeStyle={styles.activeLink}>
+                        <MenuItem onTouchTap={this.handleClose} leftIcon={<LibraryBooksIcon/>}>
+                            <span style={styles.menuItem}>
+                                Contenidos UNETE
+                            </span>
+                        </MenuItem>
+                    </Link>
+                    {/*
+                        <Link to="/app/nuevo-componente" style={styles.link} activeStyle={styles.activeLink}>
+                            <MenuItem onTouchTap={this.handleClose} leftIcon={<InfoOutlineIcon/>}>
                                 <span style={styles.menuItem}>
-                                    Recursos
+                                    Nuevo Componente
                                 </span>
                             </MenuItem>
                         </Link>
-                        <Divider/>
+                    */}
+                    <Divider/>
                     <Link to="/about" style={styles.link} activeStyle={styles.activeLink}>
                         <MenuItem onTouchTap={this.handleClose} leftIcon={<InfoOutlineIcon/>}>
                             <span style={styles.menuItem}>

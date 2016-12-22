@@ -5,3 +5,11 @@ export const config = {
     storageBucket: "unete-webapp.appspot.com",
     messagingSenderId: "423792306476"
 };
+
+// export const config = {
+//   apiKey: "AIzaSyA2NbADjpxZ9UZ7EyKVRHD662GTwc-YDK8",
+//   authDomain: "uneteappmaestros.firebaseapp.com",
+//   databaseURL: "https://uneteappmaestros.firebaseio.com",
+//   storageBucket: "uneteappmaestros.appspot.com",
+//   messagingSenderId: "418484459470"
+// };

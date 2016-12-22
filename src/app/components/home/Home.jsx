@@ -32,19 +32,19 @@ const styles = {
 const tilesData = [
     {
         id: 0,
-        img: require('assets/images/libros.jpg'),
+        img: require('assets/images/discusion.jpg'),
         title: 'Discusión',
         link: '/app/chat'
     },
     {
         id: 1,
-        img: require('assets/images/estadistica.jpg'),
+        img: require('assets/images/eventos.jpg'),
         title: 'Eventos',
         link: '/app/eventos'
     },
     {
         id: 2,
-        img: require('assets/images/mensaje.jpg'),
+        img: require('assets/images/mensaje-a-unete.jpg'),
         title: 'Mensaje a UNETE',
         link: '/app/mensajes'
     },
@@ -56,10 +56,16 @@ const tilesData = [
     },
     {
         id: 4,
-        img: require('assets/images/libros.jpg'),
-        title: 'Recursos',
+        img: require('assets/images/contenidos-unete.jpg'),
+        title: 'Contenidos UNETE',
         link: '/app/recursos'
-    }
+    },
+    // {
+    //     id: 5,
+    //     img: require('assets/images/img_mesa_ayuda.jpg'),
+    //     title: 'Mesa de Ayuda',
+    //     link: '/app/mesa_ayuda'
+    // }
 
 ];
 

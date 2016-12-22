@@ -207,7 +207,7 @@ export default class Restore extends React.Component {
         let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(event);
     }
-    
+
     render() {
         const actions = [
             <FlatButton
@@ -222,6 +222,7 @@ export default class Restore extends React.Component {
                 onTouchTap={this.handleConfirmRestore}
                 />,
         ];
+        let confirmText = '¿Seguro que deseas continuar?';
         return (
             <div style={styles.container}>
                 <Dialog
@@ -235,7 +236,7 @@ export default class Restore extends React.Component {
                     <br/>
                     <br/>
                     <strong>
-                        ¿Seguro que deseas continuar?
+                        {confirmText}
                     </strong>
                 </Dialog>
                 <ArrowBack/>

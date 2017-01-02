@@ -273,11 +273,11 @@ export default class Restore extends React.Component {
                             style={styles.button}
                             onClick={this.handleRestore}/>
                     </section>
-                    <section>
-                        <Link to="/ayuda" style={styles.link}>
-                            <FlatButton label="No puedo solucionar mi problema" secondary={true} style={styles.flatButton} />
-                        </Link>
-                    </section>
+                    {/*<section>
+                            <Link to="/ayuda" style={styles.link}>
+                                <FlatButton label="No puedo solucionar mi problema" secondary={true} style={styles.flatButton} />
+                            </Link>
+                        </section>*/}
                 </div>
             </div>
         )

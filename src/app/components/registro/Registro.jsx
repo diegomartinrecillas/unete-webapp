@@ -266,11 +266,11 @@ export default class RegistroInicio extends React.Component {
                                 primary={true}
                                 style={styles.button}/>
                         </section>
-                        <section>
+                        {/*<section>
                             <Link to="/ayuda" style={styles.link}>
                                 <FlatButton label="No me puedo registar" secondary={true} style={styles.flatButton} />
                             </Link>
-                        </section>
+                        </section>*/}
                     </form>
                 </InnerContainer>
             </CenteredContainer>

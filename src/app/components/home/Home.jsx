@@ -29,6 +29,7 @@ const styles = {
     tile: {}
 };
 
+// Arreglo de links
 const tilesData = [
     {
         id: 0,
@@ -62,14 +63,14 @@ const tilesData = [
     },
     // {
     //     id: 5,
-    //     img: require('assets/images/img_mesa_ayuda.jpg'),
-    //     title: 'Mesa de Ayuda',
-    //     link: '/app/mesa_ayuda'
+    //     img: require('assets/images/img_de_nuevo_componente.jpg'),
+    //     title: 'Nuevo Componente',
+    //     link: '/app/nuevo-componente'
     // }
 
 ];
 
-export default class Launcher extends React.Component {
+export default class Home extends React.Component {
 
     render() {
         return (

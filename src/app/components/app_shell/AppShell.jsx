@@ -17,6 +17,8 @@ import {Popover, PopoverAnimationVertical} from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
 import Divider from 'material-ui/Divider';
 // Material Icons
+// Ver https://material.io/icons/ para todos los iconos disponibles
+// import SOME_ICON from 'material-ui/svg-icons/SOME_SECTION/SOME_ICON';
 import SettingsIcon from 'material-ui/svg-icons/action/settings';
 import ExitIcon from 'material-ui/svg-icons/action/exit-to-app';
 import HelpIcon from 'material-ui/svg-icons/action/help';
@@ -268,8 +270,11 @@ export default class AppShell extends React.Component {
                         </MenuItem>
                     </Link>
                     {/*
+                        // Para asignar un ícono al link hay que importarlo de la librería de material-ui
+                        // Ver línea 21 de este archivo
+                        // Ver https://material.io/icons/ para ver todos los íconos disponibles
                         <Link to="/app/nuevo-componente" style={styles.link} activeStyle={styles.activeLink}>
-                            <MenuItem onTouchTap={this.handleClose} leftIcon={<InfoOutlineIcon/>}>
+                        <MenuItem onTouchTap={this.handleClose} leftIcon={<SOME_ICON/>}>
                                 <span style={styles.menuItem}>
                                     Nuevo Componente
                                 </span>

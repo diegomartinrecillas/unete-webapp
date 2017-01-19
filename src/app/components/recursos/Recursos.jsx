@@ -107,7 +107,7 @@ export default class Recursos extends React.Component {
                         height: height
                     }}
                     id='iframe-recursos'
-                    src='http://comunidadunete.net/buscador/'/>
+                    src='https://www.uneteya.org/buscador/'/>
             </div>
         );
     }

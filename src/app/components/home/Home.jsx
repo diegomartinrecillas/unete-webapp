@@ -34,7 +34,7 @@ const tilesData = [
     {
         id: 0,
         img: require('assets/images/discusion.jpg'),
-        title: 'Discusión',
+        title: 'Foro',
         link: '/app/chat'
     },
     {

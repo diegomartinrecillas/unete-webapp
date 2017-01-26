@@ -7,6 +7,8 @@ import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 // Components
 import FBPage from 'app/components/misc/FBPage';
+// Textos
+import { AyudaTxt } from 'assets/texts/AyudaTxt';
 
 export default class Mensajes extends React.Component {
     constructor(props) {
@@ -81,14 +83,14 @@ export default class Mensajes extends React.Component {
             <div>
                 {this.state.isFirstTime &&
                     <Dialog
-                        title="MENSAJE A UNETE"
+                        title={AyudaTxt.Mensaje.title}
                         actions={actions}
                         modal={false}
                         open={this.state.dialogOpen}
                         onRequestClose={this.handleDialogClose}
                         >
                         <p>
-                            Texto de ayuda para mensaje a UNETE
+                            {AyudaTxt.Mensaje.text}
                         </p>
                     </Dialog>
                 }

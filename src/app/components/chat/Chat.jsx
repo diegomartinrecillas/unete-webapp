@@ -7,6 +7,8 @@ import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 // Components
 import FBComments from 'app/components/misc/FBComments';
+// Textos
+import { AyudaTxt } from 'assets/texts/AyudaTxt';
 
 export default class Chat extends React.Component {
     constructor(props) {
@@ -79,14 +81,14 @@ export default class Chat extends React.Component {
             <div>
                 {this.state.isFirstTime &&
                     <Dialog
-                        title="COMENTARIOS"
+                        title={AyudaTxt.Foro.title}
                         actions={actions}
                         modal={false}
                         open={this.state.dialogOpen}
                         onRequestClose={this.handleDialogClose}
                         >
                         <p>
-                            Texto de ayuda para comentarios
+                            {AyudaTxt.Foro.text}
                         </p>
                     </Dialog>
                 }

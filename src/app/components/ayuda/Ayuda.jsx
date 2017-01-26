@@ -9,7 +9,8 @@ import FlatButton from 'material-ui/FlatButton';
 import ArrowBack from 'app/components/misc/ArrowBack';
 // Colors
 import { primary, accent } from 'app/styles/colors';
-
+// Textos
+import { AyudaTxt } from 'assets/texts/AyudaTxt';
 
 const styles = {
     container: {
@@ -118,61 +119,61 @@ export default class Ayuda extends React.Component {
                     <div style={styles.cardsContainer}>
                         <Card expanded={this.state.chatHelp} onExpandChange={this.handleChatHelp}>
                             <CardHeader
-                                title="COMENTARIOS"
-                                subtitle="Subtítulo de ayuda de Comentarios"
+                                title={AyudaTxt.Foro.title}
+                                subtitle={AyudaTxt.Foro.subtitle}
                                 actAsExpander={true}
                                 showExpandableButton={true}
                                 />
                             <CardText expandable={true}>
-                                Bacon ipsum dolor amet venison shankle pastrami, andouille biltong ground round short loin doner cupim turducken swine spare ribs. Ball tip picanha fatback jowl pork belly beef ribs bacon tenderloin venison shoulder ribeye salami rump corned beef spare ribs. T-bone shoulder alcatra kevin cupim chicken strip steak meatloaf pancetta. Fatback boudin frankfurter bacon tail. Alcatra beef shankle tail shoulder, chicken swine capicola doner ham hock tri-tip flank drumstick pork. Burgdoggen jerky hamburger chuck, picanha boudin tri-tip biltong short loin spare ribs pig chicken drumstick shankle pork belly.
+                                {AyudaTxt.Foro.text}
                             </CardText>
                         </Card>
                         <div style={styles.cardSpacer}/>
                         <Card expanded={this.state.eventsHelp} onExpandChange={this.handleEventsHelp}>
                             <CardHeader
-                                title="EVENTOS"
-                                subtitle="Subtítulo de ayuda de Eventos"
+                                title={AyudaTxt.Eventos.title}
+                                subtitle={AyudaTxt.Eventos.subtitle}
                                 actAsExpander={true}
                                 showExpandableButton={true}
                                 />
                             <CardText expandable={true}>
-                                Bacon ipsum dolor amet venison shankle pastrami, andouille biltong ground round short loin doner cupim turducken swine spare ribs. Ball tip picanha fatback jowl pork belly beef ribs bacon tenderloin venison shoulder ribeye salami rump corned beef spare ribs. T-bone shoulder alcatra kevin cupim chicken strip steak meatloaf pancetta. Fatback boudin frankfurter bacon tail. Alcatra beef shankle tail shoulder, chicken swine capicola doner ham hock tri-tip flank drumstick pork. Burgdoggen jerky hamburger chuck, picanha boudin tri-tip biltong short loin spare ribs pig chicken drumstick shankle pork belly.
+                                {AyudaTxt.Eventos.text}
                             </CardText>
                         </Card>
                         <div style={styles.cardSpacer}/>
                         <Card expanded={this.state.messagesHelp} onExpandChange={this.handleMessagesHelp}>
                             <CardHeader
-                                title="MENSAJE A UNETE"
-                                subtitle="Subtítulo de ayuda de Mensaje a UNETE"
+                                title={AyudaTxt.Mensaje.title}
+                                subtitle={AyudaTxt.Mensaje.subtitle}
                                 actAsExpander={true}
                                 showExpandableButton={true}
                                 />
                             <CardText expandable={true}>
-                                Bacon ipsum dolor amet venison shankle pastrami, andouille biltong ground round short loin doner cupim turducken swine spare ribs. Ball tip picanha fatback jowl pork belly beef ribs bacon tenderloin venison shoulder ribeye salami rump corned beef spare ribs. T-bone shoulder alcatra kevin cupim chicken strip steak meatloaf pancetta. Fatback boudin frankfurter bacon tail. Alcatra beef shankle tail shoulder, chicken swine capicola doner ham hock tri-tip flank drumstick pork. Burgdoggen jerky hamburger chuck, picanha boudin tri-tip biltong short loin spare ribs pig chicken drumstick shankle pork belly.
+                                {AyudaTxt.Mensaje.text}
                             </CardText>
                         </Card>
                         <div style={styles.cardSpacer}/>
                         <Card expanded={this.state.newsHelp} onExpandChange={this.handleNewsHelp}>
                             <CardHeader
-                                title="NOTICIAS"
-                                subtitle="Subtítulo de ayuda de Noticias"
+                                title={AyudaTxt.Noticias.title}
+                                subtitle={AyudaTxt.Noticias.subtitle}
                                 actAsExpander={true}
                                 showExpandableButton={true}
                                 />
                             <CardText expandable={true}>
-                                Bacon ipsum dolor amet venison shankle pastrami, andouille biltong ground round short loin doner cupim turducken swine spare ribs. Ball tip picanha fatback jowl pork belly beef ribs bacon tenderloin venison shoulder ribeye salami rump corned beef spare ribs. T-bone shoulder alcatra kevin cupim chicken strip steak meatloaf pancetta. Fatback boudin frankfurter bacon tail. Alcatra beef shankle tail shoulder, chicken swine capicola doner ham hock tri-tip flank drumstick pork. Burgdoggen jerky hamburger chuck, picanha boudin tri-tip biltong short loin spare ribs pig chicken drumstick shankle pork belly.
+                                {AyudaTxt.Noticias.text}
                             </CardText>
                         </Card>
                         <div style={styles.cardSpacer}/>
                         <Card expanded={this.state.resourcesHelp} onExpandChange={this.handleResourcesHelp}>
                             <CardHeader
-                                title="RECURSOS"
-                                subtitle="Subtítulo de ayuda de Recursos"
+                                title={AyudaTxt.Recursos.title}
+                                subtitle={AyudaTxt.Recursos.subtitle}
                                 actAsExpander={true}
                                 showExpandableButton={true}
                                 />
                             <CardText expandable={true}>
-                                Bacon ipsum dolor amet venison shankle pastrami, andouille biltong ground round short loin doner cupim turducken swine spare ribs. Ball tip picanha fatback jowl pork belly beef ribs bacon tenderloin venison shoulder ribeye salami rump corned beef spare ribs. T-bone shoulder alcatra kevin cupim chicken strip steak meatloaf pancetta. Fatback boudin frankfurter bacon tail. Alcatra beef shankle tail shoulder, chicken swine capicola doner ham hock tri-tip flank drumstick pork. Burgdoggen jerky hamburger chuck, picanha boudin tri-tip biltong short loin spare ribs pig chicken drumstick shankle pork belly.
+                                {AyudaTxt.Recursos.text}
                             </CardText>
                         </Card>
                     </div>

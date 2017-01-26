@@ -143,10 +143,13 @@ class LoginStore extends Store {
             errorMsg = 'Usuario y/o contraseña incorrectos';
         } else if (error.code == "auth/wrong-password") {
             errorMsg = 'Usuario y/o contraseña incorrectos';
+        } else if (error.code == "auth/cancelled-popup-request" || error.code == "auth/popup-closed-by-user") {
+            errorMsg = '';
+        } else if (error.code == "auth/account-exists-with-different-credential") {
+            errorMsg = 'Cuenta registrada con Google o Facebook';
         } else {
-            errorMsg = 'Servicio temporalmente no disponible';
-        }//
-        //"auth/account-exists-with-different-credential"
+            errorMsg = 'Algo salió mal, intente de nuevo...';
+        }
         this.state.set({
             'isLoginError': true,
             'loginErrorMessage': errorMsg

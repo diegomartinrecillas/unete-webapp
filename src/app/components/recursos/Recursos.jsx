@@ -5,6 +5,8 @@ import React from 'react';
 // Material UI Components
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
+// Textos
+import { AyudaTxt } from 'assets/texts/AyudaTxt';
 
 const styles = {
     recursos: {
@@ -86,14 +88,14 @@ export default class Recursos extends React.Component {
             <div>
                 {this.state.isFirstTime &&
                     <Dialog
-                        title="CONTENIDOS UNETE"
+                        title={AyudaTxt.Recursos.title}
                         actions={actions}
                         modal={false}
                         open={this.state.dialogOpen}
                         onRequestClose={this.handleDialogClose}
                         >
                         <p>
-                            Texto de ayuda para recursos
+                            {AyudaTxt.Recursos.text}
                         </p>
                     </Dialog>
                 }

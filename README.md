@@ -1,4 +1,7 @@
 # UNETE WebApp
+A WebApp made for a NGO to enhance remote site communications. Implemented using React & Firebase.
+For state management, a Flux-like library was created as a proof of concept.
+
 
 ## Instructions
 0. Clone the repository and make sure you have node and npm installed and updated
